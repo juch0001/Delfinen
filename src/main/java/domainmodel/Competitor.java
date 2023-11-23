@@ -1,12 +1,12 @@
 package domainmodel;
 
-import domainmodel.Member;
-
 public class Competitor extends Member {
+    private String team;
     private Discipline discipline;
 
-    public Competitor(String firstName,String lastName, int age, double debt, String email, Boolean status, Discipline discipline) {
-        super(firstName, lastName, age, debt, email, status);
+    public Competitor(String email, String firstName,String lastName, int age, double debt, Boolean status,String team , Discipline discipline) {
+        super(email,firstName, lastName, age, debt, status);
+        this.team = team;
         this.discipline = discipline;
     }
 

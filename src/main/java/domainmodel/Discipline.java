@@ -1,5 +1,5 @@
 package domainmodel;
 
 public enum Discipline {
-    BUTTERFLY_CRAWL, BACK_CRAWL, BREASTSTROKE
+    BACK_CRAWL, BREASTSTROKE, BUTTERFLY, CRAWL
 }
