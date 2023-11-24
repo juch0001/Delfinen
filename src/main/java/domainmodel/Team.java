@@ -1,11 +1,22 @@
 package domainmodel;
 
-public class Team{
-private String team;
-
-public Team(){
-    super();
-}
-
-//TODO Method for set domainmodel.Team to junior or senior (motionister?)
+public enum Team {
+    EXCERCISER{
+        @Override
+        public String toString(){
+            return "Motionist";
+        }
+    },
+    JUNIOR{
+        @Override
+        public String toString() {
+            return "Junior";
+        }
+    },
+    SENIOR{
+        @Override
+        public String toString() {
+            return "Senior";
+        }
+    }
 }

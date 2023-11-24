@@ -8,7 +8,7 @@ public class Member {
     private double debt;
     private boolean status;
 
-    public Member(String email, String firstName,String lastName, int age, double debt, Boolean status){
+    public Member(String email, String firstName,String lastName, int age, double debt, Boolean status, Team team){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
