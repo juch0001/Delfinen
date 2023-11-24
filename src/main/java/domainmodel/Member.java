@@ -7,6 +7,7 @@ public class Member {
     private int age;
     private double debt;
     private boolean status;
+    private Team team;
 
     public Member(String email, String firstName,String lastName, int age, double debt, Boolean status, Team team){
         this.email = email;
@@ -15,6 +16,7 @@ public class Member {
         this.age = age;
         this.debt = debt;
         this.status = status;
+        this.team = team;
     }
 
     public String getEmail() {
