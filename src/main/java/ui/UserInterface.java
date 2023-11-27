@@ -137,10 +137,10 @@ public class UserInterface {
 
                 System.out.println( firstName + " " + lastName + " svømmer i disse discipliner: " +
                         disciplineInput);
-                //controller.addCompetitiveMember(disciplineInput);
+                controller.addCompetitiveMember (email, firstName, lastName, age, debt, status, team, tempDisciplines); //TODO add det hele
             }else {
-
-            }*/
+                controller.addMember(email, firstName, lastName, age, debt, status, team);
+            }
 
     }
     public void searchMemberUI(){

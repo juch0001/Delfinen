@@ -2,6 +2,8 @@ package domainmodel;
 
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+
 public class Competitor extends Member {
     //TODO ARRAYLIST
     protected ArrayList<Discipline> disciplines;
@@ -13,5 +15,4 @@ public class Competitor extends Member {
     public Discipline getDiscipline(){
         return discipline;
     }
-
 }
