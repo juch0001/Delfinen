@@ -56,4 +56,54 @@ public class FileHandler {
         }
         return null;
     }
+
+    //checks for changes from the user
+    public Boolean lastMemberCheck(String lastLine, ArrayList<Member> memberList) {
+        String[] lastMemberCsv = lastLine.split(";");
+
+        String lastMemberCsvEmail = lastMemberCsv[0];
+        String lastMemberListEmail = memberList.get(memberList.size() - 1).getEmail();
+
+        return lastMemberCsvEmail.equals(lastMemberListEmail);
+    }
+
+    //get the last line of the csv file
+    public String getLastLine(File file) {
+        Scanner scanner;
+        String lastLine;
+        try {
+            scanner = new Scanner(file);
+            lastLine = null;
+            scanner.nextLine();
+            while (scanner.hasNextLine()) {
+                lastLine = scanner.nextLine();
+            }
+            scanner.close();
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return lastLine;
+    }
+
+    public String toCsv(Member member) {
+        return member.getEmail() + ";" +
+                member.getFirstName() + ";" +
+                member.getLastName();
+    }
+
+    public File getFile() {
+        return file;
+    }
+
+   /* public Boolean lastMemberCheck(String lastLine, ArrayList<Member> memberList) {
+        String[] lastMemberCsv = lastLine.split(";");
+
+        String lastMemberCsvEmail = lastMemberCsv[0];
+        String lastMemberListEmail = memberList.get(memberList.size() - 1).getEmail();
+
+        return Objects.equals(lastMemberCsvEmail, lastMemberListEmail);
+    }*/
+
 }
+
+

@@ -6,6 +6,8 @@ import domainmodel.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static domainmodel.Discipline.*;
+
 public class UserInterface {
     Controller controller = new Controller();
 
@@ -75,45 +77,63 @@ public class UserInterface {
             }
         }
     }
-    Scanner keyboard = new Scanner(System.in);
-    public void addMemberMenu(){
-            System.out.println("Indtast e-mail: ");
-            String email = keyboard.next();
-            System.out.println("Indtast første navn: ");
-            String firstName = keyboard.next();
-            System.out.println("Indtast efternavn: ");
-            String lastName = keyboard.next();
-            System.out.println("Indtast alder: ");
-            int age = keyboard.nextInt();
-            System.out.println("Indtast gæld: ");
-            double debt = keyboard.nextInt();
-            System.out.println("Indtast status: ");
-            String statusInput = keyboard.next();
-            boolean status;
-            if(statusInput.equals("passive")) {
-                 status = false;
-            } else {
-                status = true;
-            }
-            System.out.println("Indtast hold: ");
-            String teamInput = keyboard.next();
-            Team team;
-            if (teamInput.equals("Motionist")){
-                team = Team.EXCERCISER;
-            } else if (teamInput.equals("Junior")) {
-                team = Team.JUNIOR;
-            }else {
-                team = Team.SENIOR;
-            }
-            System.out.println("Du har tilføjet ét nyt medlem: \n" +
-                    email + "\n" + firstName + " " + lastName + "\n" +
-                    age + "\n" + debt + "\n" + statusInput + "\n" + team);
-            controller.addMember(email, firstName, lastName, age, debt, status, team);
-           /* System.out.println("Er medlemmet konkurrence svømmer?");
+    public void addMemberMenu() { //TODO email unik check
+        System.out.println("Indtast e-mail: ");
+        String email = keyboard.next();
+        System.out.println("Indtast første navn: ");
+        String firstName = keyboard.next();
+        System.out.println("Indtast efternavn: ");
+        String lastName = keyboard.next();
+        System.out.println("Indtast alder: ");
+        int age = keyboard.nextInt();
+        System.out.println("Indtast gæld: ");
+        double debt = keyboard.nextInt();
+        System.out.println("Indtast status: ");
+        String statusInput = keyboard.next();
+        boolean status;
+        if (statusInput.equals("passive")) {
+            status = false;
+        } else {
+            status = true;
+        }
+        System.out.println("Indtast hold: ");
+        String teamInput = keyboard.next();
+        Team team;
+        if (teamInput.equals("Motionist")) {
+            team = Team.EXCERCISER;
+        } else if (teamInput.equals("Junior")) {
+            team = Team.JUNIOR;
+        } else {
+            team = Team.SENIOR;
+        }
+        System.out.println("Du har tilføjet ét nyt medlem: \n" +
+                email + "\n" + firstName + " " + lastName + "\n" +
+                age + "\n" + debt + "\n" + statusInput + "\n" + team);
+
+
+            System.out.println("Er medlemmet konkurrence svømmer?");
             String competitorInput = keyboard.next().toLowerCase();
             if (competitorInput.equals("Yes".toLowerCase())) {
                 System.out.println("Hvilke discipliner svømmer medlemmet i?");
                 String disciplineInput = keyboard.next();
+                ArrayList<Discipline> tempDisciplines = new ArrayList<>();
+
+                switch (disciplineInput.toLowerCase()){
+                    case "rygcrawl", "ryg", "r":
+                        tempDisciplines.add(BACK_CRAWL);
+                        break;
+                    case "crawl", "cra", "c":
+                        tempDisciplines.add(CRAWL);
+                        break;
+                    case "butterfly", "but":
+                        tempDisciplines.add(BUTTERFLY);
+                        break;
+                    case "brystsvømning", "bry":
+                        tempDisciplines.add(BREASTSTROKE);
+                        break;
+                    default:
+                        System.out.println("Disciplin findes ikke");
+                }
 
                 System.out.println( firstName + " " + lastName + " svømmer i disse discipliner: " +
                         disciplineInput);

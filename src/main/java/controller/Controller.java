@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import domainmodel.Team;
 public class Controller {
     Database database = new Database();
+
     public ArrayList<Member> getMemberlist(){
         return database.getMembersList();
     }
