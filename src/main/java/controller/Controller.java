@@ -6,6 +6,7 @@ import domainmodel.Member;
 
 import java.util.ArrayList;
 import domainmodel.Team;
+
 public class Controller {
     Database database = new Database();
 
@@ -16,8 +17,8 @@ public class Controller {
         database.addMember(email,firstName,lastName,age,debt,status,team);
     }
 
-    public void addCompetitiveMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, Discipline discipline) {
-        database.addCompetitor(email,firstName,lastName,age,debt,status, team, discipline);
+    public void addCompetitiveMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, ArrayList<Discipline> disciplines) {
+        database.addCompetitor(email,firstName,lastName,age,debt,status, team, disciplines);
     }
 
     public ArrayList<Member> findMember(String email) {

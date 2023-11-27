@@ -10,7 +10,7 @@ import static domainmodel.Discipline.*;
 
 public class UserInterface {
     Controller controller = new Controller();
-
+    Scanner keyboard = new Scanner(System.in);
     private int scanIntWithRetry() {
         Scanner scanner = new Scanner(System.in);
         while(!scanner.hasNextInt()) {
@@ -20,9 +20,6 @@ public class UserInterface {
         return scanner.nextInt();
     }
     public void startProgram() {
-    Scanner keyboard = new Scanner(System.in);
-
-
         boolean runProgram = true;
         int menuNumber;
 
@@ -65,7 +62,7 @@ public class UserInterface {
                         member.getDebt() + " " +
                         member.statusToString(member.getStatus()) + " " +
                         member.getTeam() + " " +
-                        ((Competitor) member).getDiscipline());
+                        ((Competitor) member).getDisciplines());
             }else {
                 System.out.println(member.getEmail() + " " +
                         member.getFirstName() + " " +

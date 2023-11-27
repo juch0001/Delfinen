@@ -19,12 +19,13 @@ public class Database {
     public void addMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team) {
         membersList.add(new Member(email,firstName,lastName,age,debt,status, team));
     }
-    public void addCompetitor(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, Discipline discipline){
-        competitiveMembersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, discipline));
+    public void addCompetitor(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, ArrayList<Discipline> disciplines){
+        competitiveMembersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, disciplines));
     }
     public ArrayList<Member> getMembersList(){
        return membersList;
     }
+
 
     public ArrayList<Member> findMember(String email) {
         ArrayList<Member> searchMember = new ArrayList<>();
