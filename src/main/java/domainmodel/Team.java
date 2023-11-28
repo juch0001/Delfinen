@@ -1,6 +1,7 @@
 package domainmodel;
 
 public enum Team {
+
     EXCERCISER{
         @Override
         public String toString(){

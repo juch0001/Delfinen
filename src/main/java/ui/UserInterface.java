@@ -27,8 +27,8 @@ public class UserInterface {
         while (runProgram) {
             System.out.println("Menu: ");
             System.out.println("1. Opret et medlem");
-            System.out.println("2. Se den komplete medlemsliste");
-            System.out.println("3. Søg Email for et medlem");
+            System.out.println("2. Se den komplette medlemsliste");
+            System.out.println("3. Søg E-mail for et medlem");
             System.out.println("4. Se den totale indkomst");
             System.out.println("5. Se den totale gæld");
             System.out.println("6. Tilføj træningsresultat");
