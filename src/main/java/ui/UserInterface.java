@@ -4,6 +4,7 @@ import controller.Controller;
 import domainmodel.*;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.Scanner;
 
 import static domainmodel.Discipline.*;
@@ -32,7 +33,8 @@ public class UserInterface {
             System.out.println("5. Se den totale gæld");
             System.out.println("6. Tilføj træningsresultat");
             System.out.println("7. Tilføj svømmeresultat");
-            System.out.println("8. Se alle resultater");
+            System.out.println("8. Se top 5 resultater i hver disciplin");
+            System.out.println("9. Afslut program");
 
 
             menuNumber = scanIntWithRetry();
@@ -46,6 +48,16 @@ public class UserInterface {
                     break;
                 case 3:
                     searchMemberUI();
+                    break;
+                case 4:
+                    System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + " kr.");
+                    break;
+                case 8:
+                    //
+                    break;
+                case 9:
+                    System.out.println("Programmet afsluttes...");
+                    runProgram = false;
                     break;
             }
         }
@@ -74,31 +86,33 @@ public class UserInterface {
             }
         }
     }
-    public void addMemberMenu() { //TODO email unik check
-        System.out.println("Indtast e-mail: ");
+    //TODO email unik check - sørge for at der SKAL være @ i
+    //TODO Teste tilføjelse af disciplin
+
+    public void addMemberMenu() {
+        System.out.println("Indtast e-mail: "); //email
         String email = keyboard.next();
-        System.out.println("Indtast første navn: ");
+
+        System.out.println("Indtast første navn: "); //first name
         String firstName = keyboard.next();
-        System.out.println("Indtast efternavn: ");
+
+        System.out.println("Indtast efternavn: "); //last name
         String lastName = keyboard.next();
-        System.out.println("Indtast alder: ");
+
+        System.out.println("Indtast alder: "); //age
         int age = keyboard.nextInt();
-        System.out.println("Indtast gæld: ");
-        double debt = keyboard.nextInt();
-        System.out.println("Indtast status: ");
-        String statusInput = keyboard.next();
-        boolean status;
-        if (statusInput.equals("passive")) {
-            status = false;
-        } else {
-            status = true;
-        }
-        System.out.println("Indtast hold: ");
-        String teamInput = keyboard.next();
+
+        System.out.println("Indtast gæld: "); //debt
+        double debt = keyboard.nextDouble();
+
+        System.out.println("Indtast status (passiv/aktiv) : "); //status
+        boolean status = keyboard.next().equalsIgnoreCase("Aktiv");
+
+        System.out.println("Indtast hold (Motionist / Junior / Senior): "); //teams
         Team team;
         if (teamInput.equals("Motionist")) {
             team = Team.EXCERCISER;
-        } else if (teamInput.equals("Junior")) {
+        } else if (teamInput.equals("junior")) {
             team = Team.JUNIOR;
         } else {
             team = Team.SENIOR;
@@ -108,12 +122,12 @@ public class UserInterface {
                 age + "\n" + debt + "\n" + statusInput + "\n" + team);
 
 
-            System.out.println("Er medlemmet konkurrence svømmer?");
-            String competitorInput = keyboard.next().toLowerCase();
-            if (competitorInput.equals("Yes".toLowerCase())) {
-                System.out.println("Hvilke discipliner svømmer medlemmet i?");
-                String disciplineInput = keyboard.next();
-                ArrayList<Discipline> tempDisciplines = new ArrayList<>();
+        System.out.println("Er medlemmet konkurrence svømmer? (Ja/Nej): ");
+        String competitorInput = keyboard.next().toLowerCase();
+        if (competitorInput.equals("ja".toLowerCase())) {
+            System.out.println("Hvilke discipliner svømmer medlemmet i? (Rygcrawl/Crawl/Butterfly/Brystsvømning): ");
+            String disciplineInput = keyboard.next().toLowerCase();
+            ArrayList<Discipline> tempDisciplines = new ArrayList<>();
 
                 switch (disciplineInput.toLowerCase()){
                     case "rygcrawl", "ryg", "r":
@@ -134,12 +148,15 @@ public class UserInterface {
 
                 System.out.println( firstName + " " + lastName + " svømmer i disse discipliner: " +
                         disciplineInput);
-                controller.addCompetitiveMember (email, firstName, lastName, age, debt, status, team, tempDisciplines); //TODO add det hele
+                EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class); //TODO test om man kan have mere af samme discipline
+                controller.addCompetitiveMember (email, firstName, lastName, age, debt, status, team, tempDisciplines, results);
+
             }else {
                 controller.addMember(email, firstName, lastName, age, debt, status, team);
             }
 
     }
+   // public void
     public void searchMemberUI(){
         String emailInput = keyboard.next();
         ArrayList<Member> searchResults = controller.findMember(emailInput);

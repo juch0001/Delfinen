@@ -11,7 +11,6 @@ import java.util.Scanner;
 
 
 public class FileHandler {
-
     public void saveData(ArrayList<Member> memberList, String fileName) {
         File file = new File(fileName);
         if (!lastMemberCheck(getLastLine(file), memberList)) {
@@ -91,7 +90,7 @@ public class FileHandler {
         try {
             scanner = new Scanner(file);
             lastLine = null;
-            scanner.nextLine();
+            //scanner.nextLine();
             while (scanner.hasNextLine()) {
                 lastLine = scanner.nextLine();
             }
@@ -105,21 +104,13 @@ public class FileHandler {
     public String toCsv(Member member) {
         return member.getEmail() + ";" +
                 member.getFirstName() + ";" +
-                member.getLastName();
+                member.getLastName() + ";" +
+                member.getAge() + ";" +
+                member.getDebt() + ";" +
+                member.getStatus() + ";" +
+                member.getTeam() + "\n";
     }
 
-    public File getFile() {
-        return file;
-    }
-
-   /* public Boolean lastMemberCheck(String lastLine, ArrayList<Member> memberList) {
-        String[] lastMemberCsv = lastLine.split(";");
-
-        String lastMemberCsvEmail = lastMemberCsv[0];
-        String lastMemberListEmail = memberList.get(memberList.size() - 1).getEmail();
-
-        return Objects.equals(lastMemberCsvEmail, lastMemberListEmail);
-    }*/
 
 }
 

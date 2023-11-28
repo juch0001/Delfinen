@@ -74,6 +74,7 @@ public class Member {
     public void setTeam (Team team){
         this.team = team;
     }
+
     public String statusToString(boolean status){
         if (status){
             return "Aktiv";

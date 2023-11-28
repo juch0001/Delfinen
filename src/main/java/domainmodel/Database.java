@@ -4,9 +4,11 @@ import datasource.FileHandler;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.EnumMap;
 
 public class Database {
     FileHandler fh = new FileHandler();
+    private final String fileName = "member_data.csv";
     private final File file = new File("member_data.csv");
     private ArrayList<Member> membersList = new ArrayList<>();
     private ArrayList<Competitor> competitiveMembersList = new ArrayList<>();
@@ -20,9 +22,10 @@ public class Database {
     //TODO
     public void addMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team) {
         membersList.add(new Member(email,firstName,lastName,age,debt,status, team));
+        fh.saveData(membersList,fileName);
     }
-    public void addCompetitor(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, ArrayList<Discipline> disciplines){
-        competitiveMembersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, disciplines));
+    public void addCompetitor(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, ArrayList<Discipline> disciplines, EnumMap<Discipline, Double> results){
+        competitiveMembersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, disciplines, results));
     }
     public ArrayList<Member> getMembersList(){
        return membersList;
@@ -39,4 +42,9 @@ public class Database {
         }
         return searchMember;
     }
+    public void saveData(ArrayList<Member> membersList, String fileName){
+        fh.saveData(membersList, fileName);
+    }
+
+
 }

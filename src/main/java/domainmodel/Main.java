@@ -10,11 +10,8 @@ public class Main {
 }
 
 /*
-Hvordan kan man tilføje flere discpiliner til et medlem?
 Hvordan tildeler man medlemmer svømmeresultater?
-Hvordan skal vi forhold os til at søge efter medlemmer? - email, navn, præcision af indskrivningen.
-Hvordan skal vi forholde os til betaling af kontingent? metode for betaling?
-Vil i have to filer vi læser fra? en til medlemmer og en til konkurrence svømmere?
-
+Kan hver medlem have flere resultat-tider pr disciplin - lige meget om det er træning eller stævne
+Economy regnestykke - igennem filehandler eller controller?
 
  */

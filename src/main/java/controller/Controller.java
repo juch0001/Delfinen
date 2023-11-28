@@ -1,14 +1,13 @@
 package controller;
 
-import domainmodel.Database;
-import domainmodel.Discipline;
-import domainmodel.Member;
+import domainmodel.*;
 
 import java.util.ArrayList;
-import domainmodel.Team;
+import java.util.EnumMap;
 
 public class Controller {
     Database database = new Database();
+    Economy economy = new Economy();
 
     public ArrayList<Member> getMemberlist(){
         return database.getMembersList();
@@ -17,11 +16,19 @@ public class Controller {
         database.addMember(email,firstName,lastName,age,debt,status,team);
     }
 
-    public void addCompetitiveMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, ArrayList<Discipline> disciplines) {
-        database.addCompetitor(email,firstName,lastName,age,debt,status, team, disciplines);
+    public void addCompetitiveMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, ArrayList<Discipline> disciplines, EnumMap<Discipline, Double> results) {
+        database.addCompetitor(email,firstName,lastName,age,debt,status, team, disciplines, results);
     }
 
     public ArrayList<Member> findMember(String email) {
         return database.findMember(email);
+    }
+    public void saveData(ArrayList<Member> memberList, String fileName){
+        database.saveData(memberList, fileName);
+    }
+
+    //TODO SPØRG OM MAN MÅ DET HER
+    public int totalIncome(){
+        return economy.totalIncome(database.getMembersList());
     }
 }
