@@ -11,9 +11,9 @@ import java.util.Scanner;
 
 
 public class FileHandler {
-    private final File file = new File("member_data.csv");
 
     public void saveData(ArrayList<Member> memberList, String fileName) {
+        File file = new File(fileName);
         if (!lastMemberCheck(getLastLine(file), memberList)) {
             try {
                 PrintStream printStream = new PrintStream(fileName);

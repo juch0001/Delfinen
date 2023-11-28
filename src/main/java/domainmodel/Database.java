@@ -2,17 +2,19 @@ package domainmodel;
 
 import datasource.FileHandler;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class Database {
     FileHandler fh = new FileHandler();
+    private final File file = new File("member_data.csv");
     private ArrayList<Member> membersList = new ArrayList<>();
     private ArrayList<Competitor> competitiveMembersList = new ArrayList<>();
 
 
     public Database() {
         //TODO FÅ DET FIXET
-        //this.membersList = fh.loadData(fh.getFile());
+        this.membersList = fh.loadData(file);
     }
     
     //TODO
