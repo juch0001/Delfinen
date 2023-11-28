@@ -18,7 +18,7 @@ public class Database {
         //TODO FÅ DET FIXET
         this.membersList = fh.loadData(file);
     }
-    
+
     //TODO
     public void addMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team) {
         membersList.add(new Member(email,firstName,lastName,age,debt,status, team));
@@ -28,7 +28,7 @@ public class Database {
         competitiveMembersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, disciplines, results));
     }
     public ArrayList<Member> getMembersList(){
-       return membersList;
+        return membersList;
     }
 
 

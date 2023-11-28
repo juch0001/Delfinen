@@ -12,14 +12,16 @@ import static domainmodel.Discipline.*;
 public class UserInterface {
     Controller controller = new Controller();
     Scanner keyboard = new Scanner(System.in);
+
     private int scanIntWithRetry() {
         Scanner scanner = new Scanner(System.in);
-        while(!scanner.hasNextInt()) {
+        while (!scanner.hasNextInt()) {
             scanner.next();
             System.out.println("Not a number! Try again");
         }
         return scanner.nextInt();
     }
+
     public void startProgram() {
         boolean runProgram = true;
         int menuNumber;
@@ -47,8 +49,8 @@ public class UserInterface {
                     printMemberlist(controller.getMemberlist());
                     break;
                 case 3:
-                    //TODO sout spørg bruger om email
-                    //TODO printe medlems info ud på medlem man søger på
+                    //TODO sout spørg bruger om email - Klaret
+                    //TODO printe medlems info ud på medlem man søger på - klaret??
                     searchMemberUI();
                     break;
                 case 4:
@@ -67,8 +69,8 @@ public class UserInterface {
 
 //TODO Tilføje competitor data
 
-    public void printMemberlist(ArrayList<Member> memberList){
-        for (Member member:memberList) {
+    public void printMemberlist(ArrayList<Member> memberList) {
+        for (Member member : memberList) {
             if (member instanceof Competitor) {
                 System.out.println(member.getEmail() + " " +
                         member.getFirstName() + " " +
@@ -78,7 +80,7 @@ public class UserInterface {
                         member.statusToString(member.getStatus()) + " " +
                         member.getTeam() + " " +
                         ((Competitor) member).getDisciplines());
-            }else {
+            } else {
                 System.out.println(member.getEmail() + " " +
                         member.getFirstName() + " " +
                         member.getLastName() + " " +
@@ -93,8 +95,31 @@ public class UserInterface {
     //TODO Teste tilføjelse af disciplin
 
     public void addMemberMenu() {
-        System.out.println("Indtast e-mail: "); //email
-        String email = keyboard.next();
+            String email;
+            boolean validEmail;
+
+            do {
+                System.out.println("Indtast e-mail: ");
+                email = keyboard.next();
+
+                // Tjek om e-mail allerede eksisterer
+                ArrayList<Member> existingMembers = controller.getMemberlist();
+                validEmail = true;
+
+                for (Member existingMember : existingMembers) {
+                    if (existingMember.getEmail().equalsIgnoreCase(email)) {
+                        System.out.println("Emailen eksisterer allerede. Indtast en ny mail: ");
+                        validEmail = false;
+                        break;
+                    }
+                }
+
+                if (!email.contains("@")) {
+                    System.out.println("Ikke gyldig email. Indtast en ny: ");
+                    validEmail = false;
+                }
+
+            } while (!validEmail);
 
         System.out.println("Indtast første navn: "); //first name
         String firstName = keyboard.next();
@@ -133,44 +158,57 @@ public class UserInterface {
             String disciplineInput = keyboard.next().toLowerCase();
             ArrayList<Discipline> tempDisciplines = new ArrayList<>();
 
-                switch (disciplineInput.toLowerCase()){
-                    case "rygcrawl", "ryg", "r":
-                        tempDisciplines.add(BACK_CRAWL);
-                        break;
-                    case "crawl", "cra", "c":
-                        tempDisciplines.add(CRAWL);
-                        break;
-                    case "butterfly", "but":
-                        tempDisciplines.add(BUTTERFLY);
-                        break;
-                    case "brystsvømning", "bry":
-                        tempDisciplines.add(BREASTSTROKE);
-                        break;
-                    default:
-                        System.out.println("Disciplin findes ikke");
-                }
-
-                System.out.println( firstName + " " + lastName + " svømmer i disse discipliner: " +
-                        disciplineInput);
-                EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class); //TODO test om man kan have mere af samme discipline
-                controller.addCompetitiveMember (email, firstName, lastName, age, debt, status, team, tempDisciplines, results);
-
-            }else {
-                controller.addMember(email, firstName, lastName, age, debt, status, team);
+            switch (disciplineInput.toLowerCase()){
+                case "rygcrawl", "ryg", "r":
+                    tempDisciplines.add(BACK_CRAWL);
+                    break;
+                case "crawl", "cra", "c":
+                    tempDisciplines.add(CRAWL);
+                    break;
+                case "butterfly", "but":
+                    tempDisciplines.add(BUTTERFLY);
+                    break;
+                case "brystsvømning", "bry":
+                    tempDisciplines.add(BREASTSTROKE);
+                    break;
+                default:
+                    System.out.println("Disciplin findes ikke");
             }
 
+            System.out.println( firstName + " " + lastName + " svømmer i disse discipliner: " +
+                    disciplineInput);
+            EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class); //TODO test om man kan have mere af samme discipline
+            controller.addCompetitiveMember (email, firstName, lastName, age, debt, status, team, tempDisciplines, results);
+
+        }else {
+            controller.addMember(email, firstName, lastName, age, debt, status, team);
+        }
+
     }
-   // public void
+    // public void
     public void searchMemberUI(){
+        System.out.println("Indtast e-mail for at søge efter medlem: ");
         String emailInput = keyboard.next();
+
         ArrayList<Member> searchResults = controller.findMember(emailInput);
+
         if (searchResults.isEmpty()){
             System.out.println("Ingen medlemmer fundet");
         }else {
             System.out.println("Medlemmer fundet: ");
-            for (Member name : searchResults) {
-                System.out.println(" - " + name.getEmail());
+            for (Member member : searchResults) {
+                printMemberInfo(member);
             }
         }
+    }
+
+    private void printMemberInfo(Member member) {
+        System.out.println("E-mail: " + member.getEmail());
+        System.out.println("Fornavn: " + member.getFirstName());
+        System.out.println("Efternavn: " + member.getLastName());
+        System.out.println("Alder: " + member.getAge());
+        System.out.println("Gæld: " + member.getDebt());
+        System.out.println("Status: " + member.statusToString(member.getStatus()));
+        System.out.println("Hold: " + member.getTeam());
     }
 }
