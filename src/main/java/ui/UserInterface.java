@@ -47,6 +47,8 @@ public class UserInterface {
                     printMemberlist(controller.getMemberlist());
                     break;
                 case 3:
+                    //TODO sout spørg bruger om email
+                    //TODO printe medlems info ud på medlem man søger på
                     searchMemberUI();
                     break;
                 case 4:
@@ -63,6 +65,7 @@ public class UserInterface {
         }
     }
 
+//TODO Tilføje competitor data
 
     public void printMemberlist(ArrayList<Member> memberList){
         for (Member member:memberList) {

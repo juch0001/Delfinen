@@ -10,7 +10,7 @@ public class Database {
     FileHandler fh = new FileHandler();
     private final String fileName = "member_data.csv";
     private final File file = new File("member_data.csv");
-    private ArrayList<Member> membersList = new ArrayList<>();
+    private ArrayList<Member> membersList;
     private ArrayList<Competitor> competitiveMembersList = new ArrayList<>();
 
 
