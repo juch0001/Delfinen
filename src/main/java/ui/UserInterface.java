@@ -113,7 +113,8 @@ public class UserInterface {
 
         System.out.println("Indtast hold (Motionist / Junior / Senior): "); //teams
         Team team;
-        if (teamInput.equals("Motionist")) {
+        String teamInput = keyboard.next().toLowerCase();
+        if (teamInput.equals("motionist")) {
             team = Team.EXCERCISER;
         } else if (teamInput.equals("junior")) {
             team = Team.JUNIOR;
@@ -122,7 +123,7 @@ public class UserInterface {
         }
         System.out.println("Du har tilføjet ét nyt medlem: \n" +
                 email + "\n" + firstName + " " + lastName + "\n" +
-                age + "\n" + debt + "\n" + statusInput + "\n" + team);
+                age + "\n" + debt + "\n" + (status? "aktiv" : "passiv") + "\n" + team);
 
 
         System.out.println("Er medlemmet konkurrence svømmer? (Ja/Nej): ");
