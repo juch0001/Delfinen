@@ -39,7 +39,6 @@ public class Database {
 
     public ArrayList<Member> findMember(String email) {
         ArrayList<Member> searchMember = new ArrayList<>();
-
         for (Member member : membersList) {
             if (member.getEmail().toLowerCase().contains(email.toLowerCase())) {
                 searchMember.add(member);
@@ -47,6 +46,10 @@ public class Database {
         }
         return searchMember;
     }
+    public Competitor findCompitor(String email){ //TODO lav den her
+        return null;
+    }
+
     public void saveData(ArrayList<Member> membersList, String fileName){
         fh.saveData(membersList, fileName);
     }

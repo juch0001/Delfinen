@@ -149,23 +149,22 @@ public class UserInterface {
 
         System.out.println("Er medlemmet konkurrence svømmer? (Ja/Nej): ");
         String competitorInput = keyboard.next().toLowerCase();
-        if (competitorInput.equals("ja".toLowerCase())) {
+        if (competitorInput.equals("ja".toLowerCase())) { //TODO GØR DET HER TIL EN METODE????
             System.out.println("Hvilke discipliner svømmer medlemmet i? (Rygcrawl/Crawl/Butterfly/Brystsvømning): ");
             String disciplineInput = keyboard.next().toLowerCase();
-            ArrayList<Discipline> tempDisciplines = new ArrayList<>();
-
+            EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class); //
             switch (disciplineInput.toLowerCase()){
                 case "rygcrawl", "ryg", "r":
-                    tempDisciplines.add(BACK_CRAWL);
+                    results.put(BACK_CRAWL, 0.0);
                     break;
                 case "crawl", "cra", "c":
-                    tempDisciplines.add(CRAWL);
+                    results.put(CRAWL, 0.0);
                     break;
                 case "butterfly", "but":
-                    tempDisciplines.add(BUTTERFLY);
+                    results.put(BUTTERFLY, 0.0);
                     break;
                 case "brystsvømning", "bry":
-                    tempDisciplines.add(BREASTSTROKE);
+                    results.put(BREASTSTROKE, 0.0);
                     break;
                 default:
                     System.out.println("Disciplin findes ikke");
@@ -173,8 +172,7 @@ public class UserInterface {
 
             System.out.println( firstName + " " + lastName + " svømmer i disse discipliner: " +
                     disciplineInput);
-            EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class); //TODO test om man kan have mere af samme discipline
-            controller.addCompetitiveMember (email, firstName, lastName, age, debt, status, team, tempDisciplines, results);
+            controller.addCompetitiveMember (email, firstName, lastName, age, debt, status, team, results);
 
         }else {
             controller.addMember(email, firstName, lastName, age, debt, status, team);
@@ -206,5 +204,35 @@ public class UserInterface {
         System.out.println("Gæld: " + member.getDebt());
         System.out.println("Status: " + member.statusToString(member.getStatus()));
         System.out.println("Hold: " + member.getTeam());
+    }
+    public void addResultUI(){
+        System.out.println("Skriv email på personen du vil tilføje et resultat til");
+        String email = keyboard.next();
+        //Competitor competitor = controller.findMember(email).get(0);  TODO lav metode til competitor
+        //System.out.println("Du vil ændre " + competitor.getFirstName() + " " + competitor.getLastName());
+        System.out.println("Hvilken disicpline vil du tilføje en tid til?(Skriv tallet): ");
+        System.out.println("1. RygCrawl");
+        System.out.println("2. Crawl");
+        System.out.println("3. Butterfly");
+        System.out.println("4. Bryst Svømning");
+
+        String userChoiceDiscipline = keyboard.next();
+        Discipline discipline = null;
+        boolean userChoiceStatus = true;
+        switch (userChoiceDiscipline){
+            case "1"-> discipline = BACK_CRAWL;
+            case "2" -> discipline = CRAWL;
+            case "3" -> discipline = BUTTERFLY;
+            case "4" -> discipline = BREASTSTROKE;
+            default -> userChoiceStatus = false;
+        }
+        if (userChoiceStatus){
+            System.out.println("Du valgte " + discipline);
+            System.out.println("Skriv tiden: (1.23)");
+            double userChoiceTime = keyboard.nextDouble();
+            //controller.addResult(competitor.getResults());
+        }
+
+
     }
 }

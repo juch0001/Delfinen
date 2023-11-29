@@ -16,8 +16,8 @@ public class Controller {
         database.addMember(email,firstName,lastName,age,debt,status,team);
     }
 
-    public void addCompetitiveMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, ArrayList<Discipline> disciplines, EnumMap<Discipline, Double> results) {
-        database.addCompetitor(email,firstName,lastName,age,debt,status, team, disciplines, results);
+    public void addCompetitiveMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, EnumMap<Discipline, Double> results) {
+        database.addCompetitor(email,firstName,lastName,age,debt,status, team, results);
     }
 
     public ArrayList<Member> findMember(String email) {

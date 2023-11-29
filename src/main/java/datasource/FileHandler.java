@@ -9,7 +9,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class FileHandler {
     public void saveData(ArrayList<Member> memberList, String fileName) {
         File file = new File(fileName);
