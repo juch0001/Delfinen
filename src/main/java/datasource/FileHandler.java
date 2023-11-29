@@ -90,7 +90,6 @@ public class FileHandler {
         try {
             scanner = new Scanner(file);
             lastLine = null;
-            //scanner.nextLine();
             while (scanner.hasNextLine()) {
                 lastLine = scanner.nextLine();
             }

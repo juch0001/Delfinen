@@ -14,7 +14,7 @@ public class Database {
     private final File fileCompetitor = new File("competitor_data.csv");
 
     private ArrayList<Member> membersList;
-    private ArrayList<Competitor> competitiveMembersList = new ArrayList<>();
+    private ArrayList<Member> competitiveMembersList;
 
 
     public Database() {
@@ -23,7 +23,7 @@ public class Database {
         this.competitiveMembersList = fh.loadData(fileCompetitor);
     }
 
-    //TODO
+
     public void addMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team) {
         membersList.add(new Member(email,firstName,lastName,age,debt,status, team));
         fh.saveData(membersList, fileNameMember);
@@ -32,6 +32,7 @@ public class Database {
         competitiveMembersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, results));
         fh.saveData(competitiveMembersList, fileNameCompetitor);
     }
+
     public ArrayList<Member> getMembersList(){
         return membersList;
     }

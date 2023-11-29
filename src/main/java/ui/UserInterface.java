@@ -49,8 +49,6 @@ public class UserInterface {
                     printMemberlist(controller.getMemberlist());
                     break;
                 case 3:
-                    //TODO sout spørg bruger om email - Klaret
-                    //TODO printe medlems info ud på medlem man søger på - klaret??
                     searchMemberUI();
                     break;
                 case 4:
@@ -89,7 +87,7 @@ public class UserInterface {
             }
         }
     }
-    //TODO email unik check - sørge for at der SKAL være @ i
+
     //TODO Teste tilføjelse af disciplin
 
     public void addMemberMenu() {
@@ -106,7 +104,7 @@ public class UserInterface {
 
                 for (Member existingMember : existingMembers) {
                     if (existingMember.getEmail().equalsIgnoreCase(email)) {
-                        System.out.println("Emailen eksisterer allerede. Indtast en ny mail: ");
+                        System.out.println("Emailen eksisterer allerede. ");
                         validEmail = false;
                         break;
                     }

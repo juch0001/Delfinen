@@ -23,6 +23,7 @@ public class Controller {
     public ArrayList<Member> findMember(String email) {
         return database.findMember(email);
     }
+
     public void saveData(ArrayList<Member> memberList, String fileName){
         database.saveData(memberList, fileName);
     }
