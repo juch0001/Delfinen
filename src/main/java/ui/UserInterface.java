@@ -67,8 +67,6 @@ public class UserInterface {
         }
     }
 
-//TODO Tilføje competitor data
-
     public void printMemberlist(ArrayList<Member> memberList) {
         for (Member member : memberList) {
             if (member instanceof Competitor) {
@@ -128,10 +126,10 @@ public class UserInterface {
         String lastName = keyboard.next();
 
         System.out.println("Indtast alder: "); //age
-        int age = keyboard.nextInt();
+        int age = scanIntWithRetry();
 
         System.out.println("Indtast gæld: "); //debt
-        double debt = keyboard.nextDouble();
+        double debt = scanIntWithRetry();
 
         System.out.println("Indtast status (passiv/aktiv) : "); //status
         boolean status = keyboard.next().equalsIgnoreCase("Aktiv");

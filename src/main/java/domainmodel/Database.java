@@ -8,29 +8,33 @@ import java.util.EnumMap;
 
 public class Database {
     FileHandler fh = new FileHandler();
-    private final String fileName = "member_data.csv";
-    private final File file = new File("member_data.csv");
+    private final String fileNameMember = "member_data.csv";
+    private final File fileMember = new File("member_data.csv");
+    private final String fileNameCompetitor = "competitor_data.csv";
+    private final File fileCompetitor = new File("competitor_data.csv");
+
     private ArrayList<Member> membersList;
     private ArrayList<Competitor> competitiveMembersList = new ArrayList<>();
 
 
     public Database() {
         //TODO FÅ DET FIXET
-        this.membersList = fh.loadData(file);
+        this.membersList = fh.loadData(fileMember);
+        this.competitiveMembersList = fh.loadData(fileCompetitor);
     }
 
     //TODO
     public void addMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team) {
         membersList.add(new Member(email,firstName,lastName,age,debt,status, team));
-        fh.saveData(membersList,fileName);
+        fh.saveData(membersList, fileNameMember);
     }
-    public void addCompetitor(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, ArrayList<Discipline> disciplines, EnumMap<Discipline, Double> results){
-        competitiveMembersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, disciplines, results));
+    public void addCompetitor(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, EnumMap<Discipline, Double> results){
+        competitiveMembersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, results));
+        fh.saveData(competitiveMembersList, fileNameCompetitor);
     }
     public ArrayList<Member> getMembersList(){
         return membersList;
     }
-
 
     public ArrayList<Member> findMember(String email) {
         ArrayList<Member> searchMember = new ArrayList<>();
