@@ -27,6 +27,10 @@ public class Controller {
         database.saveData(memberList, fileName);
     }
 
+    public void addResult(EnumMap<Discipline, Double> results, Discipline discipline, double time){
+
+    }
+
     //TODO SPØRG OM MAN MÅ DET HER
     public int totalIncome(){
         return economy.totalIncome(database.getMembersList());
