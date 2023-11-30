@@ -204,7 +204,17 @@ public class UserInterface {
         System.out.println("Gæld: " + member.getDebt());
         System.out.println("Status: " + member.statusToString(member.getStatus()));
         System.out.println("Hold: " + member.getTeam());
+
+        if (member instanceof Competitor) {
+            Competitor competitor = (Competitor) member;
+            EnumMap<Discipline, Double> results = competitor.getResults();
+
+            System.out.println("Konkurrencesvømmer: Ja");
+        } else {
+            System.out.println("Konkurrencesvømmer: Nej");
+        }
     }
+
     public void addResultUI(){
         System.out.println("Skriv email på personen du vil tilføje et resultat til");
         String email = keyboard.next();
