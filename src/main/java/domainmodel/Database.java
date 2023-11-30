@@ -18,7 +18,7 @@ public class Database {
 
 
     public Database() {
-        //TODO FÅ DET FIXET
+        //TODO competitor skal have egen filehandler/loaddata?
         this.membersList = fh.loadData(fileMember);
         this.competitiveMembersList = fh.loadData(fileCompetitor);
     }
