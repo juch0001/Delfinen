@@ -31,6 +31,9 @@ public class Controller {
     public void addResult(EnumMap<Discipline, Double> results, Discipline discipline, double time){
 
     }
+    public double totalDebt(){
+        return economy.totalDebt(database.getMembersList());
+    }
 
     //TODO SPØRG OM MAN MÅ DET HER
     public int totalIncome(){

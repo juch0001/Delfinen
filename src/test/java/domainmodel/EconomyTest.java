@@ -1,8 +1,10 @@
 package domainmodel;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.EnumMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,13 +32,17 @@ class EconomyTest {
 
     @Test
     void totalIncome() {
-    Economy economy = new Economy();
-    testMember.add(junior);
-    testMember.add(senior);
-    testMember.add(excerciser);
     int expectedTotal = 5400;
-    int actualTotal = economy.totalIncome(testMember);
+    int actualTotal = economy.totalIncome(members);
 
     assertEquals(expectedTotal, actualTotal);
+    }
+
+    @Test
+    void totalDebt(){
+    double exceptedTotal = 3400;
+    double actualTotal = economy.totalDebt(members);
+
+     assertEquals(exceptedTotal, actualTotal);
     }
 }

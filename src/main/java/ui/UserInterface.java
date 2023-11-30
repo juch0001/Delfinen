@@ -22,6 +22,16 @@ public class UserInterface {
         return scanner.nextInt();
     }
 
+    private double scanDoubleWithRetry(){
+        Scanner scanner = new Scanner(System.in);
+        while (!scanner.hasNextDouble()){
+            scanner.next();
+            System.out.println("Du skal skrive et kommatal!");
+        }
+        return scanner.nextDouble();
+    }
+
+
     public void startProgram() {
         boolean runProgram = true;
         int menuNumber;
@@ -54,6 +64,8 @@ public class UserInterface {
                 case 4:
                     System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + " kr.");
                     break;
+                case 5:
+                    System.out.println("Den totale gæld til virksomheden: " + controller.totalDebt());
                 case 8:
                     //
                     break;
@@ -65,7 +77,7 @@ public class UserInterface {
         }
     }
 
-    public void printMemberlist(ArrayList<Member> memberList) {
+    public void printMemberlist(ArrayList<Member> memberList) { //TODO LAV DEN SÅ DEN PRINTER FRA BEGGE LISTER
         for (Member member : memberList) {
             if (member instanceof Competitor) {
                 System.out.println(member.getEmail() + " " +

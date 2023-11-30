@@ -14,13 +14,13 @@ public class Database {
     private final File fileCompetitor = new File("competitor_data.csv");
 
     private ArrayList<Member> membersList;
-    private ArrayList<Member> competitiveMembersList;
+    //private ArrayList<Member> competitiveMembersList; //TODO DET HER KAN VÆRE EN FEJL HER MEN MÅSKE IK
 
 
     public Database() {
         //TODO competitor skal have egen filehandler/loaddata?
         this.membersList = fh.loadData(fileMember);
-        this.competitiveMembersList = fh.loadData(fileCompetitor);
+        this.membersList = fh.loadCompData(fileCompetitor);
     }
 
 
@@ -29,8 +29,8 @@ public class Database {
         fh.saveData(membersList, fileNameMember);
     }
     public void addCompetitor(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, EnumMap<Discipline, Double> results){
-        competitiveMembersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, results));
-        fh.saveData(competitiveMembersList, fileNameCompetitor);
+        membersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, results));
+        fh.saveData(membersList, fileNameCompetitor);
     }
 
     public ArrayList<Member> getMembersList(){
@@ -46,9 +46,17 @@ public class Database {
         }
         return searchMember;
     }
-    public Competitor findCompitor(String email){ //TODO lav den her
-        return null;
+    /*
+    public ArrayList<Member> findCompetitor(String email){ //TODO lav den her
+        ArrayList<Member> searchCompetitor = new ArrayList<>(); //TODO Behøver den at returne arraylist?
+        for (Member member : membersList) {
+            if (member.getEmail().toLowerCase().contains(email.toLowerCase())) {
+                searchCompetitor.add(member);
+            }
+        }
+        return searchCompetitor;
     }
+    */
 
     public void saveData(ArrayList<Member> membersList, String fileName){
         fh.saveData(membersList, fileName);

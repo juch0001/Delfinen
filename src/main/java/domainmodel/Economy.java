@@ -2,7 +2,7 @@ package domainmodel;
 import java.util.ArrayList;
 
 public class Economy {
-
+/*
 public int totalIncome(ArrayList<Member> members) {
     int total = 0;
     for (Member member : members) {

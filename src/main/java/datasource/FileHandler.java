@@ -1,5 +1,7 @@
 package datasource;
 
+import domainmodel.Competitor;
+import domainmodel.Discipline;
 import domainmodel.Member;
 import domainmodel.Team;
 
@@ -7,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.Scanner;
 
 public class FileHandler {
@@ -53,7 +56,7 @@ public class FileHandler {
                     age,
                     debt,
                     status,
-                    parseMemberTeam(attributes));
+                    parseMemberTeam(attributes[6]));
             membersList.add(member);
         }
 
@@ -61,10 +64,48 @@ public class FileHandler {
         return membersList;
     }
 
-    private Team parseMemberTeam(String[] attributes) {
-        if (attributes[6].equalsIgnoreCase("junior")) {
+    public ArrayList<Member> loadCompData(File file) {
+
+        ArrayList<Member> membersList = new ArrayList();
+        Scanner sc;
+        try {
+            sc = new Scanner(file);
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        Competitor competitor;
+        while (sc.hasNext()) {
+            String line = sc.nextLine();
+            String[] attributes = line.split(";");
+            String email = attributes[0];
+            String firstName = attributes[1];
+            String lastName = attributes[2];
+            int age = Integer.parseInt(attributes[3]);
+            double debt = Double.parseDouble(attributes[4]);
+            boolean status = Boolean.parseBoolean(attributes[5]);
+            competitor = new Competitor(
+                    email,
+                    firstName,
+                    lastName,
+                    age,
+                    debt,
+                    status,
+                    parseMemberTeam(attributes[6]),
+                    parseDisciplinResult(attributes[7]) //TODO DET HER VIRKER MÅSKE FEJLEN KAN VÆRE AT VI SKAL HAVE PLACEHOLDERS VED DISCIPLIN ATTRIBUTEN!!!!
+                    );
+            membersList.add(competitor);
+        }
+
+        sc.close();
+        return membersList;
+    }
+
+    private Team parseMemberTeam(String attributes) {
+        if (attributes.equalsIgnoreCase("junior")) {
             return Team.JUNIOR;
-        } else if (attributes[6].equalsIgnoreCase("senior")) {
+        } else if (attributes.equalsIgnoreCase("senior")) {
             return Team.SENIOR;
         } else if (attributes.equalsIgnoreCase("motionist")) {
             return Team.EXERCISER;
@@ -108,7 +149,30 @@ public class FileHandler {
                 member.getStatus() + ";" +
                 member.getTeam() + "\n";
     }
+    public Discipline parseDiscipline(String discipline){
+        if (discipline.equals("CRAWL")){
+            return Discipline.CRAWL;
+        }else if (discipline.equals("BREASTSTROKE")){
+            return Discipline.BREASTSTROKE;
+        } else if (discipline.equals("BUTTERFLY")) {
+            return Discipline.BUTTERFLY;
+        } else if (discipline.equals("BACK_CRAWL")) {
+            return Discipline.BACK_CRAWL;
+        }
+        return null;
+    }
+    public EnumMap<Discipline, Double> parseDisciplinResult(String timeAttribute){
+        String[] disciplinesplit = timeAttribute.split(",");
 
+        EnumMap<Discipline,Double> times = new EnumMap<>(Discipline.class);
+        for (String disciplineTime: disciplinesplit) {
+            String[] timeSplit = disciplineTime.split(":");
+            Discipline discipline = parseDiscipline(timeSplit[0]);
+            Double time = Double.valueOf(timeSplit[1]);
+            times.put(discipline,time);
+        }
+        return times;
+    }
 
 }
 
