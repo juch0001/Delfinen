@@ -17,7 +17,7 @@ public class UserInterface {
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextInt()) {
             scanner.next();
-            System.out.println("Not a number! Try again");
+            System.out.println("Ikke et nummer! Prøv igen");
         }
         return scanner.nextInt();
     }
@@ -136,7 +136,7 @@ public class UserInterface {
         Team team;
         String teamInput = keyboard.next().toLowerCase();
         if (teamInput.equals("motionist")) {
-            team = Team.EXCERCISER;
+            team = Team.EXERCISER;
         } else if (teamInput.equals("junior")) {
             team = Team.JUNIOR;
         } else {

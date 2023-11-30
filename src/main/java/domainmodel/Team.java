@@ -2,7 +2,7 @@ package domainmodel;
 
 public enum Team {
 
-    EXCERCISER{
+    EXERCISER {
         @Override
         public String toString(){
             return "Motionist";

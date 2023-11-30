@@ -24,7 +24,7 @@ public class Controller {
         return database.findMember(email);
     }
 
-    public void saveData(ArrayList<Member> memberList, String fileName){
+    public void saveData(ArrayList<Member> memberList, String fileName){ //TODO begge lister
         database.saveData(memberList, fileName);
     }
 

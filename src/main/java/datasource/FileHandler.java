@@ -28,7 +28,7 @@ public class FileHandler {
     public ArrayList<Member> loadData(File file) {
 
         ArrayList<Member> membersList = new ArrayList();
-        Scanner sc = null;
+        Scanner sc;
         try {
             sc = new Scanner(file);
 
@@ -36,7 +36,7 @@ public class FileHandler {
             throw new RuntimeException(e);
         }
 
-        Member member = null;
+        Member member;
         while (sc.hasNext()) {
             String line = sc.nextLine();
             String[] attributes = line.split(";");
@@ -66,8 +66,8 @@ public class FileHandler {
             return Team.JUNIOR;
         } else if (attributes[6].equalsIgnoreCase("senior")) {
             return Team.SENIOR;
-        } else if (attributes[6].equalsIgnoreCase("motionist")) {
-            return Team.EXCERCISER;
+        } else if (attributes.equalsIgnoreCase("motionist")) {
+            return Team.EXERCISER;
         }
         return null;
     }
