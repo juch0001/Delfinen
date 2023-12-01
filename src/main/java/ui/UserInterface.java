@@ -103,7 +103,7 @@ public class UserInterface {
             System.out.println("Indtast e-mail: ");
             email = keyboard.next();
 
-            // Tjek om e-mail allerede eksisterer
+            //Tjek om e-mail allerede eksisterer
             ArrayList<Member> existingMembers = controller.getMemberlist();
             validEmail = true;
 
@@ -261,10 +261,9 @@ public class UserInterface {
             System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
         }
     }
+    /* hvorfor er den her
     public static Scanner getKeyboard() {
         return keyboard;
     }
-
-
-
+*/
 }

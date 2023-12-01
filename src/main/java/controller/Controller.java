@@ -22,7 +22,7 @@ public class Controller {
         return database.findMember(email);
     }
 
-    public void saveData(ArrayList<Member> memberList, String fileName){ //TODO begge lister
+    public void saveData(ArrayList<Member> memberList, String fileName){
         database.saveData(memberList, fileName);
     }
 

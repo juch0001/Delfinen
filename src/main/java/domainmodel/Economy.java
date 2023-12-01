@@ -29,7 +29,7 @@ public class Economy {
         totalDebt += totalMemberDebt(members);
         return totalDebt;
     }
-    public double totalMemberDebt(ArrayList<Member> members) {
+   public double totalMemberDebt(ArrayList<Member> members) {
         double totalMemberDebt = 0;
         for (Member member : members) {
             totalMemberDebt += member.getDebt();

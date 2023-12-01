@@ -1,6 +1,9 @@
 package domainmodel;
 
+import java.time.LocalDate;
+
 public class Member {
+
     private String email;
     private String firstName;
     private String lastName;

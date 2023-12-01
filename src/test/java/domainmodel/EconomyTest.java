@@ -3,6 +3,7 @@ package domainmodel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -12,22 +13,19 @@ class EconomyTest {
    Economy economy = new Economy();
    ArrayList<Member> members = new ArrayList<>();
    EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class);
-    Member junior = new Member("an@gmail.com", "Andrea", "Ryholt", 24, true, Team.JUNIOR);
+   LocalDate andrea = LocalDate.ofEpochDay(2-2-2000);
+    Member junior = new Member("an@gmail.com", "Andrea", "Ryholt", andrea, true, Team.JUNIOR);
     Member senior = new Member("ra@gmail.com", "Ras", "Hansen", 44, true, Team.SENIOR);
     Member excerciser = new Member("sof@gmail.com", "Sofie", "Jensen", 27, true, Team.EXERCISER);
 
-    Competitor juniorComp = new Competitor("an@gmail.com", "Andrea", "Ryholt", 24, true, Team.JUNIOR, results);
-    Competitor seniorComp = new Competitor("basd@gmail.com", "ba", "sd", 44, true, Team.SENIOR, results);
-    Competitor excerciserComp = new Competitor("asdasd@gmail.com", "asdae", "dasd", 27, true, Team.EXERCISER, results);
+
 
     @BeforeEach
     void setup(){
      members.add(junior);
      members.add(senior);
      members.add(excerciser);
-     members.add(juniorComp);
-     members.add(seniorComp);
-     members.add(excerciserComp);
+
     }
 
     @Test

@@ -3,11 +3,13 @@ package domainmodel;
 import datasource.FileHandler;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
 public class Database {
-    FileHandler fh = new FileHandler();
+    private final FileHandler fh = new FileHandler();
     private final String fileNameMember = "member_data.csv";
     private final File fileMember = new File("member_data.csv");
     private final String fileNameCompetitor = "competitor_data.csv";
@@ -66,9 +68,9 @@ public class Database {
                 return competitor;
             }
         }
-        return searchCompetitor;
+        return null;
     }
-    */
+
 
     public void saveData(ArrayList<Member> membersList, String fileName){
         fh.saveData(membersList, fileName);

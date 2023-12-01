@@ -29,7 +29,6 @@ public class FileHandler {
     }
 
     public ArrayList<Member> loadData(File file) {
-
         ArrayList<Member> membersList = new ArrayList();
         Scanner sc;
         try {
@@ -121,9 +120,8 @@ public class FileHandler {
         }
         return null;
     }
-    public EnumMap<Discipline, Double> parseDisciplinResult(String timeAttribute){
+    public EnumMap<Discipline, Double> parseDisciplinResult(String timeAttribute){ //TODO ÆDNRE DEN HER SÅ DEN LAVER EN ARRAYLIST MED STED, TID, DATO, DISCIPLINE.
         String[] disciplinesplit = timeAttribute.split(",");
-
         EnumMap<Discipline,Double> times = new EnumMap<>(Discipline.class);
         for (String disciplineTime: disciplinesplit) {
             String[] timeSplit = disciplineTime.split(":");
