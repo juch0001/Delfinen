@@ -16,9 +16,6 @@ public class Controller {
         database.addMember(email,firstName,lastName,age,status,team);
     }
 
-    public void addCompetitiveMember(String email, String firstName, String lastName, int age, Boolean status, Team team, EnumMap<Discipline, Double> results) {
-        database.addCompetitor(email,firstName,lastName,age ,status, team, results);
-    }
 
     public ArrayList<Member> findMember(String email) {
         return database.findMember(email);
@@ -35,7 +32,6 @@ public class Controller {
         return economy.totalDebt(database.getMembersList());
     }*/
 
-    //TODO SPØRG OM MAN MÅ DET HER
     public int totalIncome(){
         return economy.totalIncome(database.getMembersList());
     }

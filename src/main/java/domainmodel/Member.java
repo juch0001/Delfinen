@@ -69,8 +69,8 @@ public class Member {
 
     public String statusToString(boolean status){
         if (status){
-            return "Aktiv";
-        }else return "Passiv";
+            return "Ja"; //aktiv
+        }else return "Nej"; //passiv
     }
 
 }

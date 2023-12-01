@@ -22,6 +22,7 @@ public class UserInterface {
         return scanner.nextInt();
     }
 
+
     public void startProgram() {
         boolean runProgram = true;
         int menuNumber;
@@ -68,6 +69,8 @@ public class UserInterface {
         }
     }
 
+
+
     public void printMemberlist(ArrayList<Member> memberList) {
         for (Member member : memberList) {
             if (member instanceof Competitor) {
@@ -89,8 +92,9 @@ public class UserInterface {
         }
     }
 
-    //TODO Teste tilføjelse af disciplin
 
+
+    //TODO Teste tilføjelse af disciplin
     public void addMemberMenu() {
         String email;
         boolean validEmail;
@@ -111,7 +115,8 @@ public class UserInterface {
                 }
             }
 
-            if (!email.contains("@")) {
+            //Tjekker om der er @ og . i gyldig mail
+            if (!email.contains("@") || !email.contains(".")) {
                 System.out.println("Ikke gyldig email. Indtast en ny: ");
                 validEmail = false;
             }
@@ -124,31 +129,18 @@ public class UserInterface {
         System.out.println("Indtast efternavn: "); //last name
         String lastName = keyboard.next();
 
-        System.out.println("Indtast alder: "); //age
+        // TODO automatisere team på alder
+        System.out.println("Indtast din fødsesldag (dd.mm.yyyy) : "); //age
         int age = scanIntWithRetry();
 
-        /*System.out.println("Indtast gæld: "); //debt
-        double debt = scanIntWithRetry();*/
+        System.out.println("Er medlemmet aktiv svømmer (ja/nej) : "); //status
+        boolean status = keyboard.next().equalsIgnoreCase("ja");
 
-        System.out.println("Indtast status (passiv/aktiv) : "); //status
-        boolean status = keyboard.next().equalsIgnoreCase("Aktiv");
-
-        System.out.println("Indtast hold (Motionist / Junior / Senior): "); //teams
-        Team team;
-        String teamInput = keyboard.next().toLowerCase();
-        if (teamInput.equals("motionist")) {
-            team = Team.EXERCISER;
-        } else if (teamInput.equals("junior")) {
-            team = Team.JUNIOR;
-        } else {
-            team = Team.SENIOR;
-        }
         System.out.println("Du har tilføjet ét nyt medlem: \n" +
                 email + "\n" + firstName + " " + lastName + "\n" +
-                age + "\n" + (status? "aktiv" : "passiv") + "\n" + team);
+                age + "\n" + (status? "ja" : "nej") + "\n" + team);
 
-
-        System.out.println("Er medlemmet konkurrence svømmer? (Ja/Nej): ");
+        System.out.println("Er medlemmet motionist eller konkurrencesvømmer: ");
         String competitorInput = keyboard.next().toLowerCase();
         if (competitorInput.equals("ja".toLowerCase())) { //TODO GØR DET HER TIL EN METODE????
             System.out.println("Hvilke discipliner svømmer medlemmet i? (Rygcrawl/Crawl/Butterfly/Brystsvømning): ");
@@ -180,7 +172,9 @@ public class UserInterface {
         }
 
     }
-    // public void
+
+
+
     public void searchMemberUI(){
         System.out.println("Indtast e-mail for at søge efter medlem: ");
         String emailInput = keyboard.next();
@@ -196,6 +190,8 @@ public class UserInterface {
             }
         }
     }
+
+
 
     public static void printMemberInfo(Member member) {
         System.out.println("E-mail: " + member.getEmail());
@@ -223,37 +219,7 @@ public class UserInterface {
         }
     }
 
-    /*public void addResultUI() {
-        System.out.println("Skriv email på personen du vil tilføje et resultat til");
-        String email = keyboard.next();
-        //Competitor competitor = controller.findMember(email).get(0);  TODO lav metode til competitor
-        //System.out.println("Du vil ændre " + competitor.getFirstName() + " " + competitor.getLastName());
-        System.out.println("Hvilken disicpline vil du tilføje en tid til?(Skriv tallet): ");
-        System.out.println("1. RygCrawl");
-        System.out.println("2. Crawl");
-        System.out.println("3. Butterfly");
-        System.out.println("4. Bryst Svømning");
-
-        String userChoiceDiscipline = keyboard.next();
-        Discipline discipline = null;
-        boolean userChoiceStatus = true;
-        switch (userChoiceDiscipline) {
-            case "1" -> discipline = BACK_CRAWL;
-            case "2" -> discipline = CRAWL;
-            case "3" -> discipline = BUTTERFLY;
-            case "4" -> discipline = BREASTSTROKE;
-            default -> userChoiceStatus = false;
-        }
-        if (userChoiceStatus) {
-            System.out.println("Du valgte " + discipline);
-            System.out.println("Skriv tiden: (1.23)");
-            double userChoiceTime = keyboard.nextDouble();
-            //controller.addResult(competitor.getResults());
-        }
-
-    }*/
-
-    public void addSwimmingResult() {
+    public void addSwimmingResult() { //TODO TILPAS TIL VORES SWIMRESULT CLASS
         System.out.println("Indtast e-mail for medlemmet: ");
         String emailInput = keyboard.next();
         ArrayList<Member> searchResults = controller.findMember(emailInput);

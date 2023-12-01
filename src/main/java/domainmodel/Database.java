@@ -14,18 +14,16 @@ public class Database {
     private final File fileCompetitor = new File("competitor_data.csv");
 
     private ArrayList<Member> membersList;
-    //private ArrayList<Member> competitiveMembersList; //TODO DET HER KAN VÆRE EN FEJL HER MEN MÅSKE IK
 
 
     public Database() {
         //TODO competitor skal have egen filehandler/loaddata?
         this.membersList = fh.loadData(fileMember);
-        //this.membersList = fh.loadCompData(fileCompetitor);
     }
 
 
-    public void addMember(String email, String firstName, String lastName, int age, Boolean status, Team team) {
-        membersList.add(new Member(email,firstName,lastName,age,status, team));
+    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team) {
+        membersList.add(new Member(email,firstName,lastName,birthday,status, Team.SENIOR));
         fh.saveData(membersList, fileNameMember);
     }
     public void addCompetitor(String email, String firstName, String lastName, int age, Boolean status, Team team, EnumMap<Discipline, Double> results){
@@ -46,12 +44,29 @@ public class Database {
         }
         return searchMember;
     }
-    /*
-    public ArrayList<Member> findCompetitor(String email){ //TODO lav den her
-        ArrayList<Member> searchCompetitor = new ArrayList<>(); //TODO Behøver den at returne arraylist?
-        for (Member member : membersList) {
-            if (member.getEmail().toLowerCase().contains(email.toLowerCase())) {
-                searchCompetitor.add(member);
+    public int calculateAge(Member member){
+        LocalDate currentDate = LocalDate.now();
+        LocalDate memberBirthday = member.getBirthday();
+        return Period.between(memberBirthday,currentDate).getYears();
+    }
+
+    public void updateAge(ArrayList<Member> members){ //TODO SKAL DEN RETURNE TEAMET ELLER HVAD
+        for (Member member:members) {
+            int age = calculateAge(member);
+            if (!(member.getTeam() == Team.EXERCISER)){
+                if (age < 18){
+                    member.setTeam(Team.JUNIOR);
+                }else{
+                    member.setTeam(Team.SENIOR);
+                }
+            }
+        }
+    }
+
+    public Member findCompetitor(String email){ //
+        for (Member competitor : membersList) {
+            if (competitor.getEmail().toLowerCase().contains(email.toLowerCase())) {
+                return competitor;
             }
         }
         return searchCompetitor;

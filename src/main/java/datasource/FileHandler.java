@@ -1,6 +1,5 @@
 package datasource;
 
-import domainmodel.Competitor;
 import domainmodel.Discipline;
 import domainmodel.Member;
 import domainmodel.Team;
