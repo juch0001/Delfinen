@@ -2,11 +2,10 @@ package domainmodel;
 
 import datasource.FileHandler;
 
+
 import java.io.File;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
-import java.util.EnumMap;
 
 public class Database {
     private final FileHandler fh = new FileHandler();
@@ -17,15 +16,15 @@ public class Database {
 
     private ArrayList<Member> membersList;
 
-
     public Database() {
-        //TODO competitor skal have egen filehandler/loaddata?
         this.membersList = fh.loadData(fileMember);
     }
 
 
     public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team) {
-        membersList.add(new Member(email,firstName,lastName,birthday,status, Team.SENIOR));
+        Member newMember = new Member(email, firstName, lastName, birthday, status, Team.SENIOR);
+        newMember.teamList();
+        membersList.add(newMember);
         fh.saveData(membersList, fileNameMember);
     }
 
@@ -34,47 +33,34 @@ public class Database {
         return membersList;
     }
 
-    public ArrayList<Member> findMember(String email) {
-        ArrayList<Member> searchMember = new ArrayList<>();
+    public FileHandler getFileHandler() {
+        return fh;
+    }
+
+    public ArrayList<Member> findMembers(String email) {
+        ArrayList<Member> searchMembers = new ArrayList<>();
         for (Member member : membersList) {
             if (member.getEmail().toLowerCase().contains(email.toLowerCase())) {
-                searchMember.add(member);
+                searchMembers.add(member);
             }
         }
-        return searchMember;
+        return searchMembers;
     }
-    public int calculateAge(Member member){
+
+   /* public int calculateAge(LocalDate birthday) {
         LocalDate currentDate = LocalDate.now();
-        LocalDate memberBirthday = member.getBirthday();
-        return Period.between(memberBirthday,currentDate).getYears();
+        return Period.between(birthday, currentDate).getYears();
     }
 
-    public void updateAge(ArrayList<Member> members){ //TODO SKAL DEN RETURNE TEAMET ELLER HVAD
-        for (Member member:members) {
-            int age = calculateAge(member);
-            if (!(member.getTeam() == Team.EXERCISER)){
-                if (age < 18){
-                    member.setTeam(Team.JUNIOR);
-                }else{
-                    member.setTeam(Team.SENIOR);
-                }
-            }
-        }
-    }
 
-    public Member findCompetitor(String email){ //
-        for (Member competitor : membersList) {
-            if (competitor.getEmail().toLowerCase().contains(email.toLowerCase())) {
-                return competitor;
+    public Member findMember(String email) {
+        for (Member member : membersList) {
+            if (member.getEmail().toLowerCase().contains(email.toLowerCase())) {
+                return member;
             }
         }
         return null;
-    }
-
-
-    public void saveData(ArrayList<Member> membersList, String fileName){
-        fh.saveData(membersList, fileName);
-    }
+    }*/
 
 
 }

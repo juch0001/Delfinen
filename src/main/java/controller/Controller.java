@@ -13,25 +13,15 @@ public class Controller {
     public ArrayList<Member> getMemberlist(){
         return database.getMembersList();
     }
-    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team){
+
+    /*public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team){
         database.addMember(email,firstName,lastName,birthday,status,team);
-    }
+    }*/
 
 
     public ArrayList<Member> findMember(String email) {
-        return database.findMember(email);
+        return database.findMembers(email);
     }
-
-    public void saveData(ArrayList<Member> memberList, String fileName){
-        database.saveData(memberList, fileName);
-    }
-
-    public void addResult(EnumMap<Discipline, Double> results, Discipline discipline, double time){
-
-    }
-   /* public double totalDebt(){
-        return economy.totalDebt(database.getMembersList());
-    }*/
 
     public int totalIncome(){
         return economy.totalIncome(database.getMembersList());

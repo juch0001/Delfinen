@@ -15,8 +15,8 @@ class EconomyTest {
    EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class);
    LocalDate andrea = LocalDate.ofEpochDay(2-2-2000);
     Member junior = new Member("an@gmail.com", "Andrea", "Ryholt", andrea, true, Team.JUNIOR);
-    Member senior = new Member("ra@gmail.com", "Ras", "Hansen", 44, true, Team.SENIOR);
-    Member excerciser = new Member("sof@gmail.com", "Sofie", "Jensen", 27, true, Team.EXERCISER);
+    Member senior = new Member("ra@gmail.com", "Ras", "Hansen", true, Team.SENIOR);
+    Member excerciser = new Member("sof@gmail.com", "Sofie", "Jensen", true, Team.EXERCISER);
 
 
 

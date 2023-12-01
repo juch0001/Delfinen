@@ -3,6 +3,8 @@ package ui;
 import controller.Controller;
 import domainmodel.*;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Scanner;
@@ -73,22 +75,13 @@ public class UserInterface {
 
     public void printMemberlist(ArrayList<Member> memberList) {
         for (Member member : memberList) {
-            if (member instanceof Competitor) {
-                System.out.println(member.getEmail() + " " +
-                        member.getFirstName() + " " +
-                        member.getLastName() + " " +
-                        member.getBirthday() + " " +
-                        member.statusToString(member.getStatus()) + " " +
-                        member.getTeam() + " " +
-                        ((Competitor) member).getDisciplines());
-            } else {
                 System.out.println(member.getEmail() + " " +
                         member.getFirstName() + " " +
                         member.getLastName() + " " +
                         member.getBirthday() + " " +
                         member.statusToString(member.getStatus()) + " " +
                         member.getTeam());
-            }
+
         }
     }
 
@@ -130,15 +123,17 @@ public class UserInterface {
         String lastName = keyboard.next();
 
         // TODO automatisere team på alder
-        System.out.println("Indtast din fødsesldag (dd.mm.yyyy) : "); //age
-        int age = scanIntWithRetry();
+        System.out.println("Indtast din fødsesldag (dd-MM-yyyy) : "); //age
+        String birthdayString = keyboard.next();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate birthday = LocalDate.parse(birthdayString, dateFormatter);
 
         System.out.println("Er medlemmet aktiv svømmer (ja/nej) : "); //status
         boolean status = keyboard.next().equalsIgnoreCase("ja");
 
         System.out.println("Du har tilføjet ét nyt medlem: \n" +
                 email + "\n" + firstName + " " + lastName + "\n" +
-                age + "\n" + (status? "ja" : "nej") + "\n" + team);
+                birthday + "\n" + (status? "ja" : "nej") + "\n");
 
         System.out.println("Er medlemmet motionist eller konkurrencesvømmer: ");
         String competitorInput = keyboard.next().toLowerCase();
@@ -146,7 +141,7 @@ public class UserInterface {
             System.out.println("Hvilke discipliner svømmer medlemmet i? (Rygcrawl/Crawl/Butterfly/Brystsvømning): ");
             String disciplineInput = keyboard.next().toLowerCase();
             EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class); //
-            switch (disciplineInput.toLowerCase()){
+            switch (disciplineInput.toLowerCase()) {
                 case "rygcrawl", "ryg", "r":
                     results.put(BACK_CRAWL, 0.0);
                     break;
@@ -163,12 +158,8 @@ public class UserInterface {
                     System.out.println("Disciplin findes ikke");
             }
 
-            System.out.println( firstName + " " + lastName + " svømmer i disse discipliner: " +
+            System.out.println(firstName + " " + lastName + " svømmer i disse discipliner: " +
                     disciplineInput);
-            controller.addCompetitiveMember (email, firstName, lastName, age, status, team, results);
-
-        }else {
-            controller.addMember(email, firstName, lastName, age, status, team);
         }
 
     }
@@ -198,25 +189,14 @@ public class UserInterface {
         System.out.println("Fornavn: " + member.getFirstName());
         System.out.println("Efternavn: " + member.getLastName());
         System.out.println("Fødselsdag: " + member.getBirthday());
+        System.out.println("Alder: " + member.calculateAge());
         System.out.println("Status: " + member.statusToString(member.getStatus()));
         System.out.println("Hold: " + member.getTeam());
-
-        // Tjekker om medlemmet er en konkurrencesvømmer
-        if (member instanceof Competitor) {
-            Competitor competitor = (Competitor) member;
-            EnumMap<Discipline, Double> results = competitor.getResults();
-
-            System.out.println("Konkurrencesvømmer: Ja");
-
-            // Udskriver resultater for hver disciplin
-            System.out.println("Resultater:");
-            for (Discipline discipline : Discipline.values()) {
-                Double time = results.getOrDefault(discipline, 0.0);
-                System.out.println(discipline + ": " + time);
-            }
-        } else {
-            System.out.println("Konkurrencesvømmer: Nej");
+        System.out.println("Resultater:");
+        for (Discipline discipline : Discipline.values()) {
+            System.out.println(discipline + ": ");
         }
+        System.out.println("Konkurrencesvømmer: Nej");
     }
 
     public void addSwimmingResult() { //TODO TILPAS TIL VORES SWIMRESULT CLASS
@@ -224,8 +204,6 @@ public class UserInterface {
         String emailInput = keyboard.next();
         ArrayList<Member> searchResults = controller.findMember(emailInput);
 
-        if (!searchResults.isEmpty() && searchResults.get(0) instanceof Competitor) {
-            Competitor competitor = (Competitor) searchResults.get(0);
 
             System.out.println("Hvilken disciplin vil du tilføje en tid til? (Skriv tallet): ");
             System.out.println("1. RygCrawl");
@@ -249,21 +227,7 @@ public class UserInterface {
                 System.out.println("Du valgte " + discipline);
                 System.out.println("Skriv tiden: (1.23)");
                 double userChoiceTime = keyboard.nextDouble();
-
-                EnumMap<Discipline, Double> results = competitor.getResults();
-                results.put(discipline, userChoiceTime);
-
-                System.out.println("Svømmeresultat tilføjet for " + competitor.getFirstName() + " " + competitor.getLastName());
-            } else {
-                System.out.println("Ugyldigt valg af disciplin.");
-            }
-        } else {
-            System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
+                System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
         }
     }
-    /* hvorfor er den her
-    public static Scanner getKeyboard() {
-        return keyboard;
-    }
-*/
 }

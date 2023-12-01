@@ -8,7 +8,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Scanner;
 
@@ -33,28 +36,36 @@ public class FileHandler {
         Scanner sc;
         try {
             sc = new Scanner(file);
-
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         Member member;
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
         while (sc.hasNext()) {
             String line = sc.nextLine();
             String[] attributes = line.split(";");
+
             String email = attributes[0];
             String firstName = attributes[1];
             String lastName = attributes[2];
-            LocalDate birthday = LocalDate.parse(attributes[3]);
-            boolean status = Boolean.parseBoolean(attributes[4]);
-            member = new Member(
-                    email,
-                    firstName,
-                    lastName,
-                    birthday,
-                    status,
-                    parseMemberTeam(attributes[5]));
-            membersList.add(member);
+
+            try {
+                LocalDate birthday = LocalDate.parse(attributes[3], dateFormatter);
+                boolean status = Boolean.parseBoolean(attributes[4]);
+
+                member = new Member(
+                        email,
+                        firstName,
+                        lastName,
+                        birthday,
+                        status,
+                        parseMemberTeam(attributes[5]));
+                membersList.add(member);
+            } catch (DateTimeParseException e) {
+                System.err.println("Error parsing date: " + attributes[3]);
+            }
         }
 
         sc.close();
@@ -83,7 +94,6 @@ public class FileHandler {
         return lastMemberCsvEmail.equals(lastMemberListEmail);
     }
 
-    //get the last line of the csv file
     public String getLastLine(File file) {
         Scanner scanner;
         String lastLine;
@@ -108,6 +118,7 @@ public class FileHandler {
                 member.getStatus() + ";" +
                 member.getTeam() + "\n";
     }
+
     public Discipline parseDiscipline(String discipline){
         if (discipline.equals("CRAWL")){
             return Discipline.CRAWL;

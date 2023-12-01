@@ -1,6 +1,7 @@
 package domainmodel;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Member {
 
@@ -57,6 +58,10 @@ public class Member {
         this.lastName = lastName;
     }
 
+    public void setBirthday (LocalDate birthday){
+        this.birthday = birthday;
+    }
+
     public void setBirthYear (LocalDate birthday){
         this.birthday = birthday;
     }
@@ -76,4 +81,19 @@ public class Member {
         }else return "Nej"; //passiv
     }
 
+    public int calculateAge() {
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(birthday, currentDate).getYears();
+    }
+
+    public void teamList() {
+        int age = calculateAge();
+        if (!(team == Team.EXERCISER)) {
+            if (age < 18) {
+                setTeam(Team.JUNIOR);
+            } else {
+                setTeam(Team.SENIOR);
+            }
+        }
+    }
 }
