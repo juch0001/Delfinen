@@ -26,10 +26,7 @@ public class Database {
         membersList.add(new Member(email,firstName,lastName,birthday,status, Team.SENIOR));
         fh.saveData(membersList, fileNameMember);
     }
-    public void addCompetitor(String email, String firstName, String lastName, int age, Boolean status, Team team, EnumMap<Discipline, Double> results){
-        membersList.add(new Competitor(email,firstName,lastName,age, status, team, results));
-        fh.saveData(membersList, fileNameCompetitor);
-    }
+
 
     public ArrayList<Member> getMembersList(){
         return membersList;

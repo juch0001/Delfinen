@@ -7,6 +7,7 @@ import domainmodel.Team;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Scanner;
@@ -45,13 +46,13 @@ public class FileHandler {
             String email = attributes[0];
             String firstName = attributes[1];
             String lastName = attributes[2];
-            int age = Integer.parseInt(attributes[3]);
+            LocalDate birthday = LocalDate.parse(attributes[3]);
             boolean status = Boolean.parseBoolean(attributes[4]);
             member = new Member(
                     email,
                     firstName,
                     lastName,
-                    age,
+                    birthday,
                     status,
                     parseMemberTeam(attributes[5]));
             membersList.add(member);
@@ -61,41 +62,6 @@ public class FileHandler {
         return membersList;
     }
 
-    public ArrayList<Member> loadCompData(File file) {
-
-        ArrayList<Member> membersList = new ArrayList();
-        Scanner sc;
-        try {
-            sc = new Scanner(file);
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        Competitor competitor;
-        while (sc.hasNext()) {
-            String line = sc.nextLine();
-            String[] attributes = line.split(";");
-            String email = attributes[0];
-            String firstName = attributes[1];
-            String lastName = attributes[2];
-            int age = Integer.parseInt(attributes[3]);
-            boolean status = Boolean.parseBoolean(attributes[4]);
-            competitor = new Competitor(
-                    email,
-                    firstName,
-                    lastName,
-                    age,
-                    status,
-                    parseMemberTeam(attributes[5]),
-                    parseDisciplinResult(attributes[6]) //TODO DET HER VIRKER MÅSKE FEJLEN KAN VÆRE AT VI SKAL HAVE PLACEHOLDERS VED DISCIPLIN ATTRIBUTEN!!!!
-                    );
-            membersList.add(competitor);
-        }
-
-        sc.close();
-        return membersList;
-    }
 
     private Team parseMemberTeam(String attributes) {
         if (attributes.equalsIgnoreCase("junior")) {
@@ -139,7 +105,7 @@ public class FileHandler {
         return member.getEmail() + ";" +
                 member.getFirstName() + ";" +
                 member.getLastName() + ";" +
-                member.getAge() + ";" +
+                member.getBirthday() + ";" +
                 member.getStatus() + ";" +
                 member.getTeam() + "\n";
     }
