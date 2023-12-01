@@ -77,7 +77,7 @@ public class UserInterface {
                 System.out.println(member.getEmail() + " " +
                         member.getFirstName() + " " +
                         member.getLastName() + " " +
-                        member.getAge() + " " +
+                        member.getBirthday() + " " +
                         member.statusToString(member.getStatus()) + " " +
                         member.getTeam() + " " +
                         ((Competitor) member).getDisciplines());
@@ -85,7 +85,7 @@ public class UserInterface {
                 System.out.println(member.getEmail() + " " +
                         member.getFirstName() + " " +
                         member.getLastName() + " " +
-                        member.getAge() + " " +
+                        member.getBirthday() + " " +
                         member.statusToString(member.getStatus()) + " " +
                         member.getTeam());
             }
@@ -197,11 +197,11 @@ public class UserInterface {
         System.out.println("E-mail: " + member.getEmail());
         System.out.println("Fornavn: " + member.getFirstName());
         System.out.println("Efternavn: " + member.getLastName());
-        System.out.println("Alder: " + member.getAge());
+        System.out.println("Fødselsdag: " + member.getBirthday());
         System.out.println("Status: " + member.statusToString(member.getStatus()));
         System.out.println("Hold: " + member.getTeam());
 
-        // Tjek om medlemmet er en konkurrencesvømmer
+        // Tjekker om medlemmet er en konkurrencesvømmer
         if (member instanceof Competitor) {
             Competitor competitor = (Competitor) member;
             EnumMap<Discipline, Double> results = competitor.getResults();

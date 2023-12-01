@@ -4,15 +4,15 @@ public class Member {
     private String email;
     private String firstName;
     private String lastName;
-    private int age;
+    private LocalDate birthday;
     private boolean status;
     private Team team;
 
-    public Member(String email, String firstName,String lastName, int age, Boolean status, Team team){
+    public Member(String email, String firstName,String lastName, LocalDate birthday, Boolean status, Team team){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.age = age;
+        this.birthday = birthday;
         this.status = status;
         this.team = team;
     }
@@ -29,8 +29,8 @@ public class Member {
         return lastName;
     }
 
-    public int getAge(){
-        return age;
+    public LocalDate getBirthday(){
+        return birthday;
     }
 
 
@@ -54,8 +54,8 @@ public class Member {
         this.lastName = lastName;
     }
 
-    public void setAge (int age){
-        this.age = age;
+    public void setBirthYear (LocalDate birthday){
+        this.birthday = birthday;
     }
 
 

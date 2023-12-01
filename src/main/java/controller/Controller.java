@@ -2,6 +2,7 @@ package controller;
 
 import domainmodel.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumMap;
 
@@ -12,8 +13,8 @@ public class Controller {
     public ArrayList<Member> getMemberlist(){
         return database.getMembersList();
     }
-    public void addMember(String email, String firstName, String lastName, int age, Boolean status, Team team){
-        database.addMember(email,firstName,lastName,age,status,team);
+    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team){
+        database.addMember(email,firstName,lastName,birthday,status,team);
     }
 
 
