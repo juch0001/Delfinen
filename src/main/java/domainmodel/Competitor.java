@@ -7,8 +7,8 @@ public class Competitor extends Member {
     protected ArrayList<Discipline> disciplines;
     protected EnumMap<Discipline, Double> results; //https://www.geeksforgeeks.org/difference-between-enummap-and-hashmap/
 
-    public Competitor(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, EnumMap<Discipline, Double> results) {
-        super(email,firstName, lastName, age, debt, status, team);
+    public Competitor(String email, String firstName, String lastName, int age, Boolean status, Team team, EnumMap<Discipline, Double> results) {
+        super(email,firstName, lastName, age, status, team);
         this.disciplines = disciplines;
         this.results = results;
     }

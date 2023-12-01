@@ -5,16 +5,14 @@ public class Member {
     private String firstName;
     private String lastName;
     private int age;
-    private double debt;
     private boolean status;
     private Team team;
 
-    public Member(String email, String firstName,String lastName, int age, double debt, Boolean status, Team team){
+    public Member(String email, String firstName,String lastName, int age, Boolean status, Team team){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
-        this.debt = debt;
         this.status = status;
         this.team = team;
     }
@@ -35,9 +33,6 @@ public class Member {
         return age;
     }
 
-    public double getDebt() {
-        return debt;
-    }
 
     public boolean getStatus(){
         return status;
@@ -63,12 +58,9 @@ public class Member {
         this.age = age;
     }
 
-    public void setDebt (double debt){
-        this.debt = debt;
-    }
 
     public void setStatus (boolean status){
-       this.status = status;
+        this.status = status;
     }
 
     public void setTeam (Team team){

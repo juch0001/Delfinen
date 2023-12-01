@@ -11,9 +11,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class FileHandlerTest {
     FileHandler fileHandler = new FileHandler();
-    Member member = new Member("an@gmail.com", "Andrea", "Ryholt", 24, 0, true, Team.SENIOR);
-    Member member2 = new Member("bas@gmail.com", "asdasd", "thomsen", 28, 213123123.1, true, Team.EXERCISER);
-    Member member3 = new Member("kar@gmail.com", "Andrbavevevea", "sadasd", 240, 0.123, false, Team.JUNIOR);
+    Member member = new Member("an@gmail.com", "Andrea", "Ryholt", 24, true, Team.SENIOR);
+    Member member2 = new Member("bas@gmail.com", "asdasd", "thomsen", 28, true, Team.EXERCISER);
+    Member member3 = new Member("kar@gmail.com", "Andrbavevevea", "sadasd", 240, false, Team.JUNIOR);
     File file = new File("member_test_data.csv");
     @BeforeEach
     void setup(){

@@ -12,12 +12,12 @@ public class Controller {
     public ArrayList<Member> getMemberlist(){
         return database.getMembersList();
     }
-    public void addMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team){
-        database.addMember(email,firstName,lastName,age,debt,status,team);
+    public void addMember(String email, String firstName, String lastName, int age, Boolean status, Team team){
+        database.addMember(email,firstName,lastName,age,status,team);
     }
 
-    public void addCompetitiveMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, EnumMap<Discipline, Double> results) {
-        database.addCompetitor(email,firstName,lastName,age,debt,status, team, results);
+    public void addCompetitiveMember(String email, String firstName, String lastName, int age, Boolean status, Team team, EnumMap<Discipline, Double> results) {
+        database.addCompetitor(email,firstName,lastName,age ,status, team, results);
     }
 
     public ArrayList<Member> findMember(String email) {
@@ -31,9 +31,9 @@ public class Controller {
     public void addResult(EnumMap<Discipline, Double> results, Discipline discipline, double time){
 
     }
-    public double totalDebt(){
+   /* public double totalDebt(){
         return economy.totalDebt(database.getMembersList());
-    }
+    }*/
 
     //TODO SPØRG OM MAN MÅ DET HER
     public int totalIncome(){

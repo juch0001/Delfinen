@@ -11,26 +11,16 @@ import static domainmodel.Discipline.*;
 
 public class UserInterface {
     Controller controller = new Controller();
-    Scanner keyboard = new Scanner(System.in);
+    private static Scanner keyboard = new Scanner(System.in);
 
     private int scanIntWithRetry() {
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextInt()) {
             scanner.next();
-            System.out.println("Ikke et nummer! Prøv igen");
+            System.out.println("Not a number! Try again");
         }
         return scanner.nextInt();
     }
-
-    private double scanDoubleWithRetry(){
-        Scanner scanner = new Scanner(System.in);
-        while (!scanner.hasNextDouble()){
-            scanner.next();
-            System.out.println("Du skal skrive et kommatal!");
-        }
-        return scanner.nextDouble();
-    }
-
 
     public void startProgram() {
         boolean runProgram = true;
@@ -64,8 +54,9 @@ public class UserInterface {
                 case 4:
                     System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + " kr.");
                     break;
-                case 5:
-                    System.out.println("Den totale gæld til virksomheden: " + controller.totalDebt());
+                case 7:
+                    addSwimmingResult();
+                    break;
                 case 8:
                     //
                     break;
@@ -77,14 +68,13 @@ public class UserInterface {
         }
     }
 
-    public void printMemberlist(ArrayList<Member> memberList) { //TODO LAV DEN SÅ DEN PRINTER FRA BEGGE LISTER
+    public void printMemberlist(ArrayList<Member> memberList) {
         for (Member member : memberList) {
             if (member instanceof Competitor) {
                 System.out.println(member.getEmail() + " " +
                         member.getFirstName() + " " +
                         member.getLastName() + " " +
                         member.getAge() + " " +
-                        member.getDebt() + " " +
                         member.statusToString(member.getStatus()) + " " +
                         member.getTeam() + " " +
                         ((Competitor) member).getDisciplines());
@@ -93,7 +83,6 @@ public class UserInterface {
                         member.getFirstName() + " " +
                         member.getLastName() + " " +
                         member.getAge() + " " +
-                        member.getDebt() + " " +
                         member.statusToString(member.getStatus()) + " " +
                         member.getTeam());
             }
@@ -103,31 +92,31 @@ public class UserInterface {
     //TODO Teste tilføjelse af disciplin
 
     public void addMemberMenu() {
-            String email;
-            boolean validEmail;
+        String email;
+        boolean validEmail;
 
-            do {
-                System.out.println("Indtast e-mail: ");
-                email = keyboard.next();
+        do {
+            System.out.println("Indtast e-mail: ");
+            email = keyboard.next();
 
-                // Tjek om e-mail allerede eksisterer
-                ArrayList<Member> existingMembers = controller.getMemberlist();
-                validEmail = true;
+            // Tjek om e-mail allerede eksisterer
+            ArrayList<Member> existingMembers = controller.getMemberlist();
+            validEmail = true;
 
-                for (Member existingMember : existingMembers) {
-                    if (existingMember.getEmail().equalsIgnoreCase(email)) {
-                        System.out.println("Emailen eksisterer allerede. ");
-                        validEmail = false;
-                        break;
-                    }
-                }
-
-                if (!email.contains("@")) {
-                    System.out.println("Ikke gyldig email. Indtast en ny: ");
+            for (Member existingMember : existingMembers) {
+                if (existingMember.getEmail().equalsIgnoreCase(email)) {
+                    System.out.println("Emailen eksisterer allerede. ");
                     validEmail = false;
+                    break;
                 }
+            }
 
-            } while (!validEmail);
+            if (!email.contains("@")) {
+                System.out.println("Ikke gyldig email. Indtast en ny: ");
+                validEmail = false;
+            }
+
+        } while (!validEmail);
 
         System.out.println("Indtast første navn: "); //first name
         String firstName = keyboard.next();
@@ -138,8 +127,8 @@ public class UserInterface {
         System.out.println("Indtast alder: "); //age
         int age = scanIntWithRetry();
 
-        System.out.println("Indtast gæld: "); //debt
-        double debt = scanIntWithRetry();
+        /*System.out.println("Indtast gæld: "); //debt
+        double debt = scanIntWithRetry();*/
 
         System.out.println("Indtast status (passiv/aktiv) : "); //status
         boolean status = keyboard.next().equalsIgnoreCase("Aktiv");
@@ -156,7 +145,7 @@ public class UserInterface {
         }
         System.out.println("Du har tilføjet ét nyt medlem: \n" +
                 email + "\n" + firstName + " " + lastName + "\n" +
-                age + "\n" + debt + "\n" + (status? "aktiv" : "passiv") + "\n" + team);
+                age + "\n" + (status? "aktiv" : "passiv") + "\n" + team);
 
 
         System.out.println("Er medlemmet konkurrence svømmer? (Ja/Nej): ");
@@ -184,10 +173,10 @@ public class UserInterface {
 
             System.out.println( firstName + " " + lastName + " svømmer i disse discipliner: " +
                     disciplineInput);
-            controller.addCompetitiveMember (email, firstName, lastName, age, debt, status, team, results);
+            controller.addCompetitiveMember (email, firstName, lastName, age, status, team, results);
 
         }else {
-            controller.addMember(email, firstName, lastName, age, debt, status, team);
+            controller.addMember(email, firstName, lastName, age, status, team);
         }
 
     }
@@ -208,26 +197,33 @@ public class UserInterface {
         }
     }
 
-    private void printMemberInfo(Member member) {
+    public static void printMemberInfo(Member member) {
         System.out.println("E-mail: " + member.getEmail());
         System.out.println("Fornavn: " + member.getFirstName());
         System.out.println("Efternavn: " + member.getLastName());
         System.out.println("Alder: " + member.getAge());
-        System.out.println("Gæld: " + member.getDebt());
         System.out.println("Status: " + member.statusToString(member.getStatus()));
         System.out.println("Hold: " + member.getTeam());
 
+        // Tjek om medlemmet er en konkurrencesvømmer
         if (member instanceof Competitor) {
             Competitor competitor = (Competitor) member;
             EnumMap<Discipline, Double> results = competitor.getResults();
 
             System.out.println("Konkurrencesvømmer: Ja");
+
+            // Udskriver resultater for hver disciplin
+            System.out.println("Resultater:");
+            for (Discipline discipline : Discipline.values()) {
+                Double time = results.getOrDefault(discipline, 0.0);
+                System.out.println(discipline + ": " + time);
+            }
         } else {
             System.out.println("Konkurrencesvømmer: Nej");
         }
     }
 
-    public void addResultUI(){
+    /*public void addResultUI() {
         System.out.println("Skriv email på personen du vil tilføje et resultat til");
         String email = keyboard.next();
         //Competitor competitor = controller.findMember(email).get(0);  TODO lav metode til competitor
@@ -241,20 +237,68 @@ public class UserInterface {
         String userChoiceDiscipline = keyboard.next();
         Discipline discipline = null;
         boolean userChoiceStatus = true;
-        switch (userChoiceDiscipline){
-            case "1"-> discipline = BACK_CRAWL;
+        switch (userChoiceDiscipline) {
+            case "1" -> discipline = BACK_CRAWL;
             case "2" -> discipline = CRAWL;
             case "3" -> discipline = BUTTERFLY;
             case "4" -> discipline = BREASTSTROKE;
             default -> userChoiceStatus = false;
         }
-        if (userChoiceStatus){
+        if (userChoiceStatus) {
             System.out.println("Du valgte " + discipline);
             System.out.println("Skriv tiden: (1.23)");
             double userChoiceTime = keyboard.nextDouble();
             //controller.addResult(competitor.getResults());
         }
 
+    }*/
 
+    public void addSwimmingResult() {
+        System.out.println("Indtast e-mail for medlemmet: ");
+        String emailInput = keyboard.next();
+        ArrayList<Member> searchResults = controller.findMember(emailInput);
+
+        if (!searchResults.isEmpty() && searchResults.get(0) instanceof Competitor) {
+            Competitor competitor = (Competitor) searchResults.get(0);
+
+            System.out.println("Hvilken disciplin vil du tilføje en tid til? (Skriv tallet): ");
+            System.out.println("1. RygCrawl");
+            System.out.println("2. Crawl");
+            System.out.println("3. Butterfly");
+            System.out.println("4. Bryst Svømning");
+
+            int userChoiceDiscipline = scanIntWithRetry();
+            Discipline discipline = null;
+            boolean userChoiceStatus = true;
+
+            switch (userChoiceDiscipline) {
+                case 1 -> discipline = Discipline.BACK_CRAWL;
+                case 2 -> discipline = Discipline.CRAWL;
+                case 3 -> discipline = Discipline.BUTTERFLY;
+                case 4 -> discipline = Discipline.BREASTSTROKE;
+                default -> userChoiceStatus = false;
+            }
+
+            if (userChoiceStatus) {
+                System.out.println("Du valgte " + discipline);
+                System.out.println("Skriv tiden: (1.23)");
+                double userChoiceTime = keyboard.nextDouble();
+
+                EnumMap<Discipline, Double> results = competitor.getResults();
+                results.put(discipline, userChoiceTime);
+
+                System.out.println("Svømmeresultat tilføjet for " + competitor.getFirstName() + " " + competitor.getLastName());
+            } else {
+                System.out.println("Ugyldigt valg af disciplin.");
+            }
+        } else {
+            System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
+        }
     }
+    public static Scanner getKeyboard() {
+        return keyboard;
+    }
+
+
+
 }

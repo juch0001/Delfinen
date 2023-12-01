@@ -39,19 +39,19 @@ public int totalIncome(ArrayList<Member> members) {
         }
         return 0;
     }
-    public double totalDebt(ArrayList<Member> members){
+    /*public double totalDebt(ArrayList<Member> members){
         double totalDebt = 0;
         totalDebt += totalMemberDebt(members);
         return totalDebt;
     }
-    public double totalMemberDebt(ArrayList<Member> members){
+    public double totalMemberDebt(ArrayList<Member> members) {
         double totalMemberDebt = 0;
-        for (Member member:members) {
+        for (Member member : members) {
             totalMemberDebt += member.getDebt();
         }
         return totalMemberDebt;
     }
-    /*
+
     public double totalCompetitorDebt(ArrayList<Member> competitors){
         double totalCompetitorDebt = 0;
         for (Member competitor:competitors){

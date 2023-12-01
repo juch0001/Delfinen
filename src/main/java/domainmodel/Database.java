@@ -20,16 +20,16 @@ public class Database {
     public Database() {
         //TODO competitor skal have egen filehandler/loaddata?
         this.membersList = fh.loadData(fileMember);
-        this.membersList = fh.loadCompData(fileCompetitor);
+        //this.membersList = fh.loadCompData(fileCompetitor);
     }
 
 
-    public void addMember(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team) {
-        membersList.add(new Member(email,firstName,lastName,age,debt,status, team));
+    public void addMember(String email, String firstName, String lastName, int age, Boolean status, Team team) {
+        membersList.add(new Member(email,firstName,lastName,age,status, team));
         fh.saveData(membersList, fileNameMember);
     }
-    public void addCompetitor(String email, String firstName, String lastName, int age, double debt, Boolean status, Team team, EnumMap<Discipline, Double> results){
-        membersList.add(new Competitor(email,firstName,lastName,age,debt,status, team, results));
+    public void addCompetitor(String email, String firstName, String lastName, int age, Boolean status, Team team, EnumMap<Discipline, Double> results){
+        membersList.add(new Competitor(email,firstName,lastName,age, status, team, results));
         fh.saveData(membersList, fileNameCompetitor);
     }
 

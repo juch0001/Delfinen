@@ -47,16 +47,14 @@ public class FileHandler {
             String firstName = attributes[1];
             String lastName = attributes[2];
             int age = Integer.parseInt(attributes[3]);
-            double debt = Double.parseDouble(attributes[4]);
-            boolean status = Boolean.parseBoolean(attributes[5]);
+            boolean status = Boolean.parseBoolean(attributes[4]);
             member = new Member(
                     email,
                     firstName,
                     lastName,
                     age,
-                    debt,
                     status,
-                    parseMemberTeam(attributes[6]));
+                    parseMemberTeam(attributes[5]));
             membersList.add(member);
         }
 
@@ -83,17 +81,15 @@ public class FileHandler {
             String firstName = attributes[1];
             String lastName = attributes[2];
             int age = Integer.parseInt(attributes[3]);
-            double debt = Double.parseDouble(attributes[4]);
-            boolean status = Boolean.parseBoolean(attributes[5]);
+            boolean status = Boolean.parseBoolean(attributes[4]);
             competitor = new Competitor(
                     email,
                     firstName,
                     lastName,
                     age,
-                    debt,
                     status,
-                    parseMemberTeam(attributes[6]),
-                    parseDisciplinResult(attributes[7]) //TODO DET HER VIRKER MÅSKE FEJLEN KAN VÆRE AT VI SKAL HAVE PLACEHOLDERS VED DISCIPLIN ATTRIBUTEN!!!!
+                    parseMemberTeam(attributes[5]),
+                    parseDisciplinResult(attributes[6]) //TODO DET HER VIRKER MÅSKE FEJLEN KAN VÆRE AT VI SKAL HAVE PLACEHOLDERS VED DISCIPLIN ATTRIBUTEN!!!!
                     );
             membersList.add(competitor);
         }
@@ -145,7 +141,6 @@ public class FileHandler {
                 member.getFirstName() + ";" +
                 member.getLastName() + ";" +
                 member.getAge() + ";" +
-                member.getDebt() + ";" +
                 member.getStatus() + ";" +
                 member.getTeam() + "\n";
     }
