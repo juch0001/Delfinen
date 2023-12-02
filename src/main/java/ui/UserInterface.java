@@ -31,11 +31,11 @@ public class UserInterface {
 
         while (runProgram) {
             System.out.println("Menu: ");
-            System.out.println("1. Opret et medlem");
-            System.out.println("2. Se den komplette medlemsliste");
+            System.out.println("1. Opret medlem");
+            System.out.println("2. Se komplet medlemsliste");
             System.out.println("3. Søg E-mail for et medlem");
-            System.out.println("4. Se den totale indkomst");
-            System.out.println("5. Se den totale gæld");
+            System.out.println("4. Se indkomst");
+            System.out.println("5. Se gæld");
             System.out.println("6. Tilføj træningsresultat");
             System.out.println("7. Tilføj svømmeresultat");
             System.out.println("8. Se top 5 resultater i hver disciplin");
@@ -55,7 +55,13 @@ public class UserInterface {
                     searchMemberUI();
                     break;
                 case 4:
-                    System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + " kr.");
+                    printTotalIncome();
+                    break;
+                case 5:
+                    printTotalDebt();
+                    break;
+                case 6:
+                    //
                     break;
                 case 7:
                     addSwimmingResult();
@@ -228,6 +234,24 @@ public class UserInterface {
                 System.out.println("Skriv tiden: (1.23)");
                 double userChoiceTime = keyboard.nextDouble();
                 System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
+        }
+    }
+
+    public void printTotalIncome(){
+        System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + " kr.\n");
+        for (Member member : controller.getMemberlist()){
+            System.out.println(member.getFirstName() + " " +
+                    member.getLastName() + " (" +
+                    member.getTeam() + "): " + controller.individualMemberIncome(member) + "kr.\n");
+        }
+    }
+
+    public void printTotalDebt(){
+        System.out.println("Total gæld blandt medlemmer i klubben: " + controller.totalDebt() + " kr.\n");
+        for (Member member : controller.getMemberlist()){
+            System.out.println(member.getFirstName() + " " +
+                    member.getLastName() + ": til betaling " +
+                    controller.individualMemberDebt(member) + "kr.");
         }
     }
 }

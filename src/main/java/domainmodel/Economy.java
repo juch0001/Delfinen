@@ -1,48 +1,64 @@
 package domainmodel;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Economy {
+    LocalDateTime dueDateForFee = LocalDateTime.now().withDayOfMonth(1).plusMonths(1); //duedate er d. 1. i måneden
 
     public int totalIncome(ArrayList<Member> members) { //TODO GØR SÅ DEN TAGER I MOD BEGGE LISTER
         int total = 0;
         for (Member member : members) {
-            total += individualMemberDebt(member);
+            total += individualMemberIncome(member);
         }
         return total;
     }
 
-    //TODO rigtige priser og 60+ rabat
-    public int individualMemberDebt(Member member) {
+    public int individualMemberIncome(Member member) {
         if (member.getStatus()) {
             switch (member.getTeam()) {
-                case JUNIOR: return 1800;
-                case SENIOR: return 1600;
-                case EXERCISER: return 2000;
+                case JUNIOR:
+                    return 1000;
+                case SENIOR:
+                    if (member.calculateAge() > 59){
+                        return 1200;
+                    }
+                    else{
+                        return 1600;
+                    }
+                case EXERCISER:
+                    if (member.calculateAge() > 17){
+                        return 1600;
+                    }
+                    return 1000;
             }
         } else {
             return 500;
         }
         return 0;
     }
-    /*public double totalDebt(ArrayList<Member> members){
+
+    public double totalDebt(ArrayList<Member> members){
         double totalDebt = 0;
-        totalDebt += totalMemberDebt(members);
+        for (Member member : members) {
+            totalDebt += individualMemberDebt(member);
+        }
         return totalDebt;
     }
-   public double totalMemberDebt(ArrayList<Member> members) {
-        double totalMemberDebt = 0;
-        for (Member member : members) {
-            totalMemberDebt += member.getDebt();
-        }
-        return totalMemberDebt;
+
+    public boolean hasDebt(){
+        final boolean debt = true;
+        return debt && LocalDateTime.now().isAfter(dueDateForFee);
     }
 
-    public double totalCompetitorDebt(ArrayList<Member> competitors){
-        double totalCompetitorDebt = 0;
-        for (Member competitor:competitors){
-            totalCompetitorDebt += competitor.getDebt();
+
+    public double individualMemberDebt(Member member){
+        double individualDebt = 0;
+        if (hasDebt()){
+            LocalDateTime now = LocalDateTime.now();
+            if (now.isAfter(dueDateForFee)){
+                individualDebt += individualMemberIncome(member) * 0.1; //10% månedlig fee
+            }
         }
-        return totalCompetitorDebt;
+        return individualDebt;
     }
-*/
 }

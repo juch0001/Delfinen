@@ -26,4 +26,16 @@ public class Controller {
     public int totalIncome(){
         return economy.totalIncome(database.getMembersList());
     }
+
+    public int individualMemberIncome(Member member){
+        return economy.individualMemberIncome(member);
+    }
+
+    public double totalDebt(){
+        return economy.totalDebt(database.getMembersList());
+    }
+
+    public double individualMemberDebt(Member member){
+        return economy.individualMemberDebt(member);
+    }
 }
