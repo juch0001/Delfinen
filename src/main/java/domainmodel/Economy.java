@@ -26,7 +26,7 @@ public class Economy {
                         return 1600;
                     }
                 case EXERCISER:
-                    if (member.calculateAge() > 17){
+                    if (member.calculateAge() < 17){
                         return 1600;
                     }
                     return 1000;
@@ -45,15 +45,14 @@ public class Economy {
         return totalDebt;
     }
 
-    public boolean hasDebt(){
-        final boolean debt = true;
-        return debt && LocalDateTime.now().isAfter(dueDateForFee);
+    public boolean outstandingDebt(Member member) {
+        return !member.isSubscriptionPaid() && individualMemberIncome(member) > 0 && LocalDateTime.now().isAfter(dueDateForFee);
     }
 
-
+    //TODO skal der måske laves boolean på betalt kontigent ved oprettelse? så kan betaling indtastes manuelt. Kan man automatisere det?
     public double individualMemberDebt(Member member){
         double individualDebt = 0;
-        if (hasDebt()){
+        if (outstandingDebt(member)){
             LocalDateTime now = LocalDateTime.now();
             if (now.isAfter(dueDateForFee)){
                 individualDebt += individualMemberIncome(member) * 0.1; //10% månedlig fee

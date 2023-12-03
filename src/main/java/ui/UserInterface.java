@@ -164,6 +164,10 @@ public class UserInterface {
                     System.out.println("Disciplin findes ikke");
             }
 
+            //TODO
+            System.out.println("Er kontingentet betalt ved oprettelse? (ja/nej)");
+            boolean subscriptionPaid = keyboard.next().equalsIgnoreCase("ja");
+
             System.out.println(firstName + " " + lastName + " svømmer i disse discipliner: " +
                     disciplineInput);
         }
@@ -190,7 +194,7 @@ public class UserInterface {
 
 
 
-    public static void printMemberInfo(Member member) {
+    public void printMemberInfo(Member member) {
         System.out.println("E-mail: " + member.getEmail());
         System.out.println("Fornavn: " + member.getFirstName());
         System.out.println("Efternavn: " + member.getLastName());
@@ -203,6 +207,7 @@ public class UserInterface {
             System.out.println(discipline + ": ");
         }
         System.out.println("Konkurrencesvømmer: Nej");
+        System.out.println("Udestående gæld: " + controller.individualMemberDebt(member));
     }
 
     public void addSwimmingResult() { //TODO TILPAS TIL VORES SWIMRESULT CLASS
@@ -238,16 +243,16 @@ public class UserInterface {
     }
 
     public void printTotalIncome(){
-        System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + " kr.\n");
+        System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + "kr.\n");
         for (Member member : controller.getMemberlist()){
             System.out.println(member.getFirstName() + " " +
                     member.getLastName() + " (" +
-                    member.getTeam() + "): " + controller.individualMemberIncome(member) + "kr.\n");
+                    member.getTeam() + "): " + controller.individualMemberIncome(member) + "kr.");
         }
     }
 
     public void printTotalDebt(){
-        System.out.println("Total gæld blandt medlemmer i klubben: " + controller.totalDebt() + " kr.\n");
+        System.out.println("Total gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
         for (Member member : controller.getMemberlist()){
             System.out.println(member.getFirstName() + " " +
                     member.getLastName() + ": til betaling " +

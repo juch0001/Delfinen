@@ -12,15 +12,18 @@ public class Member {
     private LocalDate birthday;
     private boolean status;
     private Team team;
+    private boolean subscriptionPaid;
 
-    public Member(String email, String firstName,String lastName, LocalDate birthday, Boolean status, Team team){
+    public Member(String email, String firstName,String lastName, LocalDate birthday, Boolean status, Team team, Boolean subscriptionPaid){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
         this.status = status;
         this.team = team;
+        this.subscriptionPaid = subscriptionPaid;
     }
+
 
     public String getEmail() {
         return email;
@@ -45,6 +48,10 @@ public class Member {
 
     public Team getTeam() {
         return team;
+    }
+
+    public boolean isSubscriptionPaid(){
+        return subscriptionPaid;
     }
 
     public void setEmail(String email) {
@@ -74,6 +81,10 @@ public class Member {
 
     public void setTeam (Team team){
         this.team = team;
+    }
+
+    public void setSubscriptionPaid(boolean subscriptionPaid){
+        this.subscriptionPaid = subscriptionPaid;
     }
 
     public String statusToString(boolean status){
