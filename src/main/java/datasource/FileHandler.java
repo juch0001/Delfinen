@@ -54,6 +54,7 @@ public class FileHandler {
             try {
                 LocalDate birthday = LocalDate.parse(attributes[3], dateFormatter);
                 boolean status = Boolean.parseBoolean(attributes[4]);
+                LocalDate signUpDate = LocalDate.parse(attributes[6], dateFormatter);
 
                 member = new Member(
                         email,

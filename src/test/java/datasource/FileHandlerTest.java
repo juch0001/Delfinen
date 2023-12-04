@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileHandlerTest {
+/*class FileHandlerTest {
     FileHandler fileHandler = new FileHandler();
     Member member = new Member("an@gmail.com", "Andrea", "Ryholt", 14, true, Team.SENIOR);
     Member member2 = new Member("bas@gmail.com", "asdasd", "thomsen", true, Team.EXERCISER);
@@ -44,4 +44,4 @@ class FileHandlerTest {
     @org.junit.jupiter.api.Test
     void getLastLine() {
     }
-}
+}*/

@@ -12,16 +12,16 @@ public class Member {
     private LocalDate birthday;
     private boolean status;
     private Team team;
-    private boolean subscriptionPaid;
+    private LocalDate signUpDate;
 
-    public Member(String email, String firstName,String lastName, LocalDate birthday, Boolean status, Team team, Boolean subscriptionPaid){
+    public Member(String email, String firstName,String lastName, LocalDate birthday, Boolean status, Team team, LocalDate signUpDate){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthday = birthday;
         this.status = status;
         this.team = team;
-        this.subscriptionPaid = subscriptionPaid;
+        this.signUpDate = signUpDate;
     }
 
 
@@ -96,6 +96,11 @@ public class Member {
     public int calculateAge() {
         LocalDate currentDate = LocalDate.now();
         return Period.between(birthday, currentDate).getYears();
+    }
+
+    public Period membershipSignUpDate(){
+        LocalDate dueDateForFee = LocalDate.now().withDayOfMonth(1).plusMonths(1);
+        return Period.between(signUpDate, dueDateForFee);
     }
 
     public void teamList() {

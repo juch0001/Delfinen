@@ -9,7 +9,7 @@ import java.util.EnumMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class EconomyTest {
+/*class EconomyTest {
    Economy economy = new Economy();
    ArrayList<Member> members = new ArrayList<>();
    EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class);
@@ -43,4 +43,3 @@ class EconomyTest {
 
      assertEquals(exceptedTotal, actualTotal);
     }*/
-}

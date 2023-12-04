@@ -164,6 +164,8 @@ public class UserInterface {
                     System.out.println("Disciplin findes ikke");
             }
 
+            //controller.addMember(email, firstName, lastName, birthday, status, team, membershipSignUpDateString);
+
             //TODO
             System.out.println("Er kontingentet betalt ved oprettelse? (ja/nej)");
             boolean subscriptionPaid = keyboard.next().equalsIgnoreCase("ja");

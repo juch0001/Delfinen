@@ -14,8 +14,8 @@ public class Controller {
         return database.getMembersList();
     }
 
-    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team, Boolean subscriptionPaid){
-        database.addMember(email,firstName,lastName,birthday,status,team, subscriptionPaid);
+    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team, LocalDate signUpDate){
+        database.addMember(email,firstName,lastName,birthday,status,team, signUpDate);
     }
 
 

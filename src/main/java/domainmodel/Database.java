@@ -21,8 +21,8 @@ public class Database {
     }
 
 
-    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team, Boolean subscriptionPaid) {
-        Member newMember = new Member(email, firstName, lastName, birthday, status, team, subscriptionPaid);
+    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team, LocalDate signUpDate) {
+        Member newMember = new Member(email, firstName, lastName, birthday, status, team, signUpDate);
         newMember.teamList();
         membersList.add(newMember);
         fh.saveData(membersList, fileNameMember);
