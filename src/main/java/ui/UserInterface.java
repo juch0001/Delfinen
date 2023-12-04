@@ -241,7 +241,7 @@ public class UserInterface {
         System.out.println("Udestående gæld: " + controller.individualMemberDebt(member));
     }
 
-    public void addSwimmingResult() { //TODO TILPAS TIL VORES SWIMRESULT CLASS
+    public void addSwimmingResult() {
         System.out.println("Indtast e-mail for medlemmet: ");
         String emailInput = keyboard.next();
         ArrayList<Member> searchResults = controller.findMember(emailInput);
@@ -265,10 +265,30 @@ public class UserInterface {
             default -> userChoiceStatus = false;
         }
 
+
+
         if (userChoiceStatus) {
             System.out.println("Du valgte " + discipline);
-            System.out.println("Skriv tiden: (1.23)"); //TODO man skal kunne skrive . imellem tallene(lige nu virker det kun med hele tal)
-            double userChoiceTime = keyboard.nextDouble();
+
+            double userChoiceTime;
+
+            do {
+                System.out.println("Skriv tiden: (1.23)");
+
+                String userInput = keyboard.next();
+
+                try {
+                    // Erstat komma med punktum og håndter også indtastning med punktum
+                    userChoiceTime = Double.parseDouble(userInput.replace(',', '.'));
+
+                    if (userChoiceTime < 0) {
+                        throw new NumberFormatException(); //hvis nummeret er negativt.
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Ugyldigt input. Indtast venligst et gyldigt tal.");
+                    userChoiceTime = -1;
+                }
+            } while (userChoiceTime < 0);
 
 
             for (Member member : searchResults) {
