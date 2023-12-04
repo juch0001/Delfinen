@@ -20,5 +20,13 @@ public class SwimResult {
         this.tournament = tournament;
     }
 
+    public String getSwimmingDetails() {
+        return "Email: " + email +
+                "\nDato: " + date +
+                "\nDisciplin: " + discipline +
+                "\nTid: " + time +
+                "\nTournament: " + tournament;
+    }
+
 }
 

@@ -4,7 +4,9 @@ import controller.Controller;
 import domainmodel.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Scanner;
@@ -79,12 +81,12 @@ public class UserInterface {
 
     public void printMemberlist(ArrayList<Member> memberList) {
         for (Member member : memberList) {
-                System.out.println(member.getEmail() + " " +
-                        member.getFirstName() + " " +
-                        member.getLastName() + " " +
-                        member.getBirthday() + " " +
-                        member.statusToString(member.getStatus()) + " " +
-                        member.getTeam());
+            System.out.println(member.getEmail() + " " +
+                    member.getFirstName() + " " +
+                    member.getLastName() + " " +
+                    member.getBirthday() + " " +
+                    member.statusToString(member.getStatus()) + " " +
+                    member.getTeam());
 
         }
     }
@@ -94,6 +96,8 @@ public class UserInterface {
     public void addMemberMenu() {
         String email;
         boolean validEmail;
+        String birthdayString;
+        LocalDate birthday = null;
 
         do {
             System.out.println("Indtast e-mail: ");
@@ -125,22 +129,40 @@ public class UserInterface {
         System.out.println("Indtast efternavn: "); //last name
         String lastName = keyboard.next();
 
-        // TODO automatisere team på alder
-        System.out.println("Indtast din fødsesldag (dd-MM-yyyy) : "); //age
-        String birthdayString = keyboard.next();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDate birthday = LocalDate.parse(birthdayString, dateFormatter);
+        //Sørger for at returnere igen istedet for at lukke programmet hvis man indtaster forkert.
+        DateTimeFormatter dateFormatter = null;
+        do {
+            System.out.println("Indtast din fødsesldag (dd-MM-yyyy) : "); //age
+            birthdayString = keyboard.next();
+            try {
+                dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+                birthday = LocalDate.parse(birthdayString, dateFormatter);
+            } catch (DateTimeParseException e) {
+                System.out.println("Forkert indtastning. Prøv igen. ");
+            }
+        } while (birthday == null);
+
+
+        //Tildeler hvilket hold man er på afhængigt af alderen.
+        Team team;
+        if (calculateAge(birthday) < 18) {
+            team = Team.JUNIOR;
+            System.out.println("Du er tilmeldt hold: Junior");
+        } else {
+            team = Team.SENIOR;
+            System.out.println("Du er tilmeldt hold: Senior");
+        }
 
         System.out.println("Er medlemmet aktiv svømmer (ja/nej) : "); //status
         boolean status = keyboard.next().equalsIgnoreCase("ja");
 
         System.out.println("Indtast dags dato (dd-MM-yyyy) : ");
         String membershipSignUpDateString = keyboard.next();
-        LocalDate.parse(membershipSignUpDateString, dateFormatter);
+        LocalDate membershipSignUpDate = LocalDate.parse(membershipSignUpDateString, dateFormatter);
 
         System.out.println("Du har tilføjet ét nyt medlem: \n" +
-                email + "\n" + firstName + " " + lastName + "\n" +
-                birthday + "\n" + (status? "ja" : "nej") + "\n");
+                "Email: " + email + "\n" + "Fornavn: " + firstName + "\n" + "Efternavn: " + lastName + "\n" +
+                "Hold: " + team + "\n" + "Aktiv svømmer: " + (status ? "ja" : "nej") + "\n");
 
         System.out.println("Er medlemmet motionist eller konkurrencesvømmer: ");
         String competitorInput = keyboard.next().toLowerCase();
@@ -163,7 +185,9 @@ public class UserInterface {
                     break;
                 default:
                     System.out.println("Disciplin findes ikke");
+
             }
+
 
             //controller.addMember(email, firstName, lastName, birthday, status, team, membershipSignUpDateString);
 
@@ -173,28 +197,32 @@ public class UserInterface {
 
             System.out.println(firstName + " " + lastName + " svømmer i disse discipliner: " +
                     disciplineInput);
+
         }
 
     }
 
+    private int calculateAge(LocalDate birthday) {
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(birthday, currentDate).getYears();
+    }
 
 
-    public void searchMemberUI(){
+    public void searchMemberUI() {
         System.out.println("Indtast e-mail for at søge efter medlem: ");
         String emailInput = keyboard.next();
 
         ArrayList<Member> searchResults = controller.findMember(emailInput);
 
-        if (searchResults.isEmpty()){
+        if (searchResults.isEmpty()) {
             System.out.println("Ingen medlemmer fundet");
-        }else {
+        } else {
             System.out.println("Medlemmer fundet: ");
             for (Member member : searchResults) {
                 printMemberInfo(member);
             }
         }
     }
-
 
 
     public void printMemberInfo(Member member) {
@@ -219,47 +247,61 @@ public class UserInterface {
         ArrayList<Member> searchResults = controller.findMember(emailInput);
 
 
-            System.out.println("Hvilken disciplin vil du tilføje en tid til? (Skriv tallet): ");
-            System.out.println("1. RygCrawl");
-            System.out.println("2. Crawl");
-            System.out.println("3. Butterfly");
-            System.out.println("4. Bryst Svømning");
+        System.out.println("Hvilken disciplin vil du tilføje en tid til? (Skriv tallet): ");
+        System.out.println("1. RygCrawl");
+        System.out.println("2. Crawl");
+        System.out.println("3. Butterfly");
+        System.out.println("4. Bryst Svømning");
 
-            int userChoiceDiscipline = scanIntWithRetry();
-            Discipline discipline = null;
-            boolean userChoiceStatus = true;
+        int userChoiceDiscipline = scanIntWithRetry();
+        Discipline discipline = null;
+        boolean userChoiceStatus = true;
 
-            switch (userChoiceDiscipline) {
-                case 1 -> discipline = Discipline.BACK_CRAWL;
-                case 2 -> discipline = Discipline.CRAWL;
-                case 3 -> discipline = Discipline.BUTTERFLY;
-                case 4 -> discipline = Discipline.BREASTSTROKE;
-                default -> userChoiceStatus = false;
+        switch (userChoiceDiscipline) {
+            case 1 -> discipline = Discipline.BACK_CRAWL;
+            case 2 -> discipline = Discipline.CRAWL;
+            case 3 -> discipline = Discipline.BUTTERFLY;
+            case 4 -> discipline = Discipline.BREASTSTROKE;
+            default -> userChoiceStatus = false;
+        }
+
+        if (userChoiceStatus) {
+            System.out.println("Du valgte " + discipline);
+            System.out.println("Skriv tiden: (1.23)"); //TODO man skal kunne skrive . imellem tallene(lige nu virker det kun med hele tal)
+            double userChoiceTime = keyboard.nextDouble();
+
+
+            for (Member member : searchResults) {
+                SwimResult swimResult = new SwimResult(member.getEmail(), LocalDate.now(), discipline, userChoiceTime, " ");
+                System.out.println(swimResult.getSwimmingDetails());
             }
+        } else {
+            System.out.println("Ugyldig disciplinvalg.");
+        }
 
-            if (userChoiceStatus) {
-                System.out.println("Du valgte " + discipline);
-                System.out.println("Skriv tiden: (1.23)");
-                double userChoiceTime = keyboard.nextDouble();
-                System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
+        if (searchResults.isEmpty()) {
+            System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
         }
     }
 
-    public void printTotalIncome(){
-        System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + "kr.\n");
-        for (Member member : controller.getMemberlist()){
-            System.out.println(member.getFirstName() + " " +
-                    member.getLastName() + " (" +
-                    member.getTeam() + "): " + controller.individualMemberIncome(member) + "kr.");
+
+        public void printTotalIncome () {
+            System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + "kr.\n");
+            for (Member member : controller.getMemberlist()) {
+                System.out.println(member.getFirstName() + " " +
+                        member.getLastName() + " (" +
+                        member.getTeam() + "): " + controller.individualMemberIncome(member) + "kr.");
+            }
+        }
+
+        public void printTotalDebt () {
+            System.out.println("Total gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
+            for (Member member : controller.getMemberlist()) {
+                System.out.println(member.getFirstName() + " " +
+                        member.getLastName() + ": til betaling " +
+                        controller.individualMemberDebt(member) + "kr.");
+            }
         }
     }
 
-    public void printTotalDebt(){
-        System.out.println("Total gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
-        for (Member member : controller.getMemberlist()){
-            System.out.println(member.getFirstName() + " " +
-                    member.getLastName() + ": til betaling " +
-                    controller.individualMemberDebt(member) + "kr.");
-        }
-    }
-}
+
