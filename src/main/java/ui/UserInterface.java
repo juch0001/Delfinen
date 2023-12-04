@@ -77,8 +77,6 @@ public class UserInterface {
         }
     }
 
-
-
     public void printMemberlist(ArrayList<Member> memberList) {
         for (Member member : memberList) {
                 System.out.println(member.getEmail() + " " +
@@ -90,7 +88,6 @@ public class UserInterface {
 
         }
     }
-
 
 
     //TODO Teste tilføjelse af disciplin
@@ -136,6 +133,10 @@ public class UserInterface {
 
         System.out.println("Er medlemmet aktiv svømmer (ja/nej) : "); //status
         boolean status = keyboard.next().equalsIgnoreCase("ja");
+
+        System.out.println("Indtast dags dato (dd-MM-yyyy) : ");
+        String membershipSignUpDateString = keyboard.next();
+        LocalDate.parse(membershipSignUpDateString, dateFormatter);
 
         System.out.println("Du har tilføjet ét nyt medlem: \n" +
                 email + "\n" + firstName + " " + lastName + "\n" +

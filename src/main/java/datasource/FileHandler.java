@@ -62,7 +62,8 @@ public class FileHandler {
                         lastName,
                         birthday,
                         status,
-                        parseMemberTeam(attributes[5]));
+                        parseMemberTeam(attributes[5]),
+                        signUpDate);
                 membersList.add(member);
             } catch (DateTimeParseException e) {
                 System.err.println("Error parsing date: " + attributes[3]);

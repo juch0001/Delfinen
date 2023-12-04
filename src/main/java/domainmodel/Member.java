@@ -50,9 +50,9 @@ public class Member {
         return team;
     }
 
-    public boolean isSubscriptionPaid(){
+   /* public boolean isSubscriptionPaid(){
         return subscriptionPaid;
-    }
+    }*/
 
     public void setEmail(String email) {
         this.email = email;
@@ -83,9 +83,9 @@ public class Member {
         this.team = team;
     }
 
-    public void setSubscriptionPaid(boolean subscriptionPaid){
+    /*public void setSubscriptionPaid(boolean subscriptionPaid){
         this.subscriptionPaid = subscriptionPaid;
-    }
+    }*/
 
     public String statusToString(boolean status){
         if (status){

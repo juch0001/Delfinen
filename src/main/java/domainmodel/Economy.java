@@ -54,7 +54,7 @@ public class Economy {
         double individualDebt = 0;
         /*if (member.membershipSignUpDate()){
             LocalDateTime now = LocalDateTime.now();
-            if (now.isAfter(dueDateForFee)){
+            if (now.isAfter(s<gd<shg)){
                 individualDebt += individualMemberIncome(member) * 0.1; //10% månedlig fee
             }
         }*/
