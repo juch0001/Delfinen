@@ -12,6 +12,13 @@ public class Main {
 /*
 Hvordan tildeler man medlemmer svømmeresultater?
 Hvordan kan hver medlem have flere resultat-tider pr disciplin - lige meget om det er træning eller stævne
-Hvordan får vi dato på signup og hvordan kan dette gemmes og sammenlignes, så der automatisk kommer fee på?
+*/
 
- */
+/** TODO
+top 5
+træningsresultater
+tilføje flere resultater - stævne navn tilføjes
+
+oprettelse af members - lidt pænere?
+gør kode pænt
+*/

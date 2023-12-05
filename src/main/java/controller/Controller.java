@@ -14,8 +14,8 @@ public class Controller {
         return database.getMembersList();
     }
 
-    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team, LocalDate signUpDate){
-        database.addMember(email,firstName,lastName,birthday,status,team, signUpDate);
+    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team, boolean isPaid){
+        database.addMember(email,firstName,lastName,birthday,status,team, isPaid);
     }
 
 
@@ -27,8 +27,8 @@ public class Controller {
         return economy.totalIncome(database.getMembersList());
     }
 
-    public int individualMemberIncome(Member member){
-        return economy.individualMemberIncome(member);
+    public int calculateIncome(Member member){
+        return database.calculateIncome(member);
     }
 
     public double totalDebt(){

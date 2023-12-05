@@ -9,14 +9,13 @@ import java.util.EnumMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/*class EconomyTest {
-   Economy economy = new Economy();
-   ArrayList<Member> members = new ArrayList<>();
-   EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class);
-   LocalDate andrea = LocalDate.ofEpochDay(2-2-2000);
-    Member junior = new Member("an@gmail.com", "Andrea", "Ryholt", andrea, true, Team.JUNIOR);
-    Member senior = new Member("ra@gmail.com", "Ras", "Hansen", true, Team.SENIOR);
-    Member excerciser = new Member("sof@gmail.com", "Sofie", "Jensen", true, Team.EXERCISER);
+class EconomyTest {
+ Economy economy = new Economy();
+ ArrayList<Member> members = new ArrayList<>();
+ Member junior = new Member("an@gmail.com", "Andrea", "Ryholt", LocalDate.parse("2005-02-20"), true, Team.JUNIOR, false);
+ Member senior = new Member("ra@gmail.com", "Ras", "Hansen", LocalDate.parse("1994-03-20"), true, Team.SENIOR, true);
+ Member persioner = new Member("sof@gmail.com", "Sofie", "Jensen",LocalDate.parse("1729-06-02"), true, Team.PENSIONER, false);
+ Member motionist = new Member("gam@gmail.com", "gammel", "dame",LocalDate.parse("1900-06-03"), true, Team.EXERCISER, true);
 
 
 

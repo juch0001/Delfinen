@@ -21,7 +21,7 @@ public class Member {
         this.birthday = birthday;
         this.status = status;
         this.team = team;
-        this.signUpDate = signUpDate;
+        this.isPaid = isPaid;
     }
 
 
@@ -96,11 +96,6 @@ public class Member {
     public int calculateAge() {
         LocalDate currentDate = LocalDate.now();
         return Period.between(birthday, currentDate).getYears();
-    }
-
-    public Period membershipSignUpDate(){
-        LocalDate dueDateForFee = LocalDate.now().withDayOfMonth(1).plusMonths(1);
-        return Period.between(signUpDate, dueDateForFee);
     }
 
     public void teamList() {

@@ -20,9 +20,8 @@ public class Database {
         this.membersList = fh.loadData(fileMember);
     }
 
-
-    public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team, LocalDate signUpDate) {
-        Member newMember = new Member(email, firstName, lastName, birthday, status, team, signUpDate);
+    public void addMember(String email, String firstName, String lastName, LocalDate birthday, boolean status, Team team, boolean isPaid) {
+        Member newMember = new Member(email, firstName, lastName, birthday, status, team, isPaid);
         newMember.teamList();
         membersList.add(newMember);
         fh.saveData(membersList, fileNameMember);
@@ -62,5 +61,13 @@ public class Database {
         return null;
     }*/
 
-
+public double individualMemberDebt(Member member) {
+    return member.individualMemberDebt();
+}
+public int calculateIncome (Member member) {
+    return member.calculateIncome();
+}
+public void loadData(){
+    fh.loadData(fileMember);
+}
 }

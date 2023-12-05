@@ -54,7 +54,7 @@ public class FileHandler {
             try {
                 LocalDate birthday = LocalDate.parse(attributes[3], dateFormatter);
                 boolean status = Boolean.parseBoolean(attributes[4]);
-                LocalDate signUpDate = LocalDate.parse(attributes[6], dateFormatter);
+                boolean isPaid = Boolean.parseBoolean(attributes[6]);
 
                 member = new Member(
                         email,
@@ -63,7 +63,7 @@ public class FileHandler {
                         birthday,
                         status,
                         parseMemberTeam(attributes[5]),
-                        signUpDate);
+                        isPaid);
                 membersList.add(member);
             } catch (DateTimeParseException e) {
                 System.err.println("Error parsing date: " + attributes[3]);

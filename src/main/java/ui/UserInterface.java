@@ -156,51 +156,15 @@ public class UserInterface {
         System.out.println("Er medlemmet aktiv svømmer (ja/nej) : "); //status
         boolean status = keyboard.next().equalsIgnoreCase("ja");
 
-        System.out.println("Indtast dags dato (dd-MM-yyyy) : ");
-        String membershipSignUpDateString = keyboard.next();
-        LocalDate membershipSignUpDate = LocalDate.parse(membershipSignUpDateString, dateFormatter);
+        System.out.println("Er kontingentet betalt ved oprettelse? (ja/nej)");
+        boolean subscriptionPaid = keyboard.next().equalsIgnoreCase("ja");
 
         System.out.println("Du har tilføjet ét nyt medlem: \n" +
                 "Email: " + email + "\n" + "Fornavn: " + firstName + "\n" + "Efternavn: " + lastName + "\n" +
                 "Hold: " + team + "\n" + "Aktiv svømmer: " + (status ? "ja" : "nej") + "\n");
-
-        System.out.println("Er medlemmet motionist eller konkurrencesvømmer: ");
-        String competitorInput = keyboard.next().toLowerCase();
-        if (competitorInput.equals("ja".toLowerCase())) { //TODO GØR DET HER TIL EN METODE????
-            System.out.println("Hvilke discipliner svømmer medlemmet i? (Rygcrawl/Crawl/Butterfly/Brystsvømning): ");
-            String disciplineInput = keyboard.next().toLowerCase();
-            EnumMap<Discipline, Double> results = new EnumMap<>(Discipline.class); //
-            switch (disciplineInput.toLowerCase()) {
-                case "rygcrawl", "ryg", "r":
-                    results.put(BACK_CRAWL, 0.0);
-                    break;
-                case "crawl", "cra", "c":
-                    results.put(CRAWL, 0.0);
-                    break;
-                case "butterfly", "but":
-                    results.put(BUTTERFLY, 0.0);
-                    break;
-                case "brystsvømning", "bry":
-                    results.put(BREASTSTROKE, 0.0);
-                    break;
-                default:
-                    System.out.println("Disciplin findes ikke");
-
-            }
-
-
-            //controller.addMember(email, firstName, lastName, birthday, status, team, membershipSignUpDateString);
-
-            //TODO
-            System.out.println("Er kontingentet betalt ved oprettelse? (ja/nej)");
-            boolean subscriptionPaid = keyboard.next().equalsIgnoreCase("ja");
-
-            System.out.println(firstName + " " + lastName + " svømmer i disse discipliner: " +
-                    disciplineInput);
-
-        }
-
+        controller.addMember(email, firstName, lastName, birthday, status, team, subscriptionPaid);
     }
+
 
     private int calculateAge(LocalDate birthday) {
         LocalDate currentDate = LocalDate.now();
@@ -310,7 +274,7 @@ public class UserInterface {
             for (Member member : controller.getMemberlist()) {
                 System.out.println(member.getFirstName() + " " +
                         member.getLastName() + " (" +
-                        member.getTeam() + "): " + controller.individualMemberIncome(member) + "kr.");
+                        member.getTeam() + "): " + controller.calculateIncome(member) + "kr.");
             }
         }
 
