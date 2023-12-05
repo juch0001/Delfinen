@@ -54,13 +54,13 @@ public class Database {
         return null;
     }*/
 
-public double individualMemberDebt(Member member) {
-    return member.individualMemberDebt();
-}
-public int calculateIncome (Member member) {
-    return member.calculateIncome();
-}
-public void loadData(){
-    fh.loadData(fileMember);
-}
+    public double individualMemberDebt(Member member) {
+        return member.individualMemberDebt();
+    }
+    public int calculateIncome (Member member) {
+        return member.calculateIncome();
+    }
+    public void loadData(){
+        fh.loadData(fileMember);
+    }
 }

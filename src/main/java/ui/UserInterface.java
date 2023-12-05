@@ -64,10 +64,10 @@ public class UserInterface {
                     printTotalDebt();
                     break;
                 case 6:
-                    //
+                    addTrainingResults();
                     break;
                 case 7:
-                    addSwimmingResult();
+                    addSwimmingResults();
                     break;
                 case 8:
                     //
@@ -205,83 +205,171 @@ public class UserInterface {
     }
 
 
-    public void addSwimmingResult() {
-        System.out.println("Indtast e-mail for medlemmet: ");
-        String emailInput = keyboard.next();
-        ArrayList<Member> searchResults = controller.findMember(emailInput);
+    public void addTrainingResults() {
+        boolean addMoreResults;
 
-        System.out.println("Hvilken disciplin vil du tilføje en tid til? (Skriv tallet): ");
-        System.out.println("1. RygCrawl");
-        System.out.println("2. Crawl");
-        System.out.println("3. Butterfly");
-        System.out.println("4. Bryst Svømning");
+        do {
+            System.out.println("Indtast e-mail for medlemmet: ");
+            String emailInput = keyboard.next();
+            ArrayList<Member> searchResults = controller.findMember(emailInput);
 
-        int userChoiceDiscipline = scanIntWithRetry();
-        Discipline discipline = null;
-        boolean userChoiceStatus = true;
+            if (searchResults.isEmpty()) {
+                System.out.println("Ingen medlemmer fundet med den angivne e-mail.");
+            } else {
+                Member selectedMember = searchResults.get(0);
 
-        switch (userChoiceDiscipline) {
-            case 1 -> discipline = Discipline.BACK_CRAWL;
-            case 2 -> discipline = Discipline.CRAWL;
-            case 3 -> discipline = Discipline.BUTTERFLY;
-            case 4 -> discipline = Discipline.BREASTSTROKE;
-            default -> userChoiceStatus = false;
-        }
+                do {
+                    System.out.println("Hvilken disciplin vil du tilføje et træningsresultat til? (Skriv tallet): ");
+                    System.out.println("1. RygCrawl");
+                    System.out.println("2. Crawl");
+                    System.out.println("3. Butterfly");
+                    System.out.println("4. Bryst Svømning");
 
-        if (userChoiceStatus) {
-            System.out.println("Du valgte " + discipline);
-            double userChoiceTime;
+                    int userChoiceDiscipline = scanIntWithRetry();
+                    Discipline discipline = null;
+                    boolean userChoiceStatus = true;
 
-            do {
-                System.out.println("Skriv tiden: (1.23)");
-                String userInput = keyboard.next();
-
-                try {
-                    // Erstat komma med punktum og håndter også indtastning med punktum
-                    userChoiceTime = Double.parseDouble(userInput.replace(',', '.'));
-                    if (userChoiceTime < 0) {
-                        throw new NumberFormatException(); //hvis a er negativt.
+                    switch (userChoiceDiscipline) {
+                        case 1 -> discipline = Discipline.BACK_CRAWL;
+                        case 2 -> discipline = Discipline.CRAWL;
+                        case 3 -> discipline = Discipline.BUTTERFLY;
+                        case 4 -> discipline = Discipline.BREASTSTROKE;
+                        default -> userChoiceStatus = false;
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Ugyldigt input. Indtast venligst et gyldigt tal.");
-                    userChoiceTime = -1;
-                }
-            } while (userChoiceTime < 0);
 
-            for (Member member : searchResults) {
-                SwimResult swimResult = new SwimResult(member.getEmail(), LocalDate.now(), discipline, userChoiceTime, " ");
-                System.out.println(swimResult.getSwimmingDetails());
+                    if (userChoiceStatus) {
+                        System.out.println("Du valgte " + discipline);
+                        double userChoiceTime;
+
+                        do {
+                            System.out.println("Skriv tiden: (1.23)");
+                            String userInput = keyboard.next();
+
+                            try {
+                                // Erstat komma med punktum og håndter også indtastning med punktum
+                                userChoiceTime = Double.parseDouble(userInput.replace(',', '.'));
+                                if (userChoiceTime < 0) {
+                                    throw new NumberFormatException();
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Ugyldigt input. Indtast venligst et gyldigt tal.");
+                                userChoiceTime = -1;
+                            }
+                        } while (userChoiceTime < 0);
+
+                        System.out.println("Træningsresultat tilføjet: " + selectedMember.getFirstName() + " " + selectedMember.getLastName());
+                    } else {
+                        System.out.println("Ugyldig disciplinvalg.");
+                    }
+
+                    // Spørg brugeren, om de ønsker at tilføje flere træningsresultater
+                    System.out.println("Vil du tilføje flere træningsresultater? (ja/nej)");
+                    addMoreResults = keyboard.next().equalsIgnoreCase("ja");
+
+                } while (addMoreResults);
             }
-        } else {
-            System.out.println("Ugyldig disciplinvalg.");
-        }
 
-        if (searchResults.isEmpty()) {
-            System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
-        }
+            // Spørg brugeren, om de ønsker at søge efter et nyt medlem
+            System.out.println("Vil du søge efter et nyt medlem? (ja/nej)");
+            addMoreResults = keyboard.next().equalsIgnoreCase("ja");
+
+        } while (addMoreResults);
     }
 
 
-        public void printTotalIncome () {
-            for (Member member : controller.getMemberlist()) {
+
+
+    public void addSwimmingResults() {
+        boolean addMoreResults;
+
+        do {
+            System.out.println("Indtast e-mail for medlemmet: ");
+            String emailInput = keyboard.next();
+            ArrayList<Member> searchResults = controller.findMember(emailInput);
+
+            if (searchResults.isEmpty()) {
+                System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
+            } else {
+                Member selectedMember = searchResults.get(0);
+
+                do {
+                    System.out.println("Hvilken disciplin vil du tilføje en tid til? (Skriv tallet): ");
+                    System.out.println("1. RygCrawl");
+                    System.out.println("2. Crawl");
+                    System.out.println("3. Butterfly");
+                    System.out.println("4. Bryst Svømning");
+
+                    int userChoiceDiscipline = scanIntWithRetry();
+                    Discipline discipline = null;
+                    boolean userChoiceStatus = true;
+
+                    switch (userChoiceDiscipline) {
+                        case 1 -> discipline = Discipline.BACK_CRAWL;
+                        case 2 -> discipline = Discipline.CRAWL;
+                        case 3 -> discipline = Discipline.BUTTERFLY;
+                        case 4 -> discipline = Discipline.BREASTSTROKE;
+                        default -> userChoiceStatus = false;
+                    }
+
+                    if (userChoiceStatus) {
+                        System.out.println("Du valgte " + discipline);
+                        double userChoiceTime;
+
+                        do {
+                            System.out.println("Skriv tiden: (1.23)");
+                            String userInput = keyboard.next();
+
+                            try {
+                                // Erstat komma med punktum og håndter også indtastning med punktum
+                                userChoiceTime = Double.parseDouble(userInput.replace(',', '.'));
+                                if (userChoiceTime < 0) {
+                                    throw new NumberFormatException(); //hvis a er negativt.
+                                }
+                            } catch (NumberFormatException e) {
+                                System.out.println("Ugyldigt input. Indtast venligst et gyldigt tal.");
+                                userChoiceTime = -1;
+                            }
+                        } while (userChoiceTime < 0);
+
+                        SwimResult swimResult = new SwimResult(selectedMember.getEmail(), LocalDate.now(), discipline, userChoiceTime, " ");
+                        System.out.println(swimResult.getSwimmingDetails());
+                    } else {
+                        System.out.println("Ugyldig disciplinvalg.");
+                    }
+
+                    // Spørg brugeren, om de ønsker at tilføje flere resultater
+                    System.out.println("Vil du tilføje flere resultater? (ja/nej)");
+                    addMoreResults = keyboard.next().equalsIgnoreCase("ja");
+
+                } while (addMoreResults);
+            }
+
+            // Spørg brugeren, om de ønsker at søge efter et nyt medlem
+            System.out.println("Vil du søge efter et nyt medlem? (ja/nej)");
+            addMoreResults = keyboard.next().equalsIgnoreCase("ja");
+
+        } while (addMoreResults);
+    }
+
+
+    public void printTotalIncome () {
+        for (Member member : controller.getMemberlist()) {
+            System.out.println(member.getFirstName() + " " +
+                    member.getLastName() + " (" +
+                    member.getTeam() + "): " + controller.calculateIncome(member) + "kr.");
+        }
+        System.out.println("\nTotal årlig kontingent indkomst: " + controller.totalIncome() + "kr.\n");
+    }
+
+
+    public void printTotalDebt () {
+        for (Member member : controller.getMemberlist()) {
+            if (!member.isPaid()) {
                 System.out.println(member.getFirstName() + " " +
-                        member.getLastName() + " (" +
-                        member.getTeam() + "): " + controller.calculateIncome(member) + "kr.");
+                        member.getLastName() + ": til betaling " +
+                        controller.individualMemberDebt(member) + "kr.");
             }
-            System.out.println("\nTotal årlig kontingent indkomst: " + controller.totalIncome() + "kr.\n");
         }
-
-
-        public void printTotalDebt () {
-            for (Member member : controller.getMemberlist()) {
-                if (!member.isPaid()) {
-                    System.out.println(member.getFirstName() + " " +
-                            member.getLastName() + ": til betaling " +
-                            controller.individualMemberDebt(member) + "kr.");
-                }
-            }
-            System.out.println("\nTotal gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
-        }
+        System.out.println("\nTotal gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
     }
-
-
+}

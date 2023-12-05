@@ -16,8 +16,9 @@ Hvordan kan hver medlem have flere resultat-tider pr disciplin - lige meget om d
 
 /** TODO
 top 5
-træningsresultater
-tilføje flere resultater - stævne navn tilføjes
+
+tilføje flere resultater (skal kunne gemmes i swim_result.csv)
+ -Kan vi få addSwimResult og addTraningResult sammen på en måde så der ikke er så mange gentagelser?
 
 oprettelse af members - lidt pænere?
 gør kode pænt

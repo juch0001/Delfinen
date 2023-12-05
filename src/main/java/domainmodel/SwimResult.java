@@ -2,6 +2,7 @@ package domainmodel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class SwimResult {
     // resultat, tid, dato, disciplin, stævne/træning - hvis stævne, hvad er stævnenavn/sted
@@ -18,7 +19,10 @@ public class SwimResult {
         this.date = date;
         this.discipline = discipline;
         this.time = time;
-        this.tournament = tournament;
+
+        System.out.println("Indtast stævne: ");
+        Scanner scanner = new Scanner(System.in);
+        this.tournament = scanner.nextLine();
     }
 
     public String getSwimmingDetails() {
@@ -26,7 +30,7 @@ public class SwimResult {
                 "\nDato: " + date +
                 "\nDisciplin: " + discipline +
                 "\nTid: " + time +
-                "\nStævne: " + tournament;
+                "\nS" + tournament;
     }
 
 }
