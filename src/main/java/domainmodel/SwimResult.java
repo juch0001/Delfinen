@@ -26,7 +26,7 @@ public class SwimResult {
                 "\nDato: " + date +
                 "\nDisciplin: " + discipline +
                 "\nTid: " + time +
-                "\nTournament: " + tournament;
+                "\nStævne: " + tournament;
     }
 
 }

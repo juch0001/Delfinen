@@ -14,10 +14,18 @@ public enum Team {
             return "Junior";
         }
     },
+
     SENIOR{
         @Override
         public String toString() {
             return "Senior";
         }
+    },
+
+     PENSIONER{
+        @Override
+      public String toString(){
+          return "Pensionist";
+      }
     }
 }

@@ -52,7 +52,7 @@ public class FileHandler {
             String lastName = attributes[2];
 
             try {
-                LocalDate birthday = LocalDate.parse(attributes[3], dateFormatter);
+                LocalDate birthday = LocalDate.parse(attributes[3]);
                 boolean status = Boolean.parseBoolean(attributes[4]);
                 boolean isPaid = Boolean.parseBoolean(attributes[6]);
 

@@ -102,7 +102,7 @@ public class UserInterface {
             System.out.println("Indtast e-mail: ");
             email = keyboard.next();
 
-            //Tjek om e-mail allerede eksisterer
+            //Tjekker om e-mail allerede eksisterer
             ArrayList<Member> existingMembers = controller.getMemberlist();
             validEmail = true;
 
@@ -132,8 +132,7 @@ public class UserInterface {
             System.out.println("Indtast din fødsesldag (yyyy-MM-dd) : "); //age
             birthdayString = keyboard.next();
             try {
-                dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                birthday = LocalDate.parse(birthdayString, dateFormatter);
+                birthday = LocalDate.parse(birthdayString);
             } catch (DateTimeParseException e) {
                 System.out.println("Forkert indtastning. Prøv igen. ");
             }
@@ -148,6 +147,9 @@ public class UserInterface {
         if (calculateAge(birthday) > 17 && calculateAge(birthday) < 60) {
             team = Team.SENIOR;
             System.out.println("Du er tilmeldt hold: Senior");
+        } else {
+            team = Team.PENSIONER;
+            System.out.println("Du er tilmeldt hold: Pensionist");
         }
 
         System.out.println("Er medlemmet aktiv svømmer (ja/nej) : "); //status
@@ -238,7 +240,7 @@ public class UserInterface {
                     // Erstat komma med punktum og håndter også indtastning med punktum
                     userChoiceTime = Double.parseDouble(userInput.replace(',', '.'));
                     if (userChoiceTime < 0) {
-                        throw new NumberFormatException(); //hvis nummeret er negativt.
+                        throw new NumberFormatException(); //hvis a er negativt.
                     }
                 } catch (NumberFormatException e) {
                     System.out.println("Ugyldigt input. Indtast venligst et gyldigt tal.");
