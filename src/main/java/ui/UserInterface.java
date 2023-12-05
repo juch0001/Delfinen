@@ -21,7 +21,7 @@ public class UserInterface {
         Scanner scanner = new Scanner(System.in);
         while (!scanner.hasNextInt()) {
             scanner.next();
-            System.out.println("Not a number! Try again");
+            System.out.println("Ikke et tal! Prøv igen");
         }
         return scanner.nextInt();
     }
@@ -87,7 +87,6 @@ public class UserInterface {
                     member.getBirthday() + " " +
                     member.statusToString(member.getStatus()) + " " +
                     member.getTeam());
-
         }
     }
 
@@ -120,9 +119,8 @@ public class UserInterface {
                 System.out.println("Ikke gyldig email. Indtast en ny: ");
                 validEmail = false;
             }
-
-        } while (!validEmail);
-
+        }
+        while (!validEmail);
         System.out.println("Indtast første navn: "); //first name
         String firstName = keyboard.next();
 
@@ -130,9 +128,8 @@ public class UserInterface {
         String lastName = keyboard.next();
 
         //Sørger for at returnere igen istedet for at lukke programmet hvis man indtaster forkert.
-        DateTimeFormatter dateFormatter = null;
         do {
-            System.out.println("Indtast din fødsesldag (dd-MM-yyyy) : "); //age
+            System.out.println("Indtast din fødsesldag (yyyy-MM-dd) : "); //age
             birthdayString = keyboard.next();
             try {
                 dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -142,13 +139,13 @@ public class UserInterface {
             }
         } while (birthday == null);
 
-
         //Tildeler hvilket hold man er på afhængigt af alderen.
         Team team;
         if (calculateAge(birthday) < 18) {
             team = Team.JUNIOR;
             System.out.println("Du er tilmeldt hold: Junior");
-        } else {
+        }
+        if (calculateAge(birthday) > 17 && calculateAge(birthday) < 60) {
             team = Team.SENIOR;
             System.out.println("Du er tilmeldt hold: Senior");
         }
@@ -205,11 +202,11 @@ public class UserInterface {
         System.out.println("Udestående gæld: " + controller.individualMemberDebt(member));
     }
 
+
     public void addSwimmingResult() {
         System.out.println("Indtast e-mail for medlemmet: ");
         String emailInput = keyboard.next();
         ArrayList<Member> searchResults = controller.findMember(emailInput);
-
 
         System.out.println("Hvilken disciplin vil du tilføje en tid til? (Skriv tallet): ");
         System.out.println("1. RygCrawl");
@@ -229,22 +226,17 @@ public class UserInterface {
             default -> userChoiceStatus = false;
         }
 
-
-
         if (userChoiceStatus) {
             System.out.println("Du valgte " + discipline);
-
             double userChoiceTime;
 
             do {
                 System.out.println("Skriv tiden: (1.23)");
-
                 String userInput = keyboard.next();
 
                 try {
                     // Erstat komma med punktum og håndter også indtastning med punktum
                     userChoiceTime = Double.parseDouble(userInput.replace(',', '.'));
-
                     if (userChoiceTime < 0) {
                         throw new NumberFormatException(); //hvis nummeret er negativt.
                     }
@@ -253,7 +245,6 @@ public class UserInterface {
                     userChoiceTime = -1;
                 }
             } while (userChoiceTime < 0);
-
 
             for (Member member : searchResults) {
                 SwimResult swimResult = new SwimResult(member.getEmail(), LocalDate.now(), discipline, userChoiceTime, " ");
@@ -270,21 +261,24 @@ public class UserInterface {
 
 
         public void printTotalIncome () {
-            System.out.println("Total årlig kontingent indkomst: " + controller.totalIncome() + "kr.\n");
             for (Member member : controller.getMemberlist()) {
                 System.out.println(member.getFirstName() + " " +
                         member.getLastName() + " (" +
                         member.getTeam() + "): " + controller.calculateIncome(member) + "kr.");
             }
+            System.out.println("\nTotal årlig kontingent indkomst: " + controller.totalIncome() + "kr.\n");
         }
 
+
         public void printTotalDebt () {
-            System.out.println("Total gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
             for (Member member : controller.getMemberlist()) {
-                System.out.println(member.getFirstName() + " " +
-                        member.getLastName() + ": til betaling " +
-                        controller.individualMemberDebt(member) + "kr.");
+                if (!member.isPaid()) {
+                    System.out.println(member.getFirstName() + " " +
+                            member.getLastName() + ": til betaling " +
+                            controller.individualMemberDebt(member) + "kr.");
+                }
             }
+            System.out.println("\nTotal gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
         }
     }
 

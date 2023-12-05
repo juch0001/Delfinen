@@ -27,7 +27,6 @@ public class Database {
         fh.saveData(membersList, fileNameMember);
     }
 
-
     public ArrayList<Member> getMembersList(){
         return membersList;
     }

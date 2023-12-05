@@ -35,10 +35,12 @@ class EconomyTest {
     assertEquals(expectedTotal, actualTotal);
     }
 
-    /*@Test
-    void totalDebt(){
-    double exceptedTotal = 3400;
-    double actualTotal = economy.totalDebt(members);
+ @Test
+ void totalDebt() {
+  double exceptedTotal = 3400;
+  double actualTotal = economy.totalDebt(members);
 
-     assertEquals(exceptedTotal, actualTotal);
-    }*/
+  assertEquals(exceptedTotal, actualTotal);
+ }
+}
+

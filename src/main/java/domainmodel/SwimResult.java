@@ -12,6 +12,7 @@ public class SwimResult {
     private String email;
     private double time;
     private String tournament;
+
     public SwimResult(String email, LocalDate date, Discipline discipline, double time, String tournament){
         this.email = email;
         this.date = date;

@@ -36,6 +36,6 @@ public class Controller {
     }
 
     public double individualMemberDebt(Member member){
-        return economy.individualMemberDebt(member);
+        return database.individualMemberDebt(member);
     }
 }

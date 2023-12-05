@@ -12,9 +12,9 @@ public class Member {
     private LocalDate birthday;
     private boolean status;
     private Team team;
-    private LocalDate signUpDate;
+    boolean isPaid;
 
-    public Member(String email, String firstName,String lastName, LocalDate birthday, Boolean status, Team team, LocalDate signUpDate){
+    public Member(String email, String firstName,String lastName, LocalDate birthday, boolean status, Team team, boolean isPaid){
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,7 +23,6 @@ public class Member {
         this.team = team;
         this.isPaid = isPaid;
     }
-
 
     public String getEmail() {
         return email;
@@ -41,7 +40,6 @@ public class Member {
         return birthday;
     }
 
-
     public boolean getStatus(){
         return status;
     }
@@ -50,9 +48,9 @@ public class Member {
         return team;
     }
 
-   /* public boolean isSubscriptionPaid(){
-        return subscriptionPaid;
-    }*/
+    public boolean isPaid() {
+        return isPaid;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -83,14 +81,10 @@ public class Member {
         this.team = team;
     }
 
-    /*public void setSubscriptionPaid(boolean subscriptionPaid){
-        this.subscriptionPaid = subscriptionPaid;
-    }*/
-
     public String statusToString(boolean status){
         if (status){
-            return "Ja"; //aktiv
-        }else return "Nej"; //passiv
+            return "Aktiv";
+        }else return "Passiv";
     }
 
     public int calculateAge() {
@@ -107,5 +101,33 @@ public class Member {
                 setTeam(Team.SENIOR);
             }
         }
+    }
+
+    public int calculateIncome() {
+        if (status) {
+            switch (team) {
+                case JUNIOR:
+                    return 1000;
+                case SENIOR:
+                    return 1600;
+                case PENSIONER:
+                    return 1200;
+                case EXERCISER:
+                    if (calculateAge() < 17){
+                        return 1600;
+                    }
+                    return 1000;
+            }
+        } else {
+            return 500;
+        }
+        return 0;
+    }
+
+    public double individualMemberDebt() {
+        if (isPaid) {
+            return 0;
+        }
+        return calculateIncome();
     }
 }
