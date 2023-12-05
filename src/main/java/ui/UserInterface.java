@@ -51,6 +51,7 @@ public class UserInterface {
                     addMemberMenu();
                     break;
                 case 2:
+                    controller.loadData();
                     printMemberlist(controller.getMemberlist());
                     break;
                 case 3:
@@ -91,7 +92,6 @@ public class UserInterface {
     }
 
 
-    //TODO Teste tilføjelse af disciplin
     public void addMemberMenu() {
         String email;
         boolean validEmail;

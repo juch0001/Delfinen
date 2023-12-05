@@ -9,10 +9,8 @@ import java.util.ArrayList;
 
 public class Database {
     private final FileHandler fh = new FileHandler();
-    private final String fileNameMember = "member_data.csv";
     private final File fileMember = new File("member_data.csv");
-    private final String fileNameCompetitor = "competitor_data.csv";
-    private final File fileCompetitor = new File("competitor_data.csv");
+    private final String fileNameMember = fileMember.getName();
 
     private ArrayList<Member> membersList;
 
@@ -29,10 +27,6 @@ public class Database {
 
     public ArrayList<Member> getMembersList(){
         return membersList;
-    }
-
-    public FileHandler getFileHandler() {
-        return fh;
     }
 
     public ArrayList<Member> findMembers(String email) {

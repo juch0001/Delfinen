@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.EnumMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,22 +17,22 @@ class EconomyTest {
  Member motionist = new Member("gam@gmail.com", "gammel", "dame",LocalDate.parse("1900-06-03"), true, Team.EXERCISER, true);
 
 
+ @BeforeEach
+ void setup() {
+  members.add(junior);
+  members.add(senior);
+  members.add(persioner);
+  members.add(motionist);
 
-    @BeforeEach
-    void setup(){
-     members.add(junior);
-     members.add(senior);
-     members.add(excerciser);
+ }
 
-    }
+ @Test
+ void totalIncome() {
+  int expectedTotal = 4800;
+  int actualTotal = economy.totalIncome(members);
 
-    @Test
-    void totalIncome() {
-    int expectedTotal = 10800;
-    int actualTotal = economy.totalIncome(members);
-
-    assertEquals(expectedTotal, actualTotal);
-    }
+  assertEquals(expectedTotal, actualTotal);
+ }
 
  @Test
  void totalDebt() {

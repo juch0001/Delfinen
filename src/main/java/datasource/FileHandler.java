@@ -11,8 +11,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.EnumMap;
 import java.util.Scanner;
 
 public class FileHandler {
@@ -41,7 +39,7 @@ public class FileHandler {
         }
 
         Member member;
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        //DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         while (sc.hasNext()) {
             String line = sc.nextLine();
@@ -118,7 +116,8 @@ public class FileHandler {
                 member.getLastName() + ";" +
                 member.getBirthday() + ";" +
                 member.getStatus() + ";" +
-                member.getTeam() + "\n";
+                member.getTeam() + ";" +
+                member.isPaid() + "\n";
     }
 
     public Discipline parseDiscipline(String discipline){
@@ -132,17 +131,6 @@ public class FileHandler {
             return Discipline.BACK_CRAWL;
         }
         return null;
-    }
-    public EnumMap<Discipline, Double> parseDisciplinResult(String timeAttribute){ //TODO ÆDNRE DEN HER SÅ DEN LAVER EN ARRAYLIST MED STED, TID, DATO, DISCIPLINE.
-        String[] disciplinesplit = timeAttribute.split(",");
-        EnumMap<Discipline,Double> times = new EnumMap<>(Discipline.class);
-        for (String disciplineTime: disciplinesplit) {
-            String[] timeSplit = disciplineTime.split(":");
-            Discipline discipline = parseDiscipline(timeSplit[0]);
-            Double time = Double.valueOf(timeSplit[1]);
-            times.put(discipline,time);
-        }
-        return times;
     }
 
 }

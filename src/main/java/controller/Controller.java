@@ -4,7 +4,7 @@ import domainmodel.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.EnumMap;
+
 
 public class Controller {
     Database database = new Database();
@@ -37,5 +37,8 @@ public class Controller {
 
     public double individualMemberDebt(Member member){
         return database.individualMemberDebt(member);
+    }
+    public void loadData(){
+        database.loadData();
     }
 }
