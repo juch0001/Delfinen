@@ -10,6 +10,29 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class UserInterface {
+    public static final String BLUE_BOLD = "\033[1;34m"; //farvekode til blå
+    public static final String BLUE_UNDERLINED = "\033[4;34m"; //blå linje under tekst
+    public static final String BLACK_BOLD = "\033[1;30m"; //Markeret sort (hvis man har hvid skærm)
+    public static final String RESET = "\033[0m";
+    public static void printDolphin(){
+        String dolphinArt =
+                "     __\n" +
+                        "                               _.-~  )\n" +
+                        "                    _..--~~~~,'   ,-/     _\n" +
+                        "                 .-'. . . .'   ,-','    ,' )\n" +
+                        "               ,'. . . _   ,--~,-'__..-'  ,'\n" +
+                        "             ,'. . .  (@)' ---~~~~      ,'\n" +
+                        "            /. . . . '~~             ,-'\n" +
+                        "           /. . . . .             ,-'\n" +
+                        "          ; . . . .  - .        ,'\n" +
+                        "         : . . . .       _     /\n" +
+                        "        . . . . .          `-.:\n" +
+                        "       . . . ./  - .          )\n" +
+                        "      .  . . |  _____..---.._/ _____\n" +
+                        "~---~~~~----~~~~             ~~";
+        System.out.println(dolphinArt);
+
+    }
     Controller controller = new Controller();
     private static Scanner keyboard = new Scanner(System.in);
 
@@ -28,8 +51,9 @@ public class UserInterface {
         int menuNumber;
 
         while (runProgram) {
+            printDolphin();
             System.out.println("Menu: ");
-            System.out.println("1. Opret medlem");
+            System.out.println(BLUE_BOLD + "1. Opret medlem" + RESET);
             System.out.println("2. Se komplet medlemsliste");
             System.out.println("3. Søg E-mail for et medlem");
             System.out.println("4. Se indkomst");
@@ -76,12 +100,17 @@ public class UserInterface {
     }
 
     public void printMemberlist(ArrayList<Member> memberList) {
+        System.out.printf(BLUE_BOLD + "%-20s %-20s %-20s %-15s %-15s %-15s\n",
+                "Email", "Fornavn", "Efternavn", "Fødselsdag", "Status", "Hold" + RESET);
+
+
         for (Member member : memberList) {
-            System.out.println(member.getEmail() + " " +
-                    member.getFirstName() + " " +
-                    member.getLastName() + " " +
-                    member.getBirthday() + " " +
-                    member.statusToString(member.getStatus()) + " " +
+            System.out.printf("%-20s %-20s %-20s %-15s %-15s %-15s\n",
+                    member.getEmail(),
+                    member.getFirstName(),
+                    member.getLastName(),
+                    member.getBirthday(),
+                    member.statusToString(member.getStatus()),
                     member.getTeam());
         }
     }
