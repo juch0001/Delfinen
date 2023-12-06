@@ -26,7 +26,7 @@ public class SwimResult {
                 "\nDato: " + date +
                 "\nDisciplin: " + discipline +
                 "\nTid: " + time +
-                "\nS" + tournament;
+                "\nStævne: " + tournament;
     }
 
     public String getEmail() {

@@ -2,16 +2,12 @@ package ui;
 
 import controller.Controller;
 import domainmodel.*;
+import domainmodel.comparator.TimeComparator;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.Scanner;
-
-import static domainmodel.Discipline.*;
+import java.util.*;
 
 public class UserInterface {
     Controller controller = new Controller();

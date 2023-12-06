@@ -10,7 +10,7 @@ public enum Discipline {
     BREASTSTROKE {
         @Override
         public String toString(){
-            return "Bryst svømming";
+            return "Brystsvømning";
         }
     },
     BUTTERFLY{

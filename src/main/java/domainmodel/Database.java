@@ -33,6 +33,7 @@ public class Database {
     public ArrayList<Member> getMembersList(){
         return membersList;
     }
+    public ArrayList<SwimResult> getSwimResults() { return swimResults;}
 
     public ArrayList<Member> findMembers(String email) {
         ArrayList<Member> searchMembers = new ArrayList<>();
