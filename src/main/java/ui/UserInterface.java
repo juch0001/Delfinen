@@ -34,10 +34,9 @@ public class UserInterface {
             System.out.println("3. Søg E-mail for et medlem");
             System.out.println("4. Se indkomst");
             System.out.println("5. Se gæld");
-            System.out.println("6. Tilføj træningsresultat");
-            System.out.println("7. Tilføj svømmeresultat");
-            System.out.println("8. Se top 5 resultater i hver disciplin");
-            System.out.println("9. Afslut program");
+            System.out.println("6. Tilføj resultat");
+            System.out.println("7. Se top 5 resultater i hver disciplin");
+            System.out.println("8. Afslut program");
 
 
             menuNumber = scanIntWithRetry();
@@ -209,8 +208,9 @@ public class UserInterface {
             String emailInput = keyboard.next();
             ArrayList<Member> searchResults = controller.findMember(emailInput);
 
+
             if (searchResults.isEmpty()) {
-                System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
+                System.out.println("Ingen medlemmer fundet med den angivne e-mail.");
             } else {
                 Member selectedMember = searchResults.get(0);
                 System.out.println("Email fundet: " + searchResults.get(0));

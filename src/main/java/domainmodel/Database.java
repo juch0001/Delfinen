@@ -45,20 +45,15 @@ public class Database {
         return searchMembers;
     }
 
-   /* public int calculateAge(LocalDate birthday) {
-        LocalDate currentDate = LocalDate.now();
-        return Period.between(birthday, currentDate).getYears();
-    }
-
-
-    public Member findMember(String email) {
-        for (Member member : membersList) {
-            if (member.getEmail().toLowerCase().contains(email.toLowerCase())) {
-                return member;
+    public ArrayList<SwimResult> disciplineResults(ArrayList<SwimResult> swimResults, Discipline discipline){
+        ArrayList<SwimResult> results = new ArrayList<>();
+        for (SwimResult swimResult:swimResults) {
+            if (swimResult.getDiscipline()!= null && swimResult.getDiscipline().equals(discipline)){
+                results.add(swimResult);
             }
         }
-        return null;
-    }*/
+        return results;
+    }
 
     public double individualMemberDebt(Member member) {
         return member.individualMemberDebt();

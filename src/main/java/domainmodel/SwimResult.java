@@ -3,9 +3,6 @@ package domainmodel;
 import java.time.LocalDate;
 
 public class SwimResult {
-    // resultat, tid, dato, disciplin, stævne/træning - hvis stævne, hvad er stævnenavn/sted
-    // tjekke via mail - alle tider med mail findes og evt udskrives
-    // nemmere med arrayliste til resultater da der er mange komponenter
     private LocalDate date;
     private Discipline discipline;
     private String email;

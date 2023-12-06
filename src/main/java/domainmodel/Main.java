@@ -9,10 +9,6 @@ public class Main {
     }
 }
 
-/*
-Hvordan tildeler man medlemmer svømmeresultater?
-Hvordan kan hver medlem have flere resultat-tider pr disciplin - lige meget om det er træning eller stævne
-*/
 
 /** TODO
 oprettelse af members - lidt pænere?
