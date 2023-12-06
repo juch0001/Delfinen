@@ -1,8 +1,6 @@
 package domainmodel;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class SwimResult {
     // resultat, tid, dato, disciplin, stævne/træning - hvis stævne, hvad er stævnenavn/sted
@@ -19,19 +17,42 @@ public class SwimResult {
         this.date = date;
         this.discipline = discipline;
         this.time = time;
-
-        System.out.println("Indtast stævne: ");
-        Scanner scanner = new Scanner(System.in);
-        this.tournament = scanner.nextLine();
+        this.tournament = tournament; //SÆT TIL NULL HVIS NU DET ER TRÆNING TODO INDE I UI
+        this.tournamentPlacement = tournamentPlacement;
     }
-
-    public String getSwimmingDetails() {
+    @Override
+    public String toString() {
         return "Email: " + email +
                 "\nDato: " + date +
                 "\nDisciplin: " + discipline +
                 "\nTid: " + time +
                 "\nS" + tournament;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public Discipline getDiscipline() {
+        return discipline;
+    }
+
+    public double getTime() {
+        return time;
+    }
+
+    public String getTournament() {
+        return tournament;
+    }
+
+    public int getTournamentPlacement() {
+        return tournamentPlacement;
+    }
+
 
 }
 

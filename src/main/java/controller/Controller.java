@@ -13,6 +13,7 @@ public class Controller {
     public ArrayList<Member> getMemberlist(){
         return database.getMembersList();
     }
+    public ArrayList<SwimResult> getSwimResults() { return database.getSwimResults(); }
 
     public void addMember(String email, String firstName, String lastName, LocalDate birthday, Boolean status, Team team, boolean isPaid){
         database.addMember(email,firstName,lastName,birthday,status,team, isPaid);
@@ -40,5 +41,17 @@ public class Controller {
     }
     public void loadData(){
         database.loadData();
+    }
+    public ArrayList<SwimResult> disciplineResults(Discipline discipline){
+        return database.disciplineResults(getSwimResults(),discipline);
+    }
+    public void saveData(){
+        database.saveData();
+    }
+    public void savaResults(){
+        database.saveResults();
+    }
+    public void loadResults(){
+        database.loadResult();
     }
 }

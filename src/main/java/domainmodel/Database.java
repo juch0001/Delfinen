@@ -10,12 +10,17 @@ import java.util.ArrayList;
 public class Database {
     private final FileHandler fh = new FileHandler();
     private final File fileMember = new File("member_data.csv");
+    private final File fileSwimResults = new File("swim_result.csv");
     private final String fileNameMember = fileMember.getName();
+    private final String fileNameSwimResults = fileSwimResults.getName();
+
 
     private ArrayList<Member> membersList;
+    private ArrayList<SwimResult> swimResults;
 
     public Database() {
         this.membersList = fh.loadData(fileMember);
+        this.swimResults = fh.loadSwimResult(fileSwimResults);
     }
 
     public void addMember(String email, String firstName, String lastName, LocalDate birthday, boolean status, Team team, boolean isPaid) {
@@ -62,5 +67,14 @@ public class Database {
     }
     public void loadData(){
         fh.loadData(fileMember);
+    }
+    public void saveData(){
+        fh.saveData(membersList, fileNameMember);
+    }
+    public void saveResults(){
+        fh.saveResults(swimResults, fileNameSwimResults);
+    }
+    public void loadResult(){
+        fh.loadSwimResult(fileSwimResults);
     }
 }

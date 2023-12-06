@@ -49,6 +49,7 @@ public class UserInterface {
             switch (menuNumber) {
                 case 1:
                     addMemberMenu();
+                    controller.saveData();
                     break;
                 case 2:
                     controller.loadData();
@@ -64,15 +65,14 @@ public class UserInterface {
                     printTotalDebt();
                     break;
                 case 6:
-                    addTrainingResults();
+                    addResults();
+                    controller.savaResults();
                     break;
                 case 7:
-                    addSwimmingResults();
+                    controller.loadResults();
+                    topFiveMenu();
                     break;
                 case 8:
-                    //
-                    break;
-                case 9:
                     System.out.println("Programmet afsluttes...");
                     runProgram = false;
                     break;
@@ -205,81 +205,7 @@ public class UserInterface {
     }
 
 
-    public void addTrainingResults() {
-        boolean addMoreResults;
-
-        do {
-            System.out.println("Indtast e-mail for medlemmet: ");
-            String emailInput = keyboard.next();
-            ArrayList<Member> searchResults = controller.findMember(emailInput);
-
-            if (searchResults.isEmpty()) {
-                System.out.println("Ingen medlemmer fundet med den angivne e-mail.");
-            } else {
-                Member selectedMember = searchResults.get(0);
-
-                do {
-                    System.out.println("Hvilken disciplin vil du tilføje et træningsresultat til? (Skriv tallet): ");
-                    System.out.println("1. RygCrawl");
-                    System.out.println("2. Crawl");
-                    System.out.println("3. Butterfly");
-                    System.out.println("4. Bryst Svømning");
-
-                    int userChoiceDiscipline = scanIntWithRetry();
-                    Discipline discipline = null;
-                    boolean userChoiceStatus = true;
-
-                    switch (userChoiceDiscipline) {
-                        case 1 -> discipline = Discipline.BACK_CRAWL;
-                        case 2 -> discipline = Discipline.CRAWL;
-                        case 3 -> discipline = Discipline.BUTTERFLY;
-                        case 4 -> discipline = Discipline.BREASTSTROKE;
-                        default -> userChoiceStatus = false;
-                    }
-
-                    if (userChoiceStatus) {
-                        System.out.println("Du valgte " + discipline);
-                        double userChoiceTime;
-
-                        do {
-                            System.out.println("Skriv tiden: (1.23)");
-                            String userInput = keyboard.next();
-
-                            try {
-                                // Erstat komma med punktum og håndter også indtastning med punktum
-                                userChoiceTime = Double.parseDouble(userInput.replace(',', '.'));
-                                if (userChoiceTime < 0) {
-                                    throw new NumberFormatException();
-                                }
-                            } catch (NumberFormatException e) {
-                                System.out.println("Ugyldigt input. Indtast venligst et gyldigt tal.");
-                                userChoiceTime = -1;
-                            }
-                        } while (userChoiceTime < 0);
-
-                        System.out.println("Træningsresultat tilføjet: " + selectedMember.getFirstName() + " " + selectedMember.getLastName());
-                    } else {
-                        System.out.println("Ugyldig disciplinvalg.");
-                    }
-
-                    // Spørg brugeren, om de ønsker at tilføje flere træningsresultater
-                    System.out.println("Vil du tilføje flere træningsresultater? (ja/nej)");
-                    addMoreResults = keyboard.next().equalsIgnoreCase("ja");
-
-                } while (addMoreResults);
-            }
-
-            // Spørg brugeren, om de ønsker at søge efter et nyt medlem
-            System.out.println("Vil du søge efter et nyt medlem? (ja/nej)");
-            addMoreResults = keyboard.next().equalsIgnoreCase("ja");
-
-        } while (addMoreResults);
-    }
-
-
-
-
-    public void addSwimmingResults() {
+    public void addResults() {//TODO test det her
         boolean addMoreResults;
 
         do {
@@ -291,7 +217,7 @@ public class UserInterface {
                 System.out.println("Ingen medlemmer fundet med den angivne e-mail eller medlemmet er ikke en konkurrencesvømmer.");
             } else {
                 Member selectedMember = searchResults.get(0);
-
+                System.out.println("Email fundet: " + searchResults.get(0));
                 do {
                     System.out.println("Hvilken disciplin vil du tilføje en tid til? (Skriv tallet): ");
                     System.out.println("1. RygCrawl");
@@ -330,9 +256,38 @@ public class UserInterface {
                                 userChoiceTime = -1;
                             }
                         } while (userChoiceTime < 0);
+                        System.out.println("skriv dato (yyyy-mm-dd): ");
+                        String dateString;
+                        LocalDate date = null;
+                        do {
+                            dateString = keyboard.next();
+                            try {
+                                date = LocalDate.parse(dateString);
+                            } catch (DateTimeParseException e) {
+                                System.out.println("Forkert indtastning. Prøv igen. ");
+                            }
+                        } while (date == null);
 
-                        SwimResult swimResult = new SwimResult(selectedMember.getEmail(), LocalDate.now(), discipline, userChoiceTime, " ");
-                        System.out.println(swimResult.getSwimmingDetails());
+                        System.out.println("Er dette et trænings resultat eller stævne resultat (1. træning, 2. stævne)");
+                        int userChoice = scanIntWithRetry();
+                        if (userChoice == 1){ //training
+                            SwimResult swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, "null", 0);
+                            controller.getSwimResults().add(swimResult);
+                            System.out.println(swimResult);
+                            System.out.println("Blev tilføjet...");
+                        }else if(userChoice == 2) { //tournament
+                            System.out.println("navn på turnering: ");
+                            String tournament = keyboard.next();
+
+                            System.out.println("Skriv placering i turneringen: ");
+                            int placement = scanIntWithRetry();
+
+
+                            SwimResult swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, tournament, placement);
+                            controller.getSwimResults().add(swimResult);
+                            System.out.println(swimResult);
+                            System.out.println("Blev tilføjet");
+                        }
                     } else {
                         System.out.println("Ugyldig disciplinvalg.");
                     }
@@ -352,7 +307,7 @@ public class UserInterface {
     }
 
 
-    public void printTotalIncome () {
+    public void printTotalIncome() {
         for (Member member : controller.getMemberlist()) {
             System.out.println(member.getFirstName() + " " +
                     member.getLastName() + " (" +
@@ -362,7 +317,7 @@ public class UserInterface {
     }
 
 
-    public void printTotalDebt () {
+    public void printTotalDebt() {
         for (Member member : controller.getMemberlist()) {
             if (!member.isPaid()) {
                 System.out.println(member.getFirstName() + " " +
@@ -372,4 +327,38 @@ public class UserInterface {
         }
         System.out.println("\nTotal gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
     }
+
+    public void topFiveSwimmers(ArrayList<SwimResult> swimResults) {
+        Collections.sort(swimResults, new TimeComparator());
+        System.out.println("Top 5 svømmere: \n"
+                + swimResults.get(0) + "\n"
+                + swimResults.get(1) + "\n"
+                + swimResults.get(2) + "\n"
+                + swimResults.get(3) + "\n"
+                + swimResults.get(4));
+    }
+
+
+    public void topFiveMenu(){
+        int userChoice;
+        do{
+            System.out.println("1. ryg crawl 2. bryst 3. butterfly 4. crawl");
+            userChoice = scanIntWithRetry();
+            try{
+                switch (userChoice){
+                    case 1 -> topFiveSwimmers(controller.disciplineResults(Discipline.BACK_CRAWL));
+                    case 2 -> topFiveSwimmers(controller.disciplineResults(Discipline.BREASTSTROKE));
+                    case 3 -> topFiveSwimmers(controller.disciplineResults(Discipline.BUTTERFLY));
+                    case 4 -> topFiveSwimmers(controller.disciplineResults(Discipline.CRAWL));
+                }
+            }catch (IndexOutOfBoundsException e){
+                System.out.println("Der ikke nok resultater");
+            }
+        }while (userChoice > 4);
+
+
+    }
 }
+
+
+
