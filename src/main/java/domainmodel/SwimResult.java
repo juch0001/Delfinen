@@ -15,7 +15,7 @@ public class SwimResult {
         this.date = date;
         this.discipline = discipline;
         this.time = time;
-        this.tournament = tournament; //SÆT TIL NULL HVIS NU DET ER TRÆNING TODO INDE I UI
+        this.tournament = tournament;
         this.tournamentPlacement = tournamentPlacement;
     }
     @Override

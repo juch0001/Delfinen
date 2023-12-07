@@ -13,6 +13,7 @@ public class UserInterface {
     public static final String BLUE_BOLD = "\033[1;34m"; //farvekode til blå
     public static final String BLUE_UNDERLINED = "\033[4;34m"; //blå linje under tekst
     public static final String BLACK_BOLD = "\033[1;30m"; //Markeret sort (hvis man har hvid skærm)
+    public static final String RED_BOLD = "\033[1;31m"; //rød tekst
     public static final String RESET = "\033[0m";
     public static void printDolphin(){
         String dolphinArt =
@@ -49,6 +50,7 @@ public class UserInterface {
     public void startProgram() {
         boolean runProgram = true;
         int menuNumber;
+        printDolphin();
 
         while (runProgram) {
             printDolphin();
@@ -229,7 +231,7 @@ public class UserInterface {
     }
 
 
-    public void addResults() {//TODO test det her
+    public void addResults() {
         boolean addMoreResults;
 
         do {
@@ -293,26 +295,32 @@ public class UserInterface {
                             }
                         } while (date == null);
 
-                        System.out.println("Er dette et trænings resultat eller stævne resultat (1. træning, 2. stævne)");
-                        int userChoice = scanIntWithRetry();
-                        if (userChoice == 1){ //training
-                            SwimResult swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, "null", 0);
-                            controller.getSwimResults().add(swimResult);
-                            System.out.println(swimResult);
-                            System.out.println("Blev tilføjet...");
-                        }else if(userChoice == 2) { //tournament
-                            System.out.println("navn på turnering: ");
-                            String tournament = keyboard.next();
-
-                            System.out.println("Skriv placering i turneringen: ");
+                        System.out.println("Er dette et trænings resultat eller stævne resultat\n" +
+                                "1. træning\n" +
+                                "2. stævne");
+                        int userChoice;
+                        String tournament = "null";
+                        do {
+                            userChoice = scanIntWithRetry();
+                            if (userChoice == 1){ //training
+                                SwimResult swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, tournament, 0);
+                                controller.getSwimResults().add(swimResult);
+                                System.out.println(BLACK_BOLD + "Resultat blev tilføjet:" + RESET);
+                                System.out.println(swimResult.getEmail());
+                            }else if(userChoice == 2) { //tournament
+                                System.out.println("Navn på stævne: ");
+                                tournament = keyboard.next();
+                            }
+                        }while (userChoice > 2);
+                            System.out.println("Skriv placering fra stævnet: ");
                             int placement = scanIntWithRetry();
 
 
                             SwimResult swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, tournament, placement);
                             controller.getSwimResults().add(swimResult);
+                            System.out.println(BLACK_BOLD + "Resultat blev tilføjet:" + RESET);
                             System.out.println(swimResult);
-                            System.out.println("Blev tilføjet");
-                        }
+
                     } else {
                         System.out.println("Ugyldig disciplinvalg.");
                     }
@@ -347,7 +355,7 @@ public class UserInterface {
             if (!member.isPaid()) {
                 System.out.println(member.getFirstName() + " " +
                         member.getLastName() + ": til betaling " +
-                        controller.individualMemberDebt(member) + "kr.");
+                        RED_BOLD + controller.individualMemberDebt(member) + "kr." + RESET);
             }
         }
         System.out.println("\nTotal gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
@@ -356,15 +364,15 @@ public class UserInterface {
     public void topFiveSwimmers(ArrayList<SwimResult> swimResults) {
         Collections.sort(swimResults, Collections.reverseOrder(new TimeComparator()));
 
-        System.out.printf("%s%-20s %-20s %-20s %-10s %-10s%s\n",
-                BLUE_BOLD, "Disciplin", "Dato", "Svømmer Email", "Tid", "Turnering", RESET); //Udskriver overkrifterne
-
         System.out.printf("%sTop 5 svømmere:%s\n", BLUE_BOLD, RESET);
+
+        System.out.printf("%s%-23s %-15s %-20s %-10s %-4s%s\n",
+                BLUE_BOLD, "Disciplin", "Dato", "Email", "Tid", "Stævne", RESET); //Udskriver overkrifterne
 
         int count = Math.min(5, swimResults.size());
         for (int i = 0; i < count; i++) {
             SwimResult result = swimResults.get(i);
-            System.out.printf("%s%d.%s %-20s %-20s %-20s %-10s %-10s%s\n",
+            System.out.printf("%s%d.%s %-20s %-15s %-20s %-10s %-10s%s\n",
                     BLUE_BOLD, i + 1, RESET,
                     result.getDiscipline(),
                     result.getDate(),

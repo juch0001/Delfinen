@@ -48,6 +48,7 @@ public class FileHandler {
         String[] lastResult = lastLine.split(";");
 
         String lastResultEmail = swimResults.get(swimResults.size() - 1).getEmail();
+        double lastResultTime = swimResults.get(swimResults.size() - 1).getTime();
         String lastResultEmailCsv = lastResult[0];
 
         return lastResultEmail.equals(lastResultEmailCsv);
