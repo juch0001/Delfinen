@@ -47,6 +47,17 @@ public class UserInterface {
         return scanner.nextInt();
     }
 
+    private String yesNo(){
+        Scanner scanner = new Scanner(System.in);
+        String answer;
+        do {
+            answer = scanner.next();
+            if (!answer.equalsIgnoreCase("ja") && !answer.equalsIgnoreCase("nej")){
+                System.out.println("Du skal skrive ja eller nej...");
+            }
+        }while (!answer.equalsIgnoreCase("ja") && !answer.equalsIgnoreCase("nej"));
+        return answer;
+    }
 
     public void startProgram() {
         boolean runProgram = true;
@@ -182,10 +193,10 @@ public class UserInterface {
         }
 
         System.out.println("Er medlemmet aktiv svømmer (ja/nej) : "); //status
-        boolean status = keyboard.next().equalsIgnoreCase("ja");
+        boolean status = yesNo().equalsIgnoreCase("ja"); //TODO TEST
 
         System.out.println("Er kontingentet betalt ved oprettelse? (ja/nej)");
-        boolean subscriptionPaid = keyboard.next().equalsIgnoreCase("ja");
+        boolean subscriptionPaid = yesNo().equalsIgnoreCase("ja"); //TODO TEST
 
         System.out.println(BLACK_BOLD + "Du har tilføjet ét nyt medlem: \n" + RESET +
                 "Email: " + email + "\n" + "Fornavn: " + firstName + "\n" + "Efternavn: " + lastName + "\n" +
@@ -247,7 +258,7 @@ public class UserInterface {
                 System.out.println("Ingen medlemmer fundet med den angivne e-mail.");
             } else {
                 Member selectedMember = searchResults.get(0);
-                System.out.println("Email fundet: " + searchResults.get(0));
+                System.out.println("Email fundet: " + searchResults.get(0).getEmail());
                 do {
                     System.out.println("Hvilken disciplin vil du tilføje en tid til? (indtast tal): ");
                     System.out.println("1. RygCrawl");
@@ -259,7 +270,7 @@ public class UserInterface {
                     Discipline discipline = null;
                     boolean userChoiceStatus = true;
 
-                    switch (userChoiceDiscipline) {
+                    switch (userChoiceDiscipline) { //TODO TEST
                         case 1 -> discipline = Discipline.BACK_CRAWL;
                         case 2 -> discipline = Discipline.CRAWL;
                         case 3 -> discipline = Discipline.BUTTERFLY;
@@ -337,7 +348,7 @@ public class UserInterface {
 
             // Spørg brugeren, om de ønsker at søge efter et nyt medlem
             System.out.println("Vil du søge efter et nyt medlem? (ja/nej)");
-            addMoreResults = keyboard.next().equalsIgnoreCase("ja");
+            addMoreResults = yesNo().equalsIgnoreCase("ja");
 
         } while (addMoreResults);
     }

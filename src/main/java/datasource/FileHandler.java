@@ -50,8 +50,12 @@ public class FileHandler {
         String lastResultEmail = swimResults.get(swimResults.size() - 1).getEmail();
         double lastResultTime = swimResults.get(swimResults.size() - 1).getTime();
         String lastResultEmailCsv = lastResult[0];
+        double lastResultTimeCsv = Double.parseDouble(lastResult[3]);
+        Discipline lastResusltDiscipline = swimResults.get(swimResults.size() - 1).getDiscipline();
+        Discipline lastResultDisciplineCsv = parseDiscipline(lastResult[2]);
 
-        return lastResultEmail.equals(lastResultEmailCsv);
+
+        return lastResultEmail.equals(lastResultEmailCsv) && lastResultTime == lastResultTimeCsv && lastResusltDiscipline.equals(lastResultDisciplineCsv);
     }
 
     public ArrayList<Member> loadData(File file) {
