@@ -32,8 +32,9 @@ public class UserInterface {
                         "      .  . . |  _____..---.._/ _____\n" +
                         "~---~~~~----~~~~             ~~";
         System.out.println(dolphinArt);
-
     }
+
+
     Controller controller = new Controller();
     private static Scanner keyboard = new Scanner(System.in);
 
@@ -101,6 +102,7 @@ public class UserInterface {
             }
         }
     }
+
 
     public void printMemberlist(ArrayList<Member> memberList) {
         System.out.printf(BLUE_BOLD + "%-20s %-20s %-20s %-15s %-15s %-15s\n",
@@ -185,7 +187,7 @@ public class UserInterface {
         System.out.println("Er kontingentet betalt ved oprettelse? (ja/nej)");
         boolean subscriptionPaid = keyboard.next().equalsIgnoreCase("ja");
 
-        System.out.println("Du har tilføjet ét nyt medlem: \n" +
+        System.out.println(BLACK_BOLD + "Du har tilføjet ét nyt medlem: \n" + RESET +
                 "Email: " + email + "\n" + "Fornavn: " + firstName + "\n" + "Efternavn: " + lastName + "\n" +
                 "Hold: " + team + "\n" + "Aktiv svømmer: " + (status ? "ja" : "nej") + "\n");
         controller.addMember(email, firstName, lastName, birthday, status, team, subscriptionPaid);
@@ -207,7 +209,7 @@ public class UserInterface {
         if (searchResults.isEmpty()) {
             System.out.println("Ingen medlemmer fundet");
         } else {
-            System.out.println("Medlemmer fundet: ");
+            System.out.println(BLACK_BOLD + "Medlemmer fundet: " + RESET);
             for (Member member : searchResults) {
                 printMemberInfo(member);
             }
@@ -247,7 +249,7 @@ public class UserInterface {
                 Member selectedMember = searchResults.get(0);
                 System.out.println("Email fundet: " + searchResults.get(0));
                 do {
-                    System.out.println("Hvilken disciplin vil du tilføje en tid til? (Skriv tallet): ");
+                    System.out.println("Hvilken disciplin vil du tilføje en tid til? (indtast tal): ");
                     System.out.println("1. RygCrawl");
                     System.out.println("2. Crawl");
                     System.out.println("3. Butterfly");
@@ -270,7 +272,7 @@ public class UserInterface {
                         double userChoiceTime;
 
                         do {
-                            System.out.println("Skriv tiden: (1.23)");
+                            System.out.println("Skriv tiden (eks. 1.23):");
                             String userInput = keyboard.next();
 
                             try {
@@ -284,7 +286,7 @@ public class UserInterface {
                                 userChoiceTime = -1;
                             }
                         } while (userChoiceTime < 0);
-                        System.out.println("skriv dato (yyyy-mm-dd): ");
+                        System.out.println("Skriv dato (yyyy-mm-dd): ");
                         String dateString;
                         LocalDate date = null;
                         do {
@@ -347,7 +349,7 @@ public class UserInterface {
                     member.getLastName() + " (" +
                     member.getTeam() + "): " + controller.calculateIncome(member) + "kr.");
         }
-        System.out.println("\nTotal årlig kontingent indkomst: " + controller.totalIncome() + "kr.\n");
+        System.out.println(BLACK_BOLD + "\nTotal årlig kontingent indkomst: " + controller.totalIncome() + "kr.\n" + RESET);
     }
 
 
@@ -359,8 +361,9 @@ public class UserInterface {
                         RED_BOLD + controller.individualMemberDebt(member) + "kr." + RESET);
             }
         }
-        System.out.println("\nTotal gæld blandt medlemmer i klubben: " + controller.totalDebt() + "kr.\n");
+        System.out.println(BLACK_BOLD + "\nTotal gæld blandt medlemmer i klubben: " + RESET + RED_BOLD + controller.totalDebt() + "kr.\n" + RESET);
     }
+
 
     public void topFiveSwimmers(ArrayList<SwimResult> swimResults) {
         Collections.sort(swimResults, Collections.reverseOrder(new TimeComparator()));
@@ -388,7 +391,11 @@ public class UserInterface {
     public void topFiveMenu(){
         int userChoice;
         do{
-            System.out.println("1. ryg crawl 2. bryst 3. butterfly 4. crawl");
+            System.out.println("Vælg en disciplin (indtast tal):");
+            System.out.println("1. Ryg crawl\n" +
+                    "2. Bryst\n" +
+                    "3. Butterfly\n" +
+                    "4. Crawl");
             userChoice = scanIntWithRetry();
             try{
                 switch (userChoice){
@@ -401,8 +408,6 @@ public class UserInterface {
                 System.out.println("Der er ikke nok resultater");
             }
         }while (userChoice > 4);
-
-
     }
 }
 

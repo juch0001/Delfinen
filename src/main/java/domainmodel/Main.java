@@ -8,9 +8,3 @@ public class Main {
         ui.startProgram();
     }
 }
-
-
-/** TODO
-oprettelse af members - lidt pænere?
-gør kode pænt
-*/

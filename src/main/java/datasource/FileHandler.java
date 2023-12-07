@@ -29,7 +29,6 @@ public class FileHandler {
         }
     }
 
-
     public void saveResults(ArrayList<SwimResult> swimResults, String filename){
         File file = new File(filename);
         if (!lastResultCheck(getLastLine(file), swimResults)){
@@ -44,6 +43,7 @@ public class FileHandler {
             }
         }
     }
+
     public boolean lastResultCheck(String lastLine ,ArrayList<SwimResult> swimResults){
         String[] lastResult = lastLine.split(";");
 
