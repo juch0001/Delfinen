@@ -354,13 +354,25 @@ public class UserInterface {
     }
 
     public void topFiveSwimmers(ArrayList<SwimResult> swimResults) {
-        Collections.sort(swimResults, new TimeComparator());
-        System.out.println("Top 5 svømmere: \n"
-                + swimResults.get(0) + "\n"
-                + swimResults.get(1) + "\n"
-                + swimResults.get(2) + "\n"
-                + swimResults.get(3) + "\n"
-                + swimResults.get(4));
+        Collections.sort(swimResults, Collections.reverseOrder(new TimeComparator()));
+
+        System.out.printf("%s%-20s %-20s %-20s %-10s %-10s%s\n",
+                BLUE_BOLD, "Disciplin", "Dato", "Svømmer Email", "Tid", "Turnering", RESET); //Udskriver overkrifterne
+
+        System.out.printf("%sTop 5 svømmere:%s\n", BLUE_BOLD, RESET);
+
+        int count = Math.min(5, swimResults.size());
+        for (int i = 0; i < count; i++) {
+            SwimResult result = swimResults.get(i);
+            System.out.printf("%s%d.%s %-20s %-20s %-20s %-10s %-10s%s\n",
+                    BLUE_BOLD, i + 1, RESET,
+                    result.getDiscipline(),
+                    result.getDate(),
+                    result.getEmail(),
+                    result.getTime(),
+                    result.getTournament(),
+                    RESET);
+        }
     }
 
 
