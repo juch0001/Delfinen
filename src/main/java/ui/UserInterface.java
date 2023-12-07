@@ -53,16 +53,17 @@ public class UserInterface {
         printDolphin();
 
         while (runProgram) {
-            printDolphin();
-            System.out.println("Menu: ");
-            System.out.println(BLUE_BOLD + "1. Opret medlem" + RESET);
-            System.out.println("2. Se komplet medlemsliste");
-            System.out.println("3. Søg E-mail for et medlem");
-            System.out.println("4. Se indkomst");
-            System.out.println("5. Se gæld");
-            System.out.println("6. Tilføj resultat");
-            System.out.println("7. Se top 5 resultater i hver disciplin");
-            System.out.println("8. Afslut program");
+            System.out.println("\u2501".repeat(80) + RESET);
+            System.out.println(BLUE_BOLD + "Menu: " + RESET);
+            System.out.println(BLUE_BOLD + "1. " + RESET + "Opret medlem");
+            System.out.println(BLUE_BOLD + "2. " + RESET + "Se komplet medlemsliste");
+            System.out.println(BLUE_BOLD + "3. " + RESET + "Søg E-mail for et medlem");
+            System.out.println(BLUE_BOLD + "4. " + RESET + "Se indkomst");
+            System.out.println(BLUE_BOLD + "5. " + RESET + "Se gæld");
+            System.out.println(BLUE_BOLD + "6. " + RESET + "Tilføj resultat");
+            System.out.println(BLUE_BOLD + "7. " + RESET + "Se top 5 resultater i hver disciplin");
+            System.out.println(BLUE_BOLD + "8. " + RESET + "Afslut program");
+            System.out.println("\u2501".repeat(80) + RESET);
 
 
             menuNumber = scanIntWithRetry();
@@ -326,8 +327,8 @@ public class UserInterface {
                     }
 
                     // Spørg brugeren, om de ønsker at tilføje flere resultater
-                    System.out.println("Vil du tilføje flere resultater? (ja/nej)");
-                    addMoreResults = keyboard.next().equalsIgnoreCase("ja");
+                    System.out.println("\nVil du tilføje flere resultater? (ja/nej)");
+                    addMoreResults = yesNo().equalsIgnoreCase("ja");
 
                 } while (addMoreResults);
             }
@@ -397,7 +398,7 @@ public class UserInterface {
                     case 4 -> topFiveSwimmers(controller.disciplineResults(Discipline.CRAWL));
                 }
             }catch (IndexOutOfBoundsException e){
-                System.out.println("Der ikke nok resultater");
+                System.out.println("Der er ikke nok resultater");
             }
         }while (userChoice > 4);
 
