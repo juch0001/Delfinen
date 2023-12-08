@@ -192,10 +192,10 @@ public class UserInterface {
         }
 
         System.out.println("Er medlemmet aktiv svømmer (ja/nej) : "); //status
-        boolean status = yesNo().equalsIgnoreCase("ja"); //TODO TEST
+        boolean status = yesNo().equalsIgnoreCase("ja");
 
         System.out.println("Er kontingentet betalt ved oprettelse? (ja/nej)");
-        boolean subscriptionPaid = yesNo().equalsIgnoreCase("ja"); //TODO TEST
+        boolean subscriptionPaid = yesNo().equalsIgnoreCase("ja");
 
         System.out.println(BLACK_BOLD + "Du har tilføjet ét nyt medlem: \n" + RESET +
                 "Email: " + email + "\n" + "Fornavn: " + firstName + "\n" + "Efternavn: " + lastName + "\n" +
@@ -268,7 +268,7 @@ public class UserInterface {
                     Discipline discipline = null;
                     boolean userChoiceStatus = true;
 
-                    switch (userChoiceDiscipline) { //TODO TEST
+                    switch (userChoiceDiscipline) {
                         case 1 -> discipline = Discipline.BACK_CRAWL;
                         case 2 -> discipline = Discipline.CRAWL;
                         case 3 -> discipline = Discipline.BUTTERFLY;
@@ -312,13 +312,15 @@ public class UserInterface {
                                 "2. stævne");
                         int userChoice;
                         String tournament = "null";
+                        int placement = 0;
+                        SwimResult swimResult;
                         do {
                             userChoice = scanIntWithRetry();
                             if (userChoice == 1){ //training
                                 swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, tournament, placement);
                                 controller.getSwimResults().add(swimResult);
                                 System.out.println(BLACK_BOLD + "Resultat blev tilføjet:" + RESET);
-                                System.out.println(swimResult.getEmail());
+                                System.out.println(swimResult);
                             }else if(userChoice == 2) { //tournament
                                 System.out.println("Navn på stævne: ");
                                 keyboard.nextLine(); //bug
@@ -386,13 +388,18 @@ public class UserInterface {
         int count = Math.min(5, swimResults.size());
         for (int i = 0; i < count; i++) {
             SwimResult result = swimResults.get(i);
+            String tournament = result.getTournament();
+            if (result.getTournament().equalsIgnoreCase("null")) {
+                tournament = "Træning";
+            }
+
             System.out.printf("%s%d.%s %-20s %-15s %-20s %-10s %-10s%s\n",
                     BLUE_BOLD, i + 1, RESET,
                     result.getDiscipline(),
                     result.getDate(),
                     result.getEmail(),
                     result.getTime(),
-                    result.getTournament(),
+                    tournament,
                     RESET);
         }
     }

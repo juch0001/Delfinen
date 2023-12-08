@@ -20,11 +20,19 @@ public class SwimResult {
     }
     @Override
     public String toString() {
-        return "Email: " + email +
-                "\nDato: " + date +
-                "\nDisciplin: " + discipline +
-                "\nTid: " + time +
-                "\nStævne: " + tournament;
+        if (tournament.equalsIgnoreCase("null")){
+            return "Email: " + email +
+                    "\nDato: " + date +
+                    "\nDisciplin: " + discipline +
+                    "\nTid: " + time;
+        }else {
+            return "Email: " + email +
+                    "\nDato: " + date +
+                    "\nDisciplin: " + discipline +
+                    "\nTid: " + time +
+                    "\nTurnering: " + tournament +
+                    "\nPlacering: " + tournamentPlacement;
+        }
     }
 
     public String getEmail() {
