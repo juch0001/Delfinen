@@ -11,7 +11,6 @@ import java.util.*;
 
 public class UserInterface {
     public static final String BLUE_BOLD = "\033[1;34m"; //farvekode til blå
-    public static final String BLUE_UNDERLINED = "\033[4;34m"; //blå linje under tekst
     public static final String BLACK_BOLD = "\033[1;30m"; //Markeret sort (hvis man har hvid skærm)
     public static final String RED_BOLD = "\033[1;31m"; //rød tekst
     public static final String RESET = "\033[0m";
@@ -253,7 +252,6 @@ public class UserInterface {
             String emailInput = keyboard.next();
             ArrayList<Member> searchResults = controller.findMember(emailInput);
 
-
             if (searchResults.isEmpty()) {
                 System.out.println("Ingen medlemmer fundet med den angivne e-mail.");
             } else {
@@ -421,6 +419,3 @@ public class UserInterface {
         }while (userChoice > 4);
     }
 }
-
-
-
