@@ -315,23 +315,24 @@ public class UserInterface {
                         do {
                             userChoice = scanIntWithRetry();
                             if (userChoice == 1){ //training
-                                SwimResult swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, tournament, 0);
+                                swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, tournament, placement);
                                 controller.getSwimResults().add(swimResult);
                                 System.out.println(BLACK_BOLD + "Resultat blev tilføjet:" + RESET);
                                 System.out.println(swimResult.getEmail());
                             }else if(userChoice == 2) { //tournament
                                 System.out.println("Navn på stævne: ");
-                                tournament = keyboard.next();
+                                keyboard.nextLine(); //bug
+                                tournament = keyboard.nextLine();
+                                System.out.println("Skriv placering fra stævnet: ");
+                                placement = scanIntWithRetry();
+
+                                swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, tournament, placement);
+                                controller.getSwimResults().add(swimResult);
+                                System.out.println(BLACK_BOLD + "Resultat blev tilføjet:" + RESET);
+                                System.out.println(swimResult);
                             }
                         }while (userChoice > 2);
-                            System.out.println("Skriv placering fra stævnet: ");
-                            int placement = scanIntWithRetry();
 
-
-                            SwimResult swimResult = new SwimResult(selectedMember.getEmail(), date, discipline, userChoiceTime, tournament, placement);
-                            controller.getSwimResults().add(swimResult);
-                            System.out.println(BLACK_BOLD + "Resultat blev tilføjet:" + RESET);
-                            System.out.println(swimResult);
 
                     } else {
                         System.out.println("Ugyldig disciplinvalg.");
@@ -375,7 +376,7 @@ public class UserInterface {
 
 
     public void topFiveSwimmers(ArrayList<SwimResult> swimResults) {
-        Collections.sort(swimResults, Collections.reverseOrder(new TimeComparator()));
+        Collections.sort(swimResults, new TimeComparator());
 
         System.out.printf("%sTop 5 svømmere:%s\n", BLUE_BOLD, RESET);
 
