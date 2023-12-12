@@ -285,10 +285,10 @@ public class UserInterface {
                             String userInput = keyboard.next();
 
                             try {
-                                // Erstat komma med punktum og håndter også indtastning med punktum
+                                //Changes ',' to '.' from the userInput
                                 userChoiceTime = Double.parseDouble(userInput.replace(',', '.'));
                                 if (userChoiceTime < 0) {
-                                    throw new NumberFormatException(); //hvis a er negativt.
+                                    throw new NumberFormatException(); //if userChoice is under 0
                                 }
                             } catch (NumberFormatException e) {
                                 System.out.println("Ugyldigt input. Indtast venligst et gyldigt tal.");
@@ -323,7 +323,7 @@ public class UserInterface {
                                 System.out.println(swimResult);
                             }else if(userChoice == 2) { //tournament
                                 System.out.println("Navn på stævne: ");
-                                keyboard.nextLine(); //bug
+                                keyboard.nextLine(); //Scanner bug fix
                                 tournament = keyboard.nextLine();
                                 System.out.println("Skriv placering fra stævnet: ");
                                 placement = scanIntWithRetry();
