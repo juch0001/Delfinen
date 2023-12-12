@@ -153,22 +153,22 @@ public class UserInterface {
                 }
             }
 
-            //Tjekker om der er @ og . i gyldig mail
+            //Email check
             if (!email.contains("@") || !email.contains(".")) {
                 System.out.println("Ikke gyldig email. Indtast en ny: ");
                 validEmail = false;
             }
         }
         while (!validEmail);
-        System.out.println("Indtast første navn: "); //first name
+        System.out.println("Indtast første navn: ");
         String firstName = keyboard.next();
 
-        System.out.println("Indtast efternavn: "); //last name
+        System.out.println("Indtast efternavn: ");
         String lastName = keyboard.next();
 
-        //Sørger for at returnere igen istedet for at lukke programmet hvis man indtaster forkert.
+        //real date check
         do {
-            System.out.println("Indtast din fødsesldag (yyyy-MM-dd) : "); //age
+            System.out.println("Indtast din fødsesldag (yyyy-MM-dd) : ");
             birthdayString = keyboard.next();
             try {
                 birthday = LocalDate.parse(birthdayString);
@@ -177,7 +177,7 @@ public class UserInterface {
             }
         } while (birthday == null);
 
-        //Tildeler hvilket hold man er på afhængigt af alderen.
+
         Team team;
         if (calculateAge(birthday) < 18) {
             team = Team.JUNIOR;
@@ -191,7 +191,7 @@ public class UserInterface {
             System.out.println("Du er tilmeldt hold: Pensionist");
         }
 
-        System.out.println("Er medlemmet aktiv svømmer (ja/nej) : "); //status
+        System.out.println("Er medlemmet aktiv svømmer (ja/nej) : ");
         boolean status = yesNo().equalsIgnoreCase("ja");
 
         System.out.println("Er kontingentet betalt ved oprettelse? (ja/nej)");
