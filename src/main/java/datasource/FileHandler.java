@@ -48,17 +48,18 @@ public class FileHandler {
         String[] lastResult = lastLine.split(";");
 
         String lastResultEmail = swimResults.get(swimResults.size() - 1).getEmail();
-        double lastResultTime = swimResults.get(swimResults.size() - 1).getTime();
         String lastResultEmailCsv = lastResult[0];
+
+        double lastResultTime = swimResults.get(swimResults.size() - 1).getTime();
         double lastResultTimeCsv = Double.parseDouble(lastResult[3]);
+
         Discipline lastResusltDiscipline = swimResults.get(swimResults.size() - 1).getDiscipline();
         Discipline lastResultDisciplineCsv = parseDiscipline(lastResult[2]);
-
 
         return lastResultEmail.equals(lastResultEmailCsv) && lastResultTime == lastResultTimeCsv && lastResusltDiscipline.equals(lastResultDisciplineCsv);
     }
 
-    public ArrayList<Member> loadData(File file) {
+    public ArrayList<Member> loadData(File file) { //load Member data
         ArrayList<Member> membersList = new ArrayList();
         Scanner sc;
         try {
@@ -68,7 +69,6 @@ public class FileHandler {
         }
 
         Member member;
-        //DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
         while (sc.hasNext()) {
             String line = sc.nextLine();
@@ -100,6 +100,7 @@ public class FileHandler {
         sc.close();
         return membersList;
     }
+
     public ArrayList<SwimResult> loadSwimResult(File file){
         ArrayList<SwimResult> swimResultList = new ArrayList<>();
         Scanner sc;
